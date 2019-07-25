@@ -1,17 +1,9 @@
 import pytest
-import requests
-import lyricwikia
-import urllib
+from app.random_lyrics_downloader import RandomLyricsDownloader
 
 def test_get_random_lyrics_from_lyrics_wikia():
-	r = requests.get('https://lyrics.fandom.com/wiki/Special:RandomInCategory/Song')
-	print('\n')
-	print('Lyrics URL: ' + r.url)
-	unescaped_url = urllib.parse.unquote(r.url)
-	artist, song = unescaped_url.rsplit('/', 1)[-1].split(':', 2)
-	print('Artist: ' + artist + ', Song: ' + song)
-	lyrics = lyricwikia.get_lyrics(artist, song)
-	print('Lyrics: \n' + lyrics)
-
+	random_lyrics_url = 'https://lyrics.fandom.com/wiki/special:randomincategory/Song'
+	downloader = RandomLyricsDownloader(random_lyrics_url)
+	lyrics = downloader.download_next()
 	assert (lyrics != "")
 
