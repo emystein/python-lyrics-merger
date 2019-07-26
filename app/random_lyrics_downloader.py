@@ -1,19 +1,17 @@
 import requests
 import lyricwikia
-import urllib
 from app.song import Song
+from app.wikia_song_url_parser import WikiaSongUrlParser
+
 
 class RandomLyricsDownloader(object):
-	def __init__(self, random_lyrics_url):
-	    self.random_lyrics_url = random_lyrics_url
+    def __init__(self, random_lyrics_url):
+        self.random_lyrics_url = random_lyrics_url
+        self.song_url_parser = WikiaSongUrlParser()
 
-	def download_next(self):
-		r = requests.get(self.random_lyrics_url)
-		print('\nLyrics URL: ' + r.url)
-		unescaped_url = urllib.parse.unquote(r.url)
-		artist, title = unescaped_url.rsplit('/', 1)[-1].split(':', 2)
-		print('Artist: ' + artist + ', Song: ' + title)
-		lyrics = lyricwikia.get_lyrics(artist, title)
-		song = Song(artist, title, lyrics)
-		print('Lyrics: \n' + song.lyrics)
-		return song.lyrics
+    def download_next(self):
+        response = requests.get(self.random_lyrics_url)
+        print('\nLyrics URL: ' + response.url)
+        song_info = self.song_url_parser.parse_url(response.url)
+        lyrics = lyricwikia.get_lyrics(song_info.artist, song_info.title)
+        return Song(song_info.artist, song_info.title, lyrics)
