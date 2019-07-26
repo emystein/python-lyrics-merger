@@ -1,5 +1,5 @@
 import pytest
-from app.wikia_song_url_parser import WikiaSongUrlParser
+from wikia.song_url_parser import WikiaSongUrlParser
 
 def test_get_song_title_from_url():
 	parser = WikiaSongUrlParser()
