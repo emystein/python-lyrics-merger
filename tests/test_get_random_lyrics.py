@@ -15,5 +15,5 @@ def test_get_random_lyrics_from_wikia(downloader):
 	assert (song.lyrics != "")
 
 def test_get_random_lyrics_by_artist_from_wikia(downloader):
-	lyrics = downloader.download_random_lyrics_by_artist('Led Zeppelin')
-	assert (lyrics != "")
+	random_song = downloader.download_random_lyrics_by_artist('Led Zeppelin')
+	assert (random_song.lyrics != "")

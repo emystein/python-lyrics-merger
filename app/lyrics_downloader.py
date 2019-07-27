@@ -17,4 +17,4 @@ class RandomLyricsDownloader(object):
     def download_random_lyrics_by_artist(self, artist):
         songs = self.lyrics_api_client.find_all_songs_by_artist(artist)
         random_song = random.choice(songs)
-        return random_song.lyrics
+        return Song(random_song.artist, random_song.title, random_song.lyrics)
