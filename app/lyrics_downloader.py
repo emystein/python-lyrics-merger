@@ -1,6 +1,6 @@
 import requests
 from app.song import Song
-
+import random
 
 class RandomLyricsDownloader(object):
     def __init__(self, random_lyrics_url, song_url_parser, lyrics_api_adapter):
@@ -13,3 +13,8 @@ class RandomLyricsDownloader(object):
         song = self.song_url_parser.parse_url(response.url)
         lyrics = self.lyrics_api_adapter.get_lyrics(song.artist, song.title)
         return Song(song.artist, song.title, lyrics)
+    
+    def download_random_lyrics_by_artist(self, artist):
+        songs = self.lyrics_api_adapter.find_all_songs_by_artist(artist)
+        random_song = random.choice(songs)
+        return random_song.lyrics
