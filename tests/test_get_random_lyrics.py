@@ -11,11 +11,11 @@ def downloader():
 
 def test_get_random_lyrics_from_wikia(downloader):
 	song = downloader.download_random_lyrics()
-	print('Artist: ' + song.artist + ', Title: ' + song.title + '\nLyrics: \n' + song.lyrics)
 	assert song.lyrics != ''
 
 def test_get_random_lyrics_by_artist_from_wikia(downloader):
-	random_song = downloader.download_random_lyrics_by_artist('Led Zeppelin')
-	assert random_song.artist == 'Led Zeppelin'
-	assert random_song.title != ''
-	assert random_song.lyrics != ''
+	song = downloader.download_random_lyrics_by_artist('Led Zeppelin')
+	assert song.artist == 'Led Zeppelin'
+	assert song.title != ''
+	assert song.lyrics != ''
+
