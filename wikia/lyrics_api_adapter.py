@@ -1,5 +1,5 @@
 import lyricwikia
-from wikia.artist import ArtistRepository
+from wikia.songs import SongRepository
 
 
 class WikiaLyricsAdapter(object):
@@ -7,6 +7,6 @@ class WikiaLyricsAdapter(object):
         return lyricwikia.get_lyrics(artist, title)
 
     def find_all_songs_by_artist(self, artist):
-        artist_repository = ArtistRepository()
+        artist_repository = SongRepository()
         songs = artist_repository.find_all_songs_by_artist(artist)
         return songs
