@@ -1,4 +1,5 @@
 import pytest
+from app.song_title import SongTitle
 from wikia.song_url_parser import WikiaSongUrlParser
 
 @pytest.fixture
@@ -7,11 +8,8 @@ def parser():
 
 def test_get_song_title_from_url(parser):
 	song_title = parser.parse_url("https://lyrics.fandom.com/wiki/Led_Zeppelin:Stairway_To_Heaven")
-	assert song_title.artist == 'Led Zeppelin'
-	assert song_title.title == 'Stairway To Heaven'
+	assert song_title == SongTitle('Led Zeppelin', 'Stairway To Heaven')
 
 def test_get_song_info_from_escaped_url(parser):
-	parser = WikiaSongUrlParser()
 	song_title = parser.parse_url("https://lyrics.fandom.com/wiki/Pablo_Guerrero:Para%C3%ADso_Ahora")
-	assert song_title.artist == 'Pablo Guerrero'
-	assert song_title.title == 'Paraíso Ahora'
+	assert song_title == SongTitle('Pablo Guerrero', 'Paraíso Ahora')
