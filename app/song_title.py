@@ -5,3 +5,6 @@ class SongTitle(object):
 
 	def __eq__(self, other):
 		return (self.artist == other.artist) and (self.title == other.title)
+	
+	def __str__(self):
+		return self.artist + ' - ' + self.title
