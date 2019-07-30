@@ -1,5 +1,6 @@
 import pytest
 from app.random_lyrics_downloader import RandomLyricsDownloader
+from app.song_title import SongTitle
 from wikia.random_song_url_parser import WikiaRandomSongUrlParser
 from wikia.lyrics_api_adapter import WikiaLyricsApiClient
 
@@ -11,8 +12,7 @@ def downloader():
 
 def test_get_random_lyrics_from_wikia(downloader):
     song = downloader.get_random()
-    assert song.title.artist != ''
-    assert song.title.title != ''
+    assert song.title != SongTitle('', '')
     assert song.lyrics != ''
 
 
