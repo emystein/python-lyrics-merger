@@ -7,7 +7,7 @@ class RandomLyricsDownloader(object):
         self.lyrics_api_client = lyrics_api_client
 
     def get_random(self):
-        song = self.random_song_url_parser.get_song_url()
+        song = self.random_song_url_parser.get_random_song()
         lyrics = self.lyrics_api_client.get_lyrics(song.artist, song.title)
         return Song(song.artist, song.title, lyrics)
     
