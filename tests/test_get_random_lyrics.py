@@ -1,6 +1,6 @@
 import pytest
 from app.random_lyrics_downloader import RandomLyricsDownloader
-from app.song_title import SongTitle
+from app.song import SongTitle
 from wikia.random_song_url_parser import WikiaRandomSongUrlParser
 from wikia.lyrics_api_adapter import WikiaLyricsApiClient
 

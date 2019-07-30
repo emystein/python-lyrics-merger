@@ -1,5 +1,5 @@
 import urllib
-from app.song_title import SongTitle
+from app.song import SongTitle
 
 
 class WikiaSongUrlParser(object):

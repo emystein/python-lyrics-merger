@@ -1,5 +1,4 @@
 from app.song import Song
-from app.song_title import SongTitle
 import random
 
 class RandomLyricsDownloader(object):
