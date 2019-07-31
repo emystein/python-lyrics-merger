@@ -2,13 +2,13 @@ from app.lyrics import Lyrics
 
 
 class RandomLyricsMerger(object):
-    def __init__(self, downloader, lyrics_editor):
-        self.downloader = downloader
+    def __init__(self, lyrics_downloader, lyrics_editor):
+        self.lyrics_downloader = lyrics_downloader
         self.lyrics_editor = lyrics_editor
 
     def merge_two_random_lyrics(self):
-        song1 = self.downloader.get_random()
-        song2 = self.downloader.get_random()
+        song1 = self.lyrics_downloader.get_random()
+        song2 = self.lyrics_downloader.get_random()
         return self.lyrics_editor.merge(song1, song2)
 
 

@@ -6,9 +6,9 @@ from wikia.lyrics_api_adapter import WikiaLyricsApiClient
 from app.lyrics_merge import LyricsEditor
 
 
-def test_merge_random_lyrics_by_artists():
-    downloader = RandomLyricsDownloader(WikiaRandomSongUrlParser(), WikiaLyricsApiClient())
-    merger = RandomLyricsMerger(downloader, LyricsEditor())
+def test_merge_two_random_lyrics():
+    lyrics_downloader = RandomLyricsDownloader(WikiaRandomSongUrlParser(), WikiaLyricsApiClient())
+    merger = RandomLyricsMerger(lyrics_downloader, LyricsEditor())
     merged_lyrics = merger.merge_two_random_lyrics()
     assert merged_lyrics.title != ''
     assert merged_lyrics.text != ''
