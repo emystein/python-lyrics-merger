@@ -3,9 +3,16 @@ from wikia.lyrics_api_adapter import WikiaLyricsApiClient
 import lyricwikia
 
 
-def test_get_lyrics():
-	lyrics_api_adapter = WikiaLyricsApiClient()
+@pytest.fixture
+def lyrics_api_adapter():
+    return WikiaLyricsApiClient()
 
-	lyrics = lyrics_api_adapter.get_lyrics('Led Zeppelin', 'Stairway To Heaven')
 
-	assert lyrics == lyricwikia.get_lyrics('Led Zeppelin', 'Stairway To Heaven')
+def test_get_lyrics(lyrics_api_adapter):
+    remote_song = lyrics_api_adapter.get_lyrics('Led Zeppelin', 'Stairway To Heaven')
+    assert remote_song.lyrics == lyricwikia.get_lyrics('Led Zeppelin', 'Stairway To Heaven')
+
+
+def test_get_random_lyrics(lyrics_api_adapter):
+    remote_song = lyrics_api_adapter.get_random_lyrics()
+    assert remote_song.lyrics != ''

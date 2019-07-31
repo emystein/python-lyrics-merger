@@ -3,14 +3,12 @@ import random
 
 
 class RandomLyricsDownloader(object):
-    def __init__(self, random_song_url_parser, lyrics_api_client):
-        self.random_song_url_parser = random_song_url_parser
+    def __init__(self, lyrics_api_client):
         self.lyrics_api_client = lyrics_api_client
 
     def get_random(self):
-        song = self.random_song_url_parser.get_random_song()
-        lyrics = self.lyrics_api_client.get_lyrics(song.artist, song.title)
-        return Song(song.artist, song.title, lyrics)
+        remote_song = self.lyrics_api_client.get_random_lyrics()
+        return Song(remote_song.artist, remote_song.title, remote_song.lyrics)
 
     def get_random_by_artist(self, artist):
         remote_songs = self.lyrics_api_client.find_all_songs_by_artist(artist)

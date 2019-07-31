@@ -1,13 +1,12 @@
 import pytest
 from app.random_lyrics_downloader import RandomLyricsDownloader
 from app.song import SongTitle
-from wikia.random_song_url_parser import WikiaRandomSongUrlParser
 from wikia.lyrics_api_adapter import WikiaLyricsApiClient
 
 
 @pytest.fixture
 def lyrics_downloader():
-    return RandomLyricsDownloader(WikiaRandomSongUrlParser(), WikiaLyricsApiClient())
+    return RandomLyricsDownloader(WikiaLyricsApiClient())
 
 
 def test_get_random_lyrics_from_wikia(lyrics_downloader):
