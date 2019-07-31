@@ -9,11 +9,11 @@ class RandomLyricsMerger(object):
     def merge_two_random_lyrics(self):
         song1 = self.lyrics_downloader.get_random()
         song2 = self.lyrics_downloader.get_random()
-        return self.lyrics_editor.merge(song1, song2)
+        return self.lyrics_editor.interleave_lyrics(song1, song2)
 
 
 class LyricsEditor(object):
-    def merge(self, song1, song2):
+    def interleave_lyrics(self, song1, song2):
         # see: https://stackoverflow.com/questions/7946798/interleave-multiple-lists-of-the-same-length-in-python
         paragraphs = [val for pair in zip(song1.lyrics.paragraphs(), song2.lyrics.paragraphs()) for val in pair]
         return MergedLyrics(song1, song2, paragraphs)
