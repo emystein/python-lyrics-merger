@@ -1,5 +1,5 @@
 import pytest
-from app.lyrics_editor import LyricsEditor
+from app.lyrics_merge import LyricsEditor
 from app.song import Song
 from app.lyrics import Lyrics
 
