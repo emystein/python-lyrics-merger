@@ -1,7 +1,7 @@
 import pytest
 from app.random_lyrics_downloader import RandomLyricsDownloader
 from app.song import SongTitle
-from wikia.lyrics_api_adapter import WikiaLyricsApiClient
+from wikia.lyrics_api_client import WikiaLyricsApiClient
 
 
 @pytest.fixture
