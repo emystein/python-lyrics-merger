@@ -14,5 +14,4 @@ def test_get_paragraphs_from_lyrics():
 
 def test_lyrics_to_string():
     lyrics = Lyrics('First paragraph\n\nSecond paragraph')
-    to_string = str(lyrics)
-    assert to_string == 'First paragraph\n\nSecond paragraph'
+    assert str(lyrics) == 'First paragraph\n\nSecond paragraph'

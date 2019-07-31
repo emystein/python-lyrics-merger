@@ -1,7 +1,9 @@
+from app.lyrics import Lyrics
+
 class Song(object):
-    def __init__(self, artist, title, lyrics):
+    def __init__(self, artist, title, lyrics_text):
         self.title = SongTitle(artist, title)
-        self.lyrics = lyrics
+        self.lyrics = Lyrics(lyrics_text)
 
 
 class SongTitle(object):
@@ -14,6 +16,3 @@ class SongTitle(object):
 
     def __str__(self):
         return self.artist + ' - ' + self.title
-
-    # def __add__(self, other):
-    #     return self.__str__() + other
