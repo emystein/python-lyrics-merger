@@ -6,6 +6,7 @@ from wikia.lyrics_api_adapter import WikiaLyricsApiClient
 from app.lyrics_merge import LyricsEditor
 
 
+# TODO mock RandomLyricsDownloader and LyricsEditor
 def test_merge_two_random_lyrics():
     lyrics_downloader = RandomLyricsDownloader(WikiaRandomSongUrlParser(), WikiaLyricsApiClient())
     merger = RandomLyricsMerger(lyrics_downloader, LyricsEditor())

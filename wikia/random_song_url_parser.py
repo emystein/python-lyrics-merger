@@ -8,4 +8,5 @@ class WikiaRandomSongUrlParser(object):
 
     def get_random_song(self):
         response = requests.get(self.random_lyrics_url)
+        # TODO convert WikiaSongUrlParser into module
         return WikiaSongUrlParser().parse_url(response.url)
