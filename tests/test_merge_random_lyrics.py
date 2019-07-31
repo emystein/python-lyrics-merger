@@ -12,4 +12,4 @@ def test_merge_random_lyrics_by_artists():
     merger = RandomLyricsMerger(downloader, LyricsEditor())
     merged_lyrics = merger.merge_two_random_lyrics()
     assert merged_lyrics.title != ''
-    assert merged_lyrics.merged_text != ''
+    assert merged_lyrics.text != ''
