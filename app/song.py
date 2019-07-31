@@ -14,3 +14,6 @@ class SongTitle(object):
 
     def __str__(self):
         return self.artist + ' - ' + self.title
+
+    # def __add__(self, other):
+    #     return self.__str__() + other
