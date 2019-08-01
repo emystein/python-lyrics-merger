@@ -2,6 +2,7 @@ from app.song import Song
 import random
 
 
+# TODO rename to RandomSongDownloader
 class RandomLyricsDownloader(object):
     def __init__(self, lyrics_api_client):
         self.lyrics_api_client = lyrics_api_client

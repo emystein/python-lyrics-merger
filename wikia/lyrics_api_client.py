@@ -1,6 +1,6 @@
 import lyricwikia
 from wikia.songs import SongRepository
-from wikia.random_song_url_parser import WikiaRandomSongUrlParser
+from wikia.song_url_parser import WikiaSongUrlParser
 
 
 class WikiaLyricsApiClient(object):
@@ -14,6 +14,6 @@ class WikiaLyricsApiClient(object):
 
 
     def get_random_song(self):
-        random_song_url_parser = WikiaRandomSongUrlParser()
-        remote_song = random_song_url_parser.get_random_song()
+        song_url_parser = WikiaSongUrlParser()
+        remote_song = song_url_parser.get_random_song()
         return lyricwikia.Song(remote_song.artist, remote_song.title)
