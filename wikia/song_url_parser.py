@@ -5,7 +5,8 @@ from app.song import SongTitle
 
 class WikiaSongUrlParser(object):
     def __init__(self):
-        self.random_lyrics_url = 'https://lyrics.fandom.com/wiki/special:randomincategory/Song'
+        self.base_url = 'https://lyrics.fandom.com/wiki/'
+        self.random_lyrics_url = self.base_url + 'special:randomincategory/Song'
 
 
     def get_random_song(self):
@@ -15,6 +16,5 @@ class WikiaSongUrlParser(object):
 
     def parse_url(self, url):
         unescaped_url = urllib.parse.unquote(url)
-        artist, title = unescaped_url.replace(
-            '_', ' ').rsplit('/', 1)[-1].split(':', 2)
+        artist, title = unescaped_url.replace('_', ' ').rsplit('/', 1)[-1].split(':', 2)
         return SongTitle(artist, title)
