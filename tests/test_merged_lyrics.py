@@ -4,8 +4,8 @@ from app.lyrics_merge import MergedLyrics
 import tests.song_factory
 
 def test_merged_lyrics():
-	song1 = tests.song_factory.create_song1()
-	song2 = tests.song_factory.create_song2()
+	song1 = tests.song_factory.create_song_stairway_to_heaven()
+	song2 = tests.song_factory.create_song_born_to_be_wild()
 	lyrics_editor = LyricsEditor()
 	expected = lyrics_editor.interleave_lyrics(song1, song2)
 

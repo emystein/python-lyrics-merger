@@ -1,11 +1,11 @@
 from app.song import Song
 
 
-def create_song1():
+def create_song_stairway_to_heaven():
 	return Song('Led Zeppelin', 'Stairway to Heaven', read_file('tests/led_zeppelin_-_stairway_to_heaven.txt'))
 
 
-def create_song2():
+def create_song_born_to_be_wild():
 	return Song('Steppenwolf', 'Born to be wild', read_file('tests/steppenwolf_-_born_to_be_wild.txt'))
 
 
