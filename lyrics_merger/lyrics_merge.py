@@ -11,6 +11,11 @@ class RandomLyricsMerger(object):
         song2 = self.song_downloader.get_random()
         return self.lyrics_editor.interleave_lyrics(song1, song2)
 
+    def merge_random_lyrics_by_artists(self, artist1, artist2):
+        song1 = self.song_downloader.get_random_by_artist(artist1)
+        song2 = self.song_downloader.get_random_by_artist(artist2)
+        return self.lyrics_editor.interleave_lyrics(song1, song2)
+
 
 class LyricsEditor(object):
     def interleave_lyrics(self, song1, song2):
