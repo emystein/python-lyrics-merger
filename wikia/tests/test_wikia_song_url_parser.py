@@ -22,3 +22,8 @@ def test_get_song_title_from_url(parser):
 def test_get_song_info_from_escaped_url(parser):
 	song_title = parser.parse_url("https://lyrics.fandom.com/wiki/Pablo_Guerrero:Para%C3%ADso_Ahora")
 	assert song_title == SongTitle('Pablo Guerrero', 'Paraíso Ahora')
+
+
+def test_get_song_title_from_url_including_slash_in_title(parser):
+	song_title = parser.parse_url("https://lyrics.fandom.com/wiki/Michael_W._Smith:The_Tribute/Agnus_Dei")
+	assert song_title == SongTitle('Michael W. Smith', 'The Tribute/Agnus Dei')
