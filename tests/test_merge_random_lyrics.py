@@ -1,13 +1,12 @@
 import pytest
-from app.lyrics_merge import RandomLyricsMerger
-from app.random_lyrics_downloader import RandomLyricsDownloader
+from app.lyrics_merge import RandomLyricsMerger, LyricsEditor
+from app.song_downloader import RandomSongDownloader
 from wikia.lyrics_api_client import WikiaLyricsApiClient
-from app.lyrics_merge import LyricsEditor
 
 
 # TODO mock RandomLyricsDownloader and LyricsEditor
 def test_merge_two_random_lyrics():
-    lyrics_downloader = RandomLyricsDownloader(WikiaLyricsApiClient())
+    lyrics_downloader = RandomSongDownloader(WikiaLyricsApiClient())
     merger = RandomLyricsMerger(lyrics_downloader, LyricsEditor())
     merged_lyrics = merger.merge_two_random_lyrics()
     assert merged_lyrics.title != ''
