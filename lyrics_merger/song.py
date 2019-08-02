@@ -1,5 +1,3 @@
-from lyrics_merger.lyrics import Lyrics
-
 class Song(object):
     def __init__(self, artist, title, lyrics_text):
         self.title = SongTitle(artist, title)
@@ -16,3 +14,14 @@ class SongTitle(object):
 
     def __str__(self):
         return self.artist + ' - ' + self.title
+
+
+class Lyrics(object):
+	def __init__(self, text):
+		self.text = text
+	
+	def paragraphs(self):
+		return self.text.split('\n\n')
+
+	def __str__(self):
+	 return self.text
