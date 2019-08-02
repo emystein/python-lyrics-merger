@@ -1,13 +1,11 @@
 class Song(object):
     def __init__(self, artist, title, lyrics_text):
-        self.title = SongTitle(artist, title)
-        self.lyrics = Lyrics(lyrics_text)
+        self.title, self.lyrics = SongTitle(artist, title), Lyrics(lyrics_text)
 
 
 class SongTitle(object):
     def __init__(self, artist, title):
-        self.artist = artist
-        self.title = title
+        self.artist, self.title = artist, title
 
     def __eq__(self, other):
         return (self.artist == other.artist) and (self.title == other.title)
@@ -17,11 +15,11 @@ class SongTitle(object):
 
 
 class Lyrics(object):
-	def __init__(self, text):
-		self.text = text
-	
-	def paragraphs(self):
-		return self.text.split('\n\n')
+    def __init__(self, text):
+        self.text = text
 
-	def __str__(self):
-	 return self.text
+    def paragraphs(self):
+        return self.text.split('\n\n')
+
+    def __str__(self):
+        return self.text
