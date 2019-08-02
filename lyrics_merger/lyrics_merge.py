@@ -21,8 +21,6 @@ class LyricsEditor(object):
 
 class MergedLyrics(object):
     def __init__(self, song1, song2, merged_paragraphs):
-        self.song1 = song1
-        self.song2 = song2
+        self.song1, self.song2, self.paragraphs = song1, song2, merged_paragraphs
         self.title = str(song1.title) + ', ' + str(song2.title)
-        self.paragraphs = merged_paragraphs
         self.text = '\n\n'.join(merged_paragraphs)
