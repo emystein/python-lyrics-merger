@@ -1,4 +1,4 @@
-from app.song import Song
+from lyrics_merger.song import Song
 
 
 def create_song_stairway_to_heaven():

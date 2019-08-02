@@ -1,6 +1,6 @@
 import pytest
-from app.lyrics_merge import LyricsEditor
-from app.lyrics_merge import MergedLyrics
+from lyrics_merger.lyrics_merge import LyricsEditor
+from lyrics_merger.lyrics_merge import MergedLyrics
 import tests.song_factory
 
 def test_merged_lyrics():

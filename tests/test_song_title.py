@@ -1,5 +1,5 @@
 import pytest
-from app.song import SongTitle
+from lyrics_merger.song import SongTitle
 
 
 def test_song_title_equals_empty_artist_and_title():

@@ -1,5 +1,5 @@
 import pytest
-from app.song import SongTitle
+from lyrics_merger.song import SongTitle
 from wikia.song_url_parser import WikiaSongUrlParser
 
 

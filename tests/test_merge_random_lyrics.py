@@ -1,6 +1,6 @@
 import pytest
-from app.lyrics_merge import RandomLyricsMerger, LyricsEditor
-from app.song_downloader import RandomSongDownloader
+from lyrics_merger.lyrics_merge import RandomLyricsMerger, LyricsEditor
+from lyrics_merger.song_downloader import RandomSongDownloader
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 
 

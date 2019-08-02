@@ -1,4 +1,4 @@
-from app.lyrics import Lyrics
+from lyrics_merger.lyrics import Lyrics
 
 
 class RandomLyricsMerger(object):
