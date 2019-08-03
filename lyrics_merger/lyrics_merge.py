@@ -7,18 +7,18 @@ class LyricsMerger(object):
         self.lyrics_editor = lyrics_editor
 
     def merge_two_random_lyrics(self):
-        song1 = self.song_downloader.get_random()
-        song2 = self.song_downloader.get_random()
+        song1 = self.song_downloader.get_random_song()
+        song2 = self.song_downloader.get_random_song()
         return self.lyrics_editor.interleave_lyrics(song1, song2)
 
     def merge_random_lyrics_by_artists(self, artist1, artist2):
-        song1 = self.song_downloader.get_random_by_artist(artist1)
-        song2 = self.song_downloader.get_random_by_artist(artist2)
+        song1 = self.song_downloader.get_random_song_by_artist(artist1)
+        song2 = self.song_downloader.get_random_song_by_artist(artist2)
         return self.lyrics_editor.interleave_lyrics(song1, song2)
 
     def merge_two_specific_lyrics(self, song_title1, song_title2):
-        song1 = self.song_downloader.get(song_title1)
-        song2 = self.song_downloader.get(song_title2)
+        song1 = self.song_downloader.get_song(song_title1)
+        song2 = self.song_downloader.get_song(song_title2)
         return self.lyrics_editor.interleave_lyrics(song1, song2)
 
 

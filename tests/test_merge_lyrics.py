@@ -1,13 +1,11 @@
 import pytest
 from lyrics_merger.song import SongTitle
 from lyrics_merger.lyrics_merge import LyricsMerger, LyricsEditor
-from lyrics_merger.song_downloader import SongDownloader
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 
 @pytest.fixture
 def lyrics_merger():
-    lyrics_downloader = SongDownloader(WikiaLyricsApiClient())
-    return LyricsMerger(lyrics_downloader, LyricsEditor())
+    return LyricsMerger(WikiaLyricsApiClient(), LyricsEditor())
 
 
 # TODO mock RandomLyricsDownloader and LyricsEditor
