@@ -12,8 +12,8 @@ def main():
     args = parser.parse_args()
 
     try:
-        lyrics_merger = LyricsMerger(WikiaLyricsApiClient(), LyricsEditor())
-        merged = lyrics_merger.merge_random_lyrics_by_artists(args.ARTIST1, args.ARTIST2)
+        lyrics_merger = LyricsMerger(WikiaLyricsAplyrics_api_clientcsEditor())
+        merged = lyrics_merger.merge_random_llyrics_api_clients(args.ARTIST1, args.ARTIST2)
         print(str(merged))
     except Exception as e:
         print('ERROR: %s' % str(e))
