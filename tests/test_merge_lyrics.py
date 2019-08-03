@@ -1,6 +1,6 @@
 import pytest
 from lyrics_merger.song import SongTitle
-from lyrics_merger.lyrics_merge import LyricsMerger, LyricsEditor
+from lyrics_merger.lyrics_merge import LyricsMerger, LyricsEditor, EmptyMergedLyrics
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 
 @pytest.fixture
@@ -8,16 +8,14 @@ def lyrics_merger():
     return LyricsMerger(WikiaLyricsApiClient(), LyricsEditor())
 
 
-# TODO mock RandomLyricsDownloader and LyricsEditor
+# TODO mock WikiaLyricsApiClient and LyricsEditor
 def test_merge_two_random_lyrics(lyrics_merger):
     merged_lyrics = lyrics_merger.merge_two_random_lyrics()
-    assert merged_lyrics.title != ''
-    assert merged_lyrics.text != ''
+    assert merged_lyrics != EmptyMergedLyrics() 
 
 def test_merge_random_lyrics_by_artists(lyrics_merger):
     merged_lyrics = lyrics_merger.merge_random_lyrics_by_artists('Led Zeppelin', 'Steppenwolf')
-    assert merged_lyrics.title != ''
-    assert merged_lyrics.text != ''
+    assert merged_lyrics != EmptyMergedLyrics() 
 
 def test_merge_two_specific_lyrics(lyrics_merger):
     song_title1 = SongTitle('Led Zeppelin', 'Stairway to Heaven')

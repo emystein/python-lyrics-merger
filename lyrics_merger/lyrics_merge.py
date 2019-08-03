@@ -34,3 +34,11 @@ class MergedLyrics(object):
         self.song1, self.song2, self.paragraphs = song1, song2, merged_paragraphs
         self.title = str(song1.title) + ', ' + str(song2.title)
         self.text = '\n\n'.join(merged_paragraphs)
+
+    def __ne__(self, other):
+        return self.title != other.title or self.text != other.text
+
+
+class EmptyMergedLyrics(object):
+    def __init__(self):
+        self.title, self.text = '', ''
