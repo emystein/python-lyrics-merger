@@ -1,11 +1,11 @@
 import pytest
-from lyrics_merger.lyrics_merge import InterleaveParagraphsLyricsEditor
+from lyrics_merger.lyrics_merge import ParagraphInterleaveLyricsEditor
 from lyrics_merger.song import Song
 from lyrics_merger.song import Lyrics
 
 @pytest.fixture
 def lyrics_editor():
-    return InterleaveParagraphsLyricsEditor()
+    return ParagraphInterleaveLyricsEditor()
 
 def test_interleave_lyrics_with_same_number_of_paragraphs(lyrics_editor):
     song1 = Song('artist1', 'title1', 'lyrics 1 first paragraph\n\nlyrics 1 second paragraph')

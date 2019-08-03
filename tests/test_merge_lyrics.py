@@ -1,14 +1,14 @@
 import pytest
 from lyrics_merger.song import SongTitle
-from lyrics_merger.lyrics_merge import LyricsMerger, InterleaveParagraphsLyricsEditor, EmptyMergedLyrics
+from lyrics_merger.lyrics_merge import LyricsMerger, ParagraphInterleaveLyricsEditor, EmptyMergedLyrics
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 
 @pytest.fixture
 def lyrics_merger():
-    return LyricsMerger(WikiaLyricsApiClient(), InterleaveParagraphsLyricsEditor())
+    return LyricsMerger(WikiaLyricsApiClient(), ParagraphInterleaveLyricsEditor())
 
 
-# TODO mock WikiaLyricsApiClient and InterleaveParagraphsLyricsEditor
+# TODO mock WikiaLyricsApiClient and ParagraphInterleaveLyricsEditor
 def test_merge_two_random_lyrics(lyrics_merger):
     merged_lyrics = lyrics_merger.merge_two_random_lyrics()
     assert merged_lyrics != EmptyMergedLyrics() 
