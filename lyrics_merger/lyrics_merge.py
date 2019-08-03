@@ -1,7 +1,7 @@
 from lyrics_merger.song import Lyrics
 
 
-class RandomLyricsMerger(object):
+class LyricsMerger(object):
     def __init__(self, song_downloader, lyrics_editor):
         self.song_downloader = song_downloader
         self.lyrics_editor = lyrics_editor
