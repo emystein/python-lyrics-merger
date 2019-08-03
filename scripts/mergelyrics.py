@@ -14,8 +14,7 @@ def main():
     try:
         lyrics_merger = LyricsMerger(WikiaLyricsApiClient(), LyricsEditor())
         merged = lyrics_merger.merge_random_lyrics_by_artists(args.ARTIST1, args.ARTIST2)
-        lyrics_report = merged.title + '\n\n' + merged.text
-        print(lyrics_report)
+        print(str(merged))
     except Exception as e:
         print('ERROR: %s' % str(e))
 

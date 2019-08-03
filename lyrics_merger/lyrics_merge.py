@@ -38,7 +38,10 @@ class MergedLyrics(object):
     def __ne__(self, other):
         return self.title != other.title or self.text != other.text
 
+    def __str__(self): 
+        return self.title + '\n\n' + self.text
 
-class EmptyMergedLyrics(object):
+
+class EmptyMergedLyrics(MergedLyrics):
     def __init__(self):
         self.title, self.text = '', ''
