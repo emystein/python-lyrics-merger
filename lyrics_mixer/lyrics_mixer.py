@@ -1,7 +1,7 @@
 from lyrics_mixer.song import Lyrics
 
 
-class LyricsMerger(object):
+class LyricsMixer(object):
     def __init__(self, lyrics_api_client, lyrics_editor):
         self.lyrics_api_client = lyrics_api_client
         self.lyrics_editor = lyrics_editor
