@@ -6,8 +6,8 @@ class SongDownloader(object):
     def __init__(self, lyrics_api_client):
         self.lyrics_api_client = lyrics_api_client
 
-    def get(self, artist, title):
-        remote_song = self.lyrics_api_client.get_song(artist, title)
+    def get(self, song_title):
+        remote_song = self.lyrics_api_client.get_song(song_title.artist, song_title.title)
         return Song(remote_song.artist, remote_song.title, remote_song.lyrics)
 
     def get_random(self):

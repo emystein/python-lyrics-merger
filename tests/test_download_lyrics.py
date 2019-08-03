@@ -1,4 +1,5 @@
 import pytest
+from lyrics_merger.song import SongTitle
 from lyrics_merger.song_downloader import SongDownloader
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 
@@ -9,7 +10,7 @@ def song_downloader():
 
 
 def test_get_song(song_downloader):
-    song = song_downloader.get('Led Zeppelin', 'Stairway to Heaven')
+    song = song_downloader.get(SongTitle('Led Zeppelin', 'Stairway to Heaven'))
     assert song.title.artist == 'Led Zeppelin'
     assert song.title.title == 'Stairway to Heaven'
     assert song.lyrics.text != ''

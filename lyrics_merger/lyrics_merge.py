@@ -17,8 +17,8 @@ class LyricsMerger(object):
         return self.lyrics_editor.interleave_lyrics(song1, song2)
 
     def merge_two_specific_lyrics(self, song_title1, song_title2):
-        song1 = self.song_downloader.get(song_title1.artist, song_title1.title)
-        song2 = self.song_downloader.get(song_title2.artist, song_title2.title)
+        song1 = self.song_downloader.get(song_title1)
+        song2 = self.song_downloader.get(song_title2)
         return self.lyrics_editor.interleave_lyrics(song1, song2)
 
 
