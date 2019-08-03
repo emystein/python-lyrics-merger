@@ -1,7 +1,7 @@
 import pytest
-from lyrics_merger.lyrics_merge import ParagraphInterleaveLyricsEditor
-from lyrics_merger.song import Song
-from lyrics_merger.song import Lyrics
+from lyrics_mixer.lyrics_mixer import ParagraphInterleaveLyricsEditor
+from lyrics_mixer.song import Song
+from lyrics_mixer.song import Lyrics
 
 @pytest.fixture
 def lyrics_editor():

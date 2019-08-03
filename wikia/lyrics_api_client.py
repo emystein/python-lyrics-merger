@@ -1,6 +1,6 @@
 import lyricwikia
 import random
-from lyrics_merger.song import Song
+from lyrics_mixer.song import Song
 from wikia.songs import SongRepository
 from wikia.song_url_parser import WikiaSongUrlParser
 

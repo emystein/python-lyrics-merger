@@ -1,4 +1,4 @@
-from lyrics_merger.song import Lyrics
+from lyrics_mixer.song import Lyrics
 
 
 class LyricsMerger(object):
@@ -30,7 +30,7 @@ class LineInterleaveLyricsEditor(object):
         lines = [val for pair in zip(song1.lyrics.lines(), song2.lyrics.lines()) for val in pair]
         # see https://stackoverflow.com/questions/14529523/python-split-for-lists
         paragraphs = ['\n'.join(list(l)) for k, l in groupby(lines, lambda x: x == '') if not k]
-        return MergedLyrics(song1, song2, lines, paragraphs)
+        return MixedLyrics(song1, song2, lines, paragraphs)
 
 
 class ParagraphInterleaveLyricsEditor(object):
@@ -40,10 +40,10 @@ class ParagraphInterleaveLyricsEditor(object):
         lines = [lines.split('\n') for lines in paragraphs]
         # see: https://stackoverflow.com/questions/952914/how-to-make-a-flat-list-out-of-list-of-lists
         flat_list = [item for sublist in lines for item in sublist]
-        return MergedLyrics(song1, song2, flat_list, paragraphs)
+        return MixedLyrics(song1, song2, flat_list, paragraphs)
 
 
-class MergedLyrics(object):
+class MixedLyrics(object):
     def __init__(self, song1, song2, lines, paragraphs):
         self.song1, self.song2, self.lines, self.paragraphs = song1, song2, lines, paragraphs
         self.title = str(song1.title) + ', ' + str(song2.title)
@@ -56,6 +56,6 @@ class MergedLyrics(object):
         return self.title + '\n\n' + self.text
 
 
-class EmptyMergedLyrics(MergedLyrics):
+class EmptyMixedLyrics(MixedLyrics):
     def __init__(self):
         self.title, self.text = '', ''
