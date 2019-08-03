@@ -15,8 +15,7 @@ class LyricsMerger(object):
         return self.lyrics_editor.interleave_lyrics(song1, song2)
 
     def merge_two_specific_lyrics(self, song_title1, song_title2):
-        song1 = self.lyrics_api_client.get_song(song_title1)
-        song2 = self.lyrics_api_client.get_song(song_title2)
+        song1, song2 = self.lyrics_api_client.get_songs([song_title1, song_title2])
         return self.lyrics_editor.interleave_lyrics(song1, song2)
 
 

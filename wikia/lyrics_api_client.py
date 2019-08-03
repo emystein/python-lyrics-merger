@@ -10,6 +10,9 @@ class WikiaLyricsApiClient(object):
         remote_song = lyricwikia.Song(song_title.artist, song_title.title)
         return Song(remote_song.artist, remote_song.title, remote_song.lyrics)
 
+    def get_songs(self, song_titles):
+        return [self.get_song(song_title) for song_title in song_titles]
+
     def get_random_song(self):
         song_url_parser = WikiaSongUrlParser()
         song_title = song_url_parser.get_random_song()
