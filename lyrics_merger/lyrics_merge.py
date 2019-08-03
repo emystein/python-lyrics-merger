@@ -11,8 +11,7 @@ class LyricsMerger(object):
         return self.lyrics_editor.interleave_lyrics(song1, song2)
 
     def merge_random_lyrics_by_artists(self, artist1, artist2):
-        song1 = self.lyrics_api_client.get_random_song_by_artist(artist1)
-        song2 = self.lyrics_api_client.get_random_song_by_artist(artist2)
+        song1, song2 = self.lyrics_api_client.get_random_songs_by_artists([artist1, artist2])
         return self.lyrics_editor.interleave_lyrics(song1, song2)
 
     def merge_two_specific_lyrics(self, song_title1, song_title2):

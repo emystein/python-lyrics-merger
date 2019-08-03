@@ -31,3 +31,12 @@ def test_get_random_song_by_artist(lyrics_api_client):
     assert song.title.artist == 'Led Zeppelin'
     assert song.title.title != ''
     assert song.lyrics.text != ''
+
+
+def test_get_random_songs_by_artists(lyrics_api_client):
+    songs = lyrics_api_client.get_random_songs_by_artists(['Led Zeppelin', 'Steppenwolf'])
+    assert len(songs) == 2
+    for song in songs:
+        assert song.title.artist == 'Led Zeppelin' or song.title.artist == 'Steppenwolf'
+        assert song.title.title != ''
+        assert song.lyrics.text != ''
