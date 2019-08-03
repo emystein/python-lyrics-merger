@@ -1,11 +1,11 @@
 import pytest
-from lyrics_merger.song_downloader import RandomSongDownloader
+from lyrics_merger.song_downloader import SongDownloader
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 
 
 @pytest.fixture
 def song_downloader():
-    return RandomSongDownloader(WikiaLyricsApiClient())
+    return SongDownloader(WikiaLyricsApiClient())
 
 
 def test_get_random_song(song_downloader):

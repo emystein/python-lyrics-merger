@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from argparse import ArgumentParser
 from lyrics_merger.lyrics_merge import RandomLyricsMerger, LyricsEditor
-from lyrics_merger.song_downloader import RandomSongDownloader
+from lyrics_merger.song_downloader import SongDownloader
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 
 
@@ -13,7 +13,7 @@ def main():
     args = parser.parse_args()
 
     try:
-        lyrics_downloader = RandomSongDownloader(WikiaLyricsApiClient())
+        lyrics_downloader = SongDownloader(WikiaLyricsApiClient())
         lyrics_merger = RandomLyricsMerger(lyrics_downloader, LyricsEditor())
         merged = lyrics_merger.merge_random_lyrics_by_artists(args.ARTIST1, args.ARTIST2)
         lyrics_report = merged.title + '\n\n' + merged.text

@@ -2,7 +2,7 @@ from lyrics_merger.song import Song
 import random
 
 
-class RandomSongDownloader(object):
+class SongDownloader(object):
     def __init__(self, lyrics_api_client):
         self.lyrics_api_client = lyrics_api_client
 
