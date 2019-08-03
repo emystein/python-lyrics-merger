@@ -16,4 +16,4 @@ requests = "*"
 python_version = "3.7"
 
 [scripts]
-mergelyrics = "python scripts/mergelyrics.py"
+mixlyrics = "python scripts/mixlyrics.py"

@@ -6,19 +6,19 @@ class LyricsMixer(object):
         self.lyrics_api_client = lyrics_api_client
         self.lyrics_editor = lyrics_editor
 
-    def merge_two_random_lyrics(self):
+    def mix_two_random_lyrics(self):
         song1, song2 = self.lyrics_api_client.get_random_songs(2)
-        return self.merge(song1, song2)
+        return self.mix(song1, song2)
 
-    def merge_random_lyrics_by_artists(self, artist1, artist2):
+    def mix_random_lyrics_by_artists(self, artist1, artist2):
         song1, song2 = self.lyrics_api_client.get_random_songs_by_artists([artist1, artist2])
-        return self.merge(song1, song2)
+        return self.mix(song1, song2)
 
-    def merge_two_specific_lyrics(self, song_title1, song_title2):
+    def mix_two_specific_lyrics(self, song_title1, song_title2):
         song1, song2 = self.lyrics_api_client.get_songs([song_title1, song_title2])
-        return self.merge(song1, song2)
+        return self.mix(song1, song2)
 
-    def merge(self, song1, song2):
+    def mix(self, song1, song2):
         return self.lyrics_editor.interleave_lyrics(song1, song2)
 
 

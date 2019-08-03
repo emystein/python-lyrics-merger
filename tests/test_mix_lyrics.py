@@ -9,17 +9,17 @@ def lyrics_mixer():
 
 
 # TODO mock WikiaLyricsApiClient and ParagraphInterleaveLyricsEditor
-def test_merge_two_random_lyrics(lyrics_mixer):
-    mixed_lyrics = lyrics_mixer.merge_two_random_lyrics()
+def test_mix_two_random_lyrics(lyrics_mixer):
+    mixed_lyrics = lyrics_mixer.mix_two_random_lyrics()
     assert mixed_lyrics != EmptyMixedLyrics() 
 
-def test_merge_random_lyrics_by_artists(lyrics_mixer):
-    mixed_lyrics = lyrics_mixer.merge_random_lyrics_by_artists('Led Zeppelin', 'Steppenwolf')
+def test_mix_random_lyrics_by_artists(lyrics_mixer):
+    mixed_lyrics = lyrics_mixer.mix_random_lyrics_by_artists('Led Zeppelin', 'Steppenwolf')
     assert mixed_lyrics != EmptyMixedLyrics() 
 
-def test_merge_two_specific_lyrics(lyrics_mixer):
+def test_mix_two_specific_lyrics(lyrics_mixer):
     song_title1 = SongTitle('Led Zeppelin', 'Stairway to Heaven')
     song_title2 = SongTitle('Steppenwolf', 'Born to be wild')
-    mixed_lyrics = lyrics_mixer.merge_two_specific_lyrics(song_title1, song_title2)
+    mixed_lyrics = lyrics_mixer.mix_two_specific_lyrics(song_title1, song_title2)
     assert mixed_lyrics.title == str(song_title1) + ', ' + str(song_title2) 
     assert mixed_lyrics.text != ''
