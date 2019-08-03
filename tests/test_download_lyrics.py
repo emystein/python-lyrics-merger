@@ -8,6 +8,13 @@ def song_downloader():
     return SongDownloader(WikiaLyricsApiClient())
 
 
+def test_get_song(song_downloader):
+    song = song_downloader.get('Led Zeppelin', 'Stairway to Heaven')
+    assert song.title.artist == 'Led Zeppelin'
+    assert song.title.title == 'Stairway to Heaven'
+    assert song.lyrics.text != ''
+
+
 def test_get_random_song(song_downloader):
     song = song_downloader.get_random()
     assert song.title.artist != ''
