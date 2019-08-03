@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from argparse import ArgumentParser
-from lyrics_merger.lyrics_merge import LyricsMerger, LyricsEditor
+from lyrics_merger.lyrics_merge import LyricsMerger, InterleaveParagraphsLyricsEditor
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 
 

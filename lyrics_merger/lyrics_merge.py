@@ -23,7 +23,7 @@ class LyricsMerger(object):
 
 
 
-class LyricsEditor(object):
+class InterleaveParagraphsLyricsEditor(object):
     def interleave_lyrics(self, song1, song2):
         # see: https://stackoverflow.com/questions/7946798/interleave-multiple-lists-of-the-same-length-in-python
         paragraphs = [val for pair in zip(song1.lyrics.paragraphs(), song2.lyrics.paragraphs()) for val in pair]
