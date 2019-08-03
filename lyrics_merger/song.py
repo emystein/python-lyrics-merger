@@ -18,6 +18,9 @@ class Lyrics(object):
     def __init__(self, text):
         self.text = text
 
+    def lines(self):
+        return self.text.split('\n')
+
     def paragraphs(self):
         return self.text.split('\n\n')
 

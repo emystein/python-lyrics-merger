@@ -22,19 +22,32 @@ class LyricsMerger(object):
         return self.lyrics_editor.interleave_lyrics(song1, song2)
 
 
+from itertools import groupby
+
+class LineInterleaveLyricsEditor(object):
+    def interleave_lyrics(self, song1, song2):
+        # see: https://stackoverflow.com/questions/7946798/interleave-multiple-lists-of-the-same-length-in-python
+        lines = [val for pair in zip(song1.lyrics.lines(), song2.lyrics.lines()) for val in pair]
+        # see https://stackoverflow.com/questions/14529523/python-split-for-lists
+        paragraphs = ['\n'.join(list(l)) for k, l in groupby(lines, lambda x: x == '') if not k]
+        return MergedLyrics(song1, song2, lines, paragraphs)
+
 
 class ParagraphInterleaveLyricsEditor(object):
     def interleave_lyrics(self, song1, song2):
         # see: https://stackoverflow.com/questions/7946798/interleave-multiple-lists-of-the-same-length-in-python
         paragraphs = [val for pair in zip(song1.lyrics.paragraphs(), song2.lyrics.paragraphs()) for val in pair]
-        return MergedLyrics(song1, song2, paragraphs)
+        lines = [lines.split('\n') for lines in paragraphs]
+        # see: https://stackoverflow.com/questions/952914/how-to-make-a-flat-list-out-of-list-of-lists
+        flat_list = [item for sublist in lines for item in sublist]
+        return MergedLyrics(song1, song2, flat_list, paragraphs)
 
 
 class MergedLyrics(object):
-    def __init__(self, song1, song2, merged_paragraphs):
-        self.song1, self.song2, self.paragraphs = song1, song2, merged_paragraphs
+    def __init__(self, song1, song2, lines, paragraphs):
+        self.song1, self.song2, self.lines, self.paragraphs = song1, song2, lines, paragraphs
         self.title = str(song1.title) + ', ' + str(song2.title)
-        self.text = '\n\n'.join(merged_paragraphs)
+        self.text = '\n\n'.join(paragraphs)
 
     def __ne__(self, other):
         return self.title != other.title or self.text != other.text
