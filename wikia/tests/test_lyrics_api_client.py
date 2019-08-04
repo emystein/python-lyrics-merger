@@ -1,5 +1,6 @@
 import pytest
 from lyrics_mixer.song import SongTitle
+import wikia.lyrics_api_client
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 import lyricwikia
 
@@ -22,8 +23,8 @@ def test_get_songs(lyrics_api_client):
         assert song.lyrics.text in expected
 
 
-def test_get_all_songs_by_artist(lyrics_api_client):
-    all_songs = lyrics_api_client.find_all_songs_by_artist('Led Zeppelin')
+def test_get_all_songs_by_artist():
+    all_songs = wikia.lyrics_api_client.find_all_songs_by_artist('Led Zeppelin')
     assert len(all_songs) == 156
 
 
