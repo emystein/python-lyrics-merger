@@ -22,6 +22,11 @@ def test_get_songs(lyrics_api_client):
         assert song.lyrics.text in expected
 
 
+def test_get_all_songs_by_artist(lyrics_api_client):
+    all_songs = lyrics_api_client.find_all_songs_by_artist('Led Zeppelin')
+    assert len(all_songs) == 156
+
+
 def test_get_random_song(lyrics_api_client):
     song = lyrics_api_client.get_random_song()
     assert song.lyrics.text != ''
