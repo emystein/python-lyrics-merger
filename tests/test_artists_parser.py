@@ -8,6 +8,11 @@ def parser():
 
 
 def test_parse_artists(parser):
+    parse_results = parser.parse("Divididos y Las Pelotas")
+    assert parse_results.artists == ['Divididos', 'Las Pelotas']
+
+
+def test_parse_artists_prefix_mezclá(parser):
     parse_results = parser.parse("mezclá Divididos y Las Pelotas")
     assert parse_results.artists == ['Divididos', 'Las Pelotas']
 
