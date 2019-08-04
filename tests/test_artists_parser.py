@@ -51,3 +51,8 @@ def test_parse_artists_second_artist_name_contains_y(parser):
     parse_results = parser.parse("mezcla Sumo y 'Patricio Rey y sus redonditos de ricotta'")
     assert parse_results.artists == ['Sumo', 'Patricio Rey y sus redonditos de ricotta']
 
+
+def test_parse_artists_english(parser):
+    parse_results = parser.parse("mix Led Zeppelin and Steppenwolf")
+    assert parse_results.artists == ['Led Zeppelin', 'Steppenwolf']
+

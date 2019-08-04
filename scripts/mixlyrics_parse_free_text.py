@@ -12,9 +12,8 @@ def main():
     args = parser.parse_args()
 
     try:
-        text = args.text
         artists_parser = ArtistsParser()
-        artist1, artist2 = artists_parser.parse(text).artists
+        artist1, artist2 = artists_parser.parse(args.text).artists
         lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsEditor())
         mixed = lyrics_mixer.mix_random_lyrics_by_artists(artist1, artist2)
         print(str(mixed))
