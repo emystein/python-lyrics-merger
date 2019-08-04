@@ -16,4 +16,5 @@ requests = "*"
 python_version = "3.7"
 
 [scripts]
-mixlyrics = "python scripts/mixlyrics.py"
+mixlyrics_two_artists = "python scripts/mixlyrics_two_artists.py"
+mixlyrics_parse_free_text = "python scripts/mixlyrics_with_argument_parser.py"
