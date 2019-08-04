@@ -1,14 +1,7 @@
 import pytest
 from lyrics_mixer.song import SongTitle
 import tests.song_title_factory
-
-@pytest.fixture
-def song_title1():
-    return tests.song_title_factory.create_stairway_to_heaven()
-
-@pytest.fixture
-def song_title2():
-    return tests.song_title_factory.create_born_to_be_wild()
+from tests.fixtures.song_titles import song_title1, song_title2
 
 def test_strip_artist_and_title():
     song_title = SongTitle('  Led Zeppelin  ', '  Stairway to Heaven  ')
@@ -26,6 +19,7 @@ def test_song_title_equals_non_empty_artist_and_title(song_title1):
     assert song_title1 == song_title2
 
 
+@pytest.mark.usefixtures('song_title1', 'song_title2')
 def test_song_title_not_equals_non_empty_artist_and_title(song_title1, song_title2):
     assert song_title1 != song_title2
 

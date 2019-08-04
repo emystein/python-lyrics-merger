@@ -3,26 +3,21 @@ from lyrics_mixer.song import SongTitle
 import wikia.lyrics_api_client
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 import lyricwikia
-import tests.song_title_factory
+from tests.fixtures.song_titles import song_title1, song_title2
 
 
 @pytest.fixture
 def lyrics_api_client():
     return WikiaLyricsApiClient()
 
-@pytest.fixture
-def song_title1():
-    return tests.song_title_factory.create_stairway_to_heaven()
 
-@pytest.fixture
-def song_title2():
-    return tests.song_title_factory.create_born_to_be_wild()
-
+@pytest.mark.usefixtures('song_title1', 'song_title2')
 def test_get_song(lyrics_api_client, song_title1):
     song = lyrics_api_client.get_song(song_title1)
     assert song.lyrics.text == lyricwikia.get_lyrics(song_title1.artist, song_title1.title)
 
 
+@pytest.mark.usefixtures('song_title1', 'song_title2')
 def test_get_songs(lyrics_api_client, song_title1, song_title2):
     songs = lyrics_api_client.get_songs([song_title1, song_title2])
     expected = [lyricwikia.get_lyrics(song_title1.artist, song_title1.title), 
