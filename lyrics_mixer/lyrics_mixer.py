@@ -2,9 +2,9 @@ from lyrics_mixer.song import Lyrics
 
 
 class LyricsMixer(object):
-    def __init__(self, lyrics_api_client, lyrics_editor):
+    def __init__(self, lyrics_api_client, lyrics_mix_strategy):
         self.lyrics_api_client = lyrics_api_client
-        self.lyrics_editor = lyrics_editor
+        self.lyrics_mix_strategy = lyrics_mix_strategy
 
     def mix_two_random_lyrics(self):
         song1, song2 = self.lyrics_api_client.get_random_songs(2)
@@ -19,13 +19,13 @@ class LyricsMixer(object):
         return self.mix(song1, song2)
 
     def mix(self, song1, song2):
-        return self.lyrics_editor.interleave_lyrics(song1, song2)
+        return self.lyrics_mix_strategy.mix_lyrics(song1, song2)
 
 
 from itertools import groupby
 
-class LineInterleaveLyricsEditor(object):
-    def interleave_lyrics(self, song1, song2):
+class LineInterleaveLyricsMix(object):
+    def mix_lyrics(self, song1, song2):
         # see: https://stackoverflow.com/questions/7946798/interleave-multiple-lists-of-the-same-length-in-python
         lines = [val for pair in zip(song1.lyrics.lines(), song2.lyrics.lines()) for val in pair]
         # see https://stackoverflow.com/questions/14529523/python-split-for-lists
@@ -33,8 +33,8 @@ class LineInterleaveLyricsEditor(object):
         return MixedLyrics(song1, song2, lines, paragraphs)
 
 
-class ParagraphInterleaveLyricsEditor(object):
-    def interleave_lyrics(self, song1, song2):
+class ParagraphInterleaveLyricsMix(object):
+    def mix_lyrics(self, song1, song2):
         # see: https://stackoverflow.com/questions/7946798/interleave-multiple-lists-of-the-same-length-in-python
         paragraphs = [val for pair in zip(song1.lyrics.paragraphs(), song2.lyrics.paragraphs()) for val in pair]
         lines = [lines.split('\n') for lines in paragraphs]

@@ -1,14 +1,14 @@
 import pytest
 from lyrics_mixer.song import SongTitle
-from lyrics_mixer.lyrics_mixer import LyricsMixer, ParagraphInterleaveLyricsEditor, EmptyMixedLyrics
+from lyrics_mixer.lyrics_mixer import LyricsMixer, ParagraphInterleaveLyricsMix, EmptyMixedLyrics
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 
 @pytest.fixture
 def lyrics_mixer():
-    return LyricsMixer(WikiaLyricsApiClient(), ParagraphInterleaveLyricsEditor())
+    return LyricsMixer(WikiaLyricsApiClient(), ParagraphInterleaveLyricsMix())
 
 
-# TODO mock WikiaLyricsApiClient and ParagraphInterleaveLyricsEditor
+# TODO mock WikiaLyricsApiClient and ParagraphInterleaveLyricsMix
 def test_mix_two_random_lyrics(lyrics_mixer):
     mixed_lyrics = lyrics_mixer.mix_two_random_lyrics()
     assert mixed_lyrics != EmptyMixedLyrics() 
