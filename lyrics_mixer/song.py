@@ -5,7 +5,7 @@ class Song(object):
 
 class SongTitle(object):
     def __init__(self, artist, title):
-        self.artist, self.title = artist, title
+        self.artist, self.title = artist.strip(), title.strip()
 
     def __eq__(self, other):
         return (self.artist == other.artist) and (self.title == other.title)
