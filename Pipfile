@@ -17,4 +17,4 @@ python_version = "3.7"
 
 [scripts]
 mixlyrics_two_artists = "python scripts/mixlyrics_two_artists.py"
-mixlyrics_parse_free_text = "python scripts/mixlyrics_with_argument_parser.py"
+mixlyrics_parse_free_text = "python scripts/mixlyrics_parse_free_text.py"
