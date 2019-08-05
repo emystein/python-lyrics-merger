@@ -5,7 +5,7 @@ from wikia.lyrics_api_client import WikiaLyricsApiClient
 
 
 app = Flask(__name__)
-app.run(host = '0.0.0.0', port = environ.get('PORT'))
+# app.run(host = '0.0.0.0', port = environ.get('PORT'))
 
 lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
 
