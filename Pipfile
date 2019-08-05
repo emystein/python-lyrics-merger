@@ -13,6 +13,7 @@ lyricwikia = "*"
 requests = "*"
 flask = "*"
 gunicorn = "*"
+tweepy = "*"
 
 [requires]
 python_version = "3.7"

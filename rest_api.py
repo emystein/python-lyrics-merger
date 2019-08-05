@@ -23,7 +23,5 @@ def mix_random_lyrics_by_artists(artist1, artist2):
 
 @app.route('/mix/songs/<artist1>/<title1>/<artist2>/<title2>')
 def mix_two_specific_lyrics(artist1, title1, artist2, title2):
-	song_title1 = SongTitle(artist1, title1)
-	song_title2 = SongTitle(artist2, title2)
-	mixed =	lyrics_mixer.mix_two_specific_lyrics(song_title1, song_title2)
+	mixed =	lyrics_mixer.mix_two_specific_lyrics(SongTitle(artist1, title1), SongTitle(artist2, title2))
 	return f'{escape(str(mixed))}'
