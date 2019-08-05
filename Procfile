@@ -1,3 +1,3 @@
-web: python rest_api.py
+web: gunicorn rest:rest_api
 
 
