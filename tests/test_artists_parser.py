@@ -17,6 +17,11 @@ def test_parse_artists_prefix_mezclá(parser):
     assert parse_results.artists == ['Divididos', 'Las Pelotas']
 
 
+def test_parse_artists_prefix_tweeter_username(parser):
+    parse_results = parser.parse("@lyricsmixer mezclá Divididos y Las Pelotas")
+    assert parse_results.artists == ['Divididos', 'Las Pelotas']
+
+
 def test_parse_artists_prefix_combiná(parser):
     parse_results = parser.parse("combiná Divididos y Las Pelotas")
     assert parse_results.artists == ['Divididos', 'Las Pelotas']
