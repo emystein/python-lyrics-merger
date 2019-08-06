@@ -14,6 +14,7 @@ lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
 
 TWEET_LENGTH = 210
 
+
 def check_mentions(api, keywords, since_id):
     logger.info("Retrieving mentions")
     new_since_id = since_id
@@ -26,7 +27,7 @@ def check_mentions(api, keywords, since_id):
             logger.info(f"Replying to {tweet.user.name} about '{tweet.text}'")
 
             mixed_lyrics = get_mixed_lyrics(tweet)[:TWEET_LENGTH]
-			reply_tweet = f"@{tweet.user.name} {mixed_lyrics}"
+            reply_tweet = f"@{tweet.user.name} {mixed_lyrics}"
 
             api.update_status(
                 status=reply_tweet,
@@ -36,11 +37,13 @@ def check_mentions(api, keywords, since_id):
 
 
 def get_mixed_lyrics(tweet):
-	artists_parser = ArtistsParser()
-	parse_result = artists_parser.parse(tweet.text)
-	lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
-	mixed_lyrics = lyrics_mixer.mix_random_lyrics_by_artists(parse_result.artists[0], parse_result.artists[1])
-	return str(mixed_lyrics)
+    artists_parser = ArtistsParser()
+    parse_result = artists_parser.parse(tweet.text)
+    lyrics_mixer = LyricsMixer(
+        WikiaLyricsApiClient(), LineInterleaveLyricsMix())
+    mixed_lyrics = lyrics_mixer.mix_random_lyrics_by_artists(
+        parse_result.artists[0], parse_result.artists[1])
+    return str(mixed_lyrics)
 
 
 def main():
