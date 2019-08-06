@@ -13,3 +13,5 @@ class ArtistsParser(object):
 class ParseResult(object):
 	def __init__(self, artists):
 		self.artists = artists
+		self.artist1 = artists[0]
+		self.artist2 = artists[1]
