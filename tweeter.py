@@ -1,19 +1,20 @@
 import tweepy
 import logging
-import os
+from os import environ
 
 logger = logging.getLogger()
 
 
 def create_api():
-    consumer_key = os.getenv("CONSUMER_KEY")
-    consumer_secret = os.getenv("CONSUMER_SECRET")
-    access_token = os.getenv("ACCESS_TOKEN")
-    access_token_secret = os.getenv("ACCESS_TOKEN_SECRET")
+    CONSUMER_KEY = environ['TWITTER_CONSUMER_KEY']
+    CONSUMER_SECRET = environ['TWITTER_CONSUMER_SECRET']
+    ACCESS_TOKEN = environ['TWITTER_ACCESS_TOKEN']
+    ACCESS_TOKEN_SECRET = environ['TWITTER_ACCESS_TOKEN_SECRET']
 
-    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-    auth.set_access_token(access_token, access_token_secret)
+    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
     api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+
     try:
         api.verify_credentials()
     except Exception as e:
