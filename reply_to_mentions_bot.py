@@ -21,7 +21,7 @@ def check_mentions(api, keywords, since_id):
         if tweet.in_reply_to_status_id is not None:
             continue
         if any(keyword in tweet.text.lower() for keyword in keywords):
-            logger.info(f"Answering to {tweet.user.name}")
+            logger.info(f"Replying to {tweet.user.name} about '{tweet.text}'")
 
             mixed_lyrics = get_mixed_lyrics(tweet)
 
