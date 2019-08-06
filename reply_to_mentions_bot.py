@@ -45,7 +45,7 @@ def main():
     since_id = 1
     while True:
         print(since_id)
-        since_id = check_mentions(api, ["help", "support"], since_id)
+        since_id = check_mentions(api, ["mezcla", "mezclá"], since_id)
         logger.info("Waiting...")
         time.sleep(60)
 
