@@ -1,4 +1,5 @@
 from flask import Flask, escape, request
+from datetime import datetime
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix, ParagraphInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 from lyrics_mixer.song import SongTitle
@@ -11,7 +12,7 @@ lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
 
 @app.route('/')
 def home():
-	return "OK";
+	return f'{datetime.now()}: OK';
 
 
 @app.route('/mix/random')
