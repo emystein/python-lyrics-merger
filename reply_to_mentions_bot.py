@@ -12,6 +12,8 @@ logger = logging.getLogger()
 
 lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
 
+TWEET_LENGTH = 210
+
 def check_mentions(api, keywords, since_id):
     logger.info("Retrieving mentions")
     new_since_id = since_id
@@ -23,7 +25,7 @@ def check_mentions(api, keywords, since_id):
         if any(keyword in tweet.text.lower() for keyword in keywords):
             logger.info(f"Replying to {tweet.user.name} about '{tweet.text}'")
 
-            mixed_lyrics = get_mixed_lyrics(tweet)
+            mixed_lyrics = get_mixed_lyrics(tweet)[:TWEET_LENGTH]
 
             api.update_status(
                 status=mixed_lyrics,
