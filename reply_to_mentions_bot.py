@@ -26,9 +26,10 @@ def check_mentions(api, keywords, since_id):
             logger.info(f"Replying to {tweet.user.name} about '{tweet.text}'")
 
             mixed_lyrics = get_mixed_lyrics(tweet)[:TWEET_LENGTH]
+			reply_tweet = f"@{tweet.user.name} {mixed_lyrics}"
 
             api.update_status(
-                status=mixed_lyrics,
+                status=reply_tweet,
                 in_reply_to_status_id=tweet.id,
             )
     return new_since_id
