@@ -15,7 +15,7 @@ class MixLyricsReplyStrategy(object):
     def get_reply_for(self, tweet):
         logger.info(f"Mixing lyrics requested by: {tweet.user.name}, using input: '{tweet.text}'")
         mixed_lyrics = str(self.mixer.mix_lyrics_parsing_input(tweet.text))
-        return f"@{tweet.user.name}{mixed_lyrics}"
+        return f"@{tweet.user.name} {mixed_lyrics}"
 
 
 def check_mentions(api, since_id, reply_strategy):
