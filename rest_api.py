@@ -9,6 +9,11 @@ app = Flask(__name__)
 lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
 
 
+@app.route('/')
+def home():
+	return "OK";
+
+
 @app.route('/mix/random')
 def mix_two_random_lyrics():
 	mixed = lyrics_mixer.mix_two_random_lyrics()
