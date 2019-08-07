@@ -1,15 +1,19 @@
 import re
 
 class ArtistsParser(object):
+	
 	def parse(self, text):
 		prefixes = ".*mezcl.|.*combin.|.*mix"
-		optional_quote = "['\"]?"
-		artist = optional_quote + "([^'\"]+)" + optional_quote
+		artist = self.optionally_quoted("([^'\"]+)")
 		match = re.match(r"(?:" + prefixes + r")?\s?" + artist + " (?:y|and) " + artist, text)
-		artists = list(match.groups())
-		return ParseResult(artists)
+		return ParseResult(artists = list(match.groups()))
 	
-
+	def optionally_quoted(self, pattern):
+		optional_quote = "['\"]?"
+		return optional_quote + pattern + optional_quote
+	
+	
+	
 class ParseResult(object):
 	def __init__(self, artists):
 		self.artists = artists

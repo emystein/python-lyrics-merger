@@ -8,66 +8,65 @@ def parser():
 
 
 def test_parse_artists(parser):
-    parse_results = parser.parse("Divididos y Las Pelotas")
-    assert parse_results.artists == ['Divididos', 'Las Pelotas']
+    results = parser.parse("Divididos y Las Pelotas")
+    assert results.artists == ['Divididos', 'Las Pelotas']
 
 
 def test_parse_artists_prefix_mezclá(parser):
-    parse_results = parser.parse("mezclá Divididos y Las Pelotas")
-    assert parse_results.artists == ['Divididos', 'Las Pelotas']
-
-
-def test_parse_artists_prefix_tweeter_username(parser):
-    parse_results = parser.parse("@lyricsmixer mezclá Divididos y Las Pelotas")
-    assert parse_results.artists == ['Divididos', 'Las Pelotas']
-
-
-def test_parse_artists_prefix_anything_before_mezclá(parser):
-    parse_results = parser.parse("Homero Simpson mezclá Divididos y Las Pelotas")
-    assert parse_results.artists == ['Divididos', 'Las Pelotas']
+    results = parser.parse("mezclá Divididos y Las Pelotas")
+    assert results.artists == ['Divididos', 'Las Pelotas']
 
 
 def test_parse_artists_prefix_combiná(parser):
-    parse_results = parser.parse("combiná Divididos y Las Pelotas")
-    assert parse_results.artists == ['Divididos', 'Las Pelotas']
+    results = parser.parse("combiná Divididos y Las Pelotas")
+    assert results.artists == ['Divididos', 'Las Pelotas']
 
 
 def test_parse_artists_enclosed_by_single_quote(parser):
-    parse_results = parser.parse("mezcla 'Divididos' y 'Las Pelotas'")
-    assert parse_results.artists == ['Divididos', 'Las Pelotas']
+    results = parser.parse("mezcla 'Divididos' y 'Las Pelotas'")
+    assert results.artists == ['Divididos', 'Las Pelotas']
 
 
 def test_parse_first_artist_enclosed_by_single_quote_and_second_artist_enclosed_by_double_quote(parser):
-    parse_results = parser.parse("mezcla 'Divididos' y \"Las Pelotas\"")
-    assert parse_results.artists == ['Divididos', 'Las Pelotas']
+    results = parser.parse("mezcla 'Divididos' y \"Las Pelotas\"")
+    assert results.artists == ['Divididos', 'Las Pelotas']
 
 
 def test_parse_first_artist_enclosed_by_double_quote_and_second_artist_enclosed_by_single_quote(parser):
-    parse_results = parser.parse("mezcla \"Divididos\" y 'Las Pelotas'")
-    assert parse_results.artists == ['Divididos', 'Las Pelotas']
+    results = parser.parse("mezcla \"Divididos\" y 'Las Pelotas'")
+    assert results.artists == ['Divididos', 'Las Pelotas']
 
 
 def test_parse_artists_enclosed_by_different_quotes_before_and_after(parser):
-    parse_results = parser.parse("mezcla \"Divididos' y 'Las Pelotas\"")
-    assert parse_results.artists == ['Divididos', 'Las Pelotas']
+    results = parser.parse("mezcla \"Divididos' y 'Las Pelotas\"")
+    assert results.artists == ['Divididos', 'Las Pelotas']
 
 
 def test_parse_artists_enclosed_by_double_quote(parser):
-    parse_results = parser.parse('mezcla "Divididos" y "Las Pelotas"')
-    assert parse_results.artists == ['Divididos', 'Las Pelotas']
+    results = parser.parse('mezcla "Divididos" y "Las Pelotas"')
+    assert results.artists == ['Divididos', 'Las Pelotas']
 
 
 def test_parse_artists_fist_artist_name_contains_y(parser):
-    parse_results = parser.parse("mezcla Patricio Rey y sus redonditos de ricotta y Sumo")
-    assert parse_results.artists == ['Patricio Rey y sus redonditos de ricotta', 'Sumo']
+    results = parser.parse("mezcla Patricio Rey y sus redonditos de ricotta y Sumo")
+    assert results.artists == ['Patricio Rey y sus redonditos de ricotta', 'Sumo']
 
 
 def test_parse_artists_second_artist_name_contains_y(parser):
-    parse_results = parser.parse("mezcla Sumo y 'Patricio Rey y sus redonditos de ricotta'")
-    assert parse_results.artists == ['Sumo', 'Patricio Rey y sus redonditos de ricotta']
+    results = parser.parse("mezcla Sumo y 'Patricio Rey y sus redonditos de ricotta'")
+    assert results.artists == ['Sumo', 'Patricio Rey y sus redonditos de ricotta']
 
 
 def test_parse_artists_english(parser):
-    parse_results = parser.parse("mix Led Zeppelin and Steppenwolf")
-    assert parse_results.artists == ['Led Zeppelin', 'Steppenwolf']
+    results = parser.parse("mix Led Zeppelin and Steppenwolf")
+    assert results.artists == ['Led Zeppelin', 'Steppenwolf']
 
+
+def test_parse_artists_prefix_tweeter_username(parser):
+    results = parser.parse("@lyricsmixer mezclá Divididos y Las Pelotas")
+    assert results.artists == ['Divididos', 'Las Pelotas']
+
+
+def test_parse_artists_prefix_anything_before_mezclá(parser):
+    results = parser.parse("Homero Simpson mezclá Divididos y Las Pelotas")
+    assert results.artists == ['Divididos', 'Las Pelotas']
