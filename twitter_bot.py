@@ -7,7 +7,7 @@ from tweeter import create_api
 api = create_api()
 
 # schedule.every(2).to(8).hours.do(periodic_tweet_bot.tweet_random_lyrics)
-schedule.every().minute.do(reply_to_mentions_bot.reply_to_mentions(api))
+schedule.every().minute.do(reply_to_mentions_bot.reply_to_mentions)
 
 def main():
 	while True:
