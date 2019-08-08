@@ -16,6 +16,7 @@ gunicorn = "*"
 tweepy = "*"
 peewee = "*"
 psycopg2-binary = "*"
+schedule = "*"
 
 [requires]
 python_version = "3.7"
