@@ -3,6 +3,7 @@ import logging
 from tweeter import create_api
 import time
 from lyrics_mixer.lyrics_mixer_app import LyricsMixerApp 
+from lyrics_mixer.orm import StreamCursor
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
@@ -37,10 +38,11 @@ def reply_tweet_with(api, tweet, reply_text):
 
 def main():
     api = create_api()
-    since_id = 1
+    cursor = StreamCursor.get_or_create(key = 'tweeter', position = 1)
     reply_strategy = MixLyricsReplyStrategy()
     while True:
-        since_id = check_mentions(api, since_id, reply_strategy)
+        cursor.position = check_mentions(api, cursor.position, reply_strategy)
+        cursor.save()
         logger.info("Waiting 60 seconds")
         time.sleep(60)
 
