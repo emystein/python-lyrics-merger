@@ -12,10 +12,6 @@ def with_database_txn():
         txn.rollback()
 
 
-def test_cursor_model():
+def test_stream_cursor_orm():
     cursor = StreamCursor.create(key = 'tweeter', position = 1)
-    cursor.save()
-
-    assert StreamCursor.select().count() == 1
-    retrieved_cursor = StreamCursor.get(StreamCursor.key == 'tweeter')
-    assert retrieved_cursor.position == 1
+    assert StreamCursor.get(StreamCursor.key == 'tweeter').position == 1
