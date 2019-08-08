@@ -12,7 +12,7 @@ lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
 
 @app.route('/')
 def home():
-	return f'{datetime.now()}: OK';
+	return f'{datetime.now()}: OK\n';
 
 
 @app.route('/mix/random')
