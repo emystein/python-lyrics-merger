@@ -39,8 +39,6 @@ def reply_tweet_with(api, tweet, reply_text):
 def main():
     api = create_api()
     cursor, created = StreamCursor.get_or_create(key = 'tweeter')
-    if (created):
-        cursor.position = 1
     reply_strategy = MixLyricsReplyStrategy()
     while True:
         cursor.position = check_mentions(api, cursor.position, reply_strategy)
