@@ -1,1 +1,1 @@
-0/30 0-2,8-23 * * * curl https://lyricsmixer.herokuapp.com > /tmp/lyricsmixer-ping.log
+0/30 0-2,8-23 * * * /usr/bin/curl https://lyricsmixer.herokuapp.com > /tmp/lyricsmixer-ping.log
