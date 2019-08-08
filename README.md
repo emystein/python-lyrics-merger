@@ -50,12 +50,28 @@ Keep awake Heroku instance by running a cron job, every 30 minutes except betwee
 `0/30 0-2,8-23 * * * curl https://lyricsmixer.herokuapp.com > /tmp/lyricsmixer-ping.log`
 
 
-# Database
-Do the following the first time only.
+# Database setup
+Enable PostgreSQL add-on on Heroku dashboard.
 
-Set environment variable `HEROKU` to `1` in Heroku dashboard.
+
+Set environment variable `HEROKU` to `1`:
+
+```bash
+heroku config:set HEROKU=1
+```
+
+Run provisioning script:
 
 ```bash
 heroku run bash
-python db_provision.py
+python database_provision.py
 ```
+
+
+Verify:
+
+```bash
+heroku pg:info
+```
+
+should show 1 table (streamcursor table)
