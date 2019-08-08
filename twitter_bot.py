@@ -2,11 +2,9 @@ import logging
 import schedule
 import time
 from tweeter import create_api
-import reply_to_mentions_bot
-from periodic_tweet_bot import MixLyricsReplyStrategy, check_mentions
-
-from lyrics_mixer.lyrics_mixer_app import LyricsMixerApp 
+from reply_to_mentions_bot import MixLyricsReplyStrategy, check_mentions
 from lyrics_mixer.orm import StreamCursor
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
