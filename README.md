@@ -53,7 +53,7 @@ Keep awake Heroku instance by running a cron job, every 30 minutes except betwee
 # Database
 Do the following the first time only.
 
-Set environment variable `IS_PRODUCTION` to `True` in Heroku dashboard.
+Set environment variable `HEROKU` to `1` in Heroku dashboard.
 
 ```bash
 heroku run bash

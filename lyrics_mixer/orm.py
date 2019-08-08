@@ -13,8 +13,11 @@ class StreamCursor(Model):
         database = database_proxy
 
 
-if 'IS_PRODUCTION' in os.environ:
-    database = PostgresqlDatabase('lyricsmixer')
+if 'HEROKU' in os.environ:
+    import urlparse, psycopg2
+    urlparse.uses_netloc.append('postgres')
+    url = urlparse.urlparse(os.environ["DATABASE_URL"])
+    database = PostgresqlDatabase(database=url.path[1:], user=url.username, password=url.password, host=url.hostname, port=url.port)
 else:
     database = SqliteDatabase(':memory:')
 
