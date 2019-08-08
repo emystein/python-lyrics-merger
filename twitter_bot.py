@@ -26,7 +26,7 @@ def reply_to_mentions():
 MAX_TWEET_LENGTH = 280
 
 
-def tweet_random_lyrics(api):
+def tweet_random_lyrics():
     print("About to mix lyrics")
     lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
     mixed_lyrics = lyrics_mixer.mix_two_random_lyrics()
