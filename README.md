@@ -48,3 +48,14 @@ The file `Procfile` describes both the REST API app and the Twitter bot (as a wo
 Keep awake Heroku instance by running a cron job, every 30 minutes except between 2 am and 8 am, since Heroku force sleep free instances 6 hours a day:
 
 `0/30 0-2,8-23 * * * curl https://lyricsmixer.herokuapp.com > /tmp/lyricsmixer-ping.log`
+
+
+# Database
+Do the following the first time only.
+
+Set environment variable `IS_PRODUCTION` to `True` in Heroku dashboard.
+
+```bash
+heroku run bash
+python db_provision.py
+```
