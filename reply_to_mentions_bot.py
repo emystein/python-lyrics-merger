@@ -35,8 +35,7 @@ def check_mentions(api, since_id, reply_strategy):
 def reply_tweet_with(api, tweet, reply_text):
     api.update_status(status = reply_text[:280], in_reply_to_status_id = tweet.id)
 
-def reply_to_mentions():
-    api = create_api()
+def reply_to_mentions(api):
     logger.info("Replying to mentions")
     cursor, created = StreamCursor.get_or_create(key = 'tweeter')
     reply_strategy = MixLyricsReplyStrategy()
