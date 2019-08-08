@@ -40,8 +40,7 @@ schedule.every(2).to(8).hours.do(tweet_random_lyrics)
 
 def main():
     while True:
-        # schedule.run_pending()
-        schedule.run_all()
+        schedule.run_pending()
         time.sleep(1)
 
 
