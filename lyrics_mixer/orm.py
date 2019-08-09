@@ -15,7 +15,7 @@ class StreamCursor(Model):
         database = database_proxy
 
 
-if 'HEROKU' in os.environ:
+if os.environ['ENVIRONMENT'] == 'HEROKU':
     uses_netloc.append('postgres')
     url = urlparse(os.environ["DATABASE_URL"])
     database = PostgresqlDatabase(database=url.path[1:], user=url.username, password=url.password, host=url.hostname, port=url.port)
