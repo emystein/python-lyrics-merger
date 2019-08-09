@@ -3,10 +3,20 @@ import logging
 import time
 import twitter
 from lyrics_mixer.lyrics_mixer_app import LyricsMixerApp 
+from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
 from lyrics_mixer.orm import StreamCursor
+from wikia.lyrics_api_client import WikiaLyricsApiClient
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
+
+
+def tweet_random_lyrics(twitter_api):
+    logger.info("About to mix lyrics")
+    lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
+    mixed_lyrics = lyrics_mixer.mix_two_random_lyrics()
+    tweet = str(mixed_lyrics)[:twitter.MAX_TWEET_LENGTH]
+    twitter_api.update_status(tweet) 
 
 
 def reply_to_mentions(twitter_api):
@@ -39,5 +49,6 @@ def check_mentions(api, since_id, reply_strategy):
     return new_since_id
 
 
+# TODO make a function of api (monkey-patch api?)
 def reply_tweet_with(api, tweet, reply_text):
     api.update_status(status = reply_text[:twitter.MAX_TWEET_LENGTH], in_reply_to_status_id = tweet.id)
