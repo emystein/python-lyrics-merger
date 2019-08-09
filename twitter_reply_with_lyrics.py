@@ -10,7 +10,7 @@ logger = logging.getLogger()
 
 
 def reply_to_mentions(twitter_api):
-    cursor, created = StreamCursor.get_or_create(key = 'tweeter')
+    cursor, created = StreamCursor.get_or_create(key = 'twitter')
     reply_strategy = MixLyricsReplyStrategy()
     cursor.position = check_mentions(twitter_api, cursor.position, reply_strategy)
     cursor.save()
