@@ -2,6 +2,8 @@ import tweepy
 import logging
 from os import environ
 
+MAX_TWEET_LENGTH = 280
+
 logger = logging.getLogger()
 
 

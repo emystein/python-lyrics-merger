@@ -1,15 +1,14 @@
 import threading
 import schedule
 import time
-from tweeter import create_api
-import periodic_tweet_bot
-import reply_to_mentions_bot
-    
+import twitter
+import twitter_reply_with_lyrics
+import twitter_random_lyrics    
 
-api = create_api()
+twitter_api = twitter.create_api()
     
-schedule.every().minute.do(reply_to_mentions_bot.reply_to_mentions, twitter_api = api)
-schedule.every(2).to(8).hours.do(periodic_tweet_bot.tweet_random_lyrics, twitter_api = api)
+schedule.every().minute.do(twitter_reply_with_lyrics.reply_to_mentions, twitter_api = twitter_api)
+schedule.every(2).to(8).hours.do(twitter_random_lyrics.tweet_random_lyrics, twitter_api = twitter_api)
     
 def main():
     while True:
