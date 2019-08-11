@@ -15,8 +15,7 @@ def tweet_random_lyrics(twitter_api):
     logger.info("About to mix lyrics")
     lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
     mixed_lyrics = lyrics_mixer.mix_two_random_lyrics()
-    tweet = str(mixed_lyrics)[:twitter.MAX_TWEET_LENGTH]
-    twitter_api.update_status(tweet) 
+    twitter_api.update_status(mixed_lyrics) 
 
 
 def reply_to_mentions(twitter_api):
@@ -34,28 +33,20 @@ class MixLyricsReplyStrategy(object):
     def get_reply_for(self, tweet):
         logger.info(f"Mixing lyrics requested by: {tweet.user.name}, using input: '{tweet.text}'")
         parsed = self.input_parser.parse(tweet.text)
-        mixed_lyrics = str(self.mix_lyrics_parsing_input(parsed))
-        return f"@{tweet.user.name} {mixed_lyrics}"
-
-    def mix_lyrics_parsing_input(self, parsed):
         mixed_lyrics = self.mixer.mix_random_lyrics_by_artists(parsed.artist1, parsed.artist2)
         logger.info(f"Mixed lyrics: {mixed_lyrics.title}")
-        return mixed_lyrics
+        return f"@{tweet.user.name} {mixed_lyrics}"
 
 
-def check_mentions(api, since_id, reply_strategy):
+def check_mentions(twitter_api, since_id, reply_strategy):
     logger.info(f"Checking mentions since: {since_id}")
 
     new_since_id = since_id
-    for tweet in tweepy.Cursor(api.mentions_timeline, since_id=since_id).items():
+    for tweet in tweepy.Cursor(twitter_api.mentions_timeline, since_id=since_id).items():
         new_since_id = max(tweet.id, new_since_id)
         if tweet.in_reply_to_status_id is not None:
             continue
         reply_text = reply_strategy.get_reply_for(tweet)
-        reply_tweet_with(api, tweet, reply_text)
+        twitter_api.reply_tweet_with(tweet, reply_text)
     return new_since_id
 
-
-# TODO make a function of api (monkey-patch api?)
-def reply_tweet_with(api, tweet, reply_text):
-    api.update_status(status = reply_text[:twitter.MAX_TWEET_LENGTH], in_reply_to_status_id = tweet.id)
