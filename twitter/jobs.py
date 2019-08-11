@@ -42,7 +42,7 @@ def check_mentions(twitter_api, since_id, reply_strategy):
     logger.info(f"Checking mentions since: {since_id}")
 
     new_since_id = since_id
-    for tweet in tweepy.Cursor(twitter_api.mentions_timeline, since_id=since_id).items():
+    for tweet in tweepy.Cursor(twitter_api.mentions_timeline(), since_id=since_id).items():
         new_since_id = max(tweet.id, new_since_id)
         if tweet.in_reply_to_status_id is not None:
             continue
