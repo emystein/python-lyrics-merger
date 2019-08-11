@@ -2,10 +2,10 @@ import tweepy
 import logging
 import time
 import twitter
-from lyrics_mixer.lyrics_mixer_app import LyricsMixerApp 
-from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
-from lyrics_mixer.orm import StreamCursor
+from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix, EmptyMixedLyrics
 from wikia.lyrics_api_client import WikiaLyricsApiClient
+from lyrics_mixer.artists_parser import ArtistsParser
+from lyrics_mixer.orm import StreamCursor
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
@@ -28,12 +28,23 @@ def reply_to_mentions(twitter_api):
 
 class MixLyricsReplyStrategy(object):
     def __init__(self):
-        self.mixer = LyricsMixerApp() 
+        self.input_parser = ArtistsParser()
+        self.mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
     
     def get_reply_for(self, tweet):
         logger.info(f"Mixing lyrics requested by: {tweet.user.name}, using input: '{tweet.text}'")
-        mixed_lyrics = str(self.mixer.mix_lyrics_parsing_input(tweet.text))
+        mixed_lyrics = str(self.mix_lyrics_parsing_input(tweet.text))
         return f"@{tweet.user.name} {mixed_lyrics}"
+
+    def mix_lyrics_parsing_input(self, text):
+        try:
+            parsed = self.input_parser.parse(text)
+            mixed_lyrics = self.mixer.mix_random_lyrics_by_artists(parsed.artist1, parsed.artist2)
+        except Exception as e:
+            logger.error("Error mixing lyrics, returning empty lyrics", exc_info=True)
+            mixed_lyrics = EmptyMixedLyrics()
+        logger.info(f"Mixed lyrics: {mixed_lyrics.title}")
+        return mixed_lyrics
 
 
 def check_mentions(api, since_id, reply_strategy):
