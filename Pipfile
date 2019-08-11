@@ -7,6 +7,7 @@ verify_ssl = true
 pytest = "*"
 rope = "*"
 autopep8 = "*"
+pylint = "*"
 
 [packages]
 lyricwikia = "*"
