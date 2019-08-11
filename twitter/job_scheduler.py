@@ -2,7 +2,7 @@ import schedule
 import time
 import twitter
 import jobs
-from twitter.twitter_api_wrapper import TwitterApiWrapper
+from twitter_api_wrapper import TwitterApiWrapper
 
 twitter_api = twitter.create_api()
 twitter_api_wrapper = TwitterApiWrapper(twitter_api)
