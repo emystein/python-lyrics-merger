@@ -19,7 +19,7 @@ psycopg2-binary = "*"
 schedule = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3"
 
 [scripts]
 mixlyrics_two_artists = "python scripts/mixlyrics_two_artists.py"
