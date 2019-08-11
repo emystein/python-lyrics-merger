@@ -54,10 +54,10 @@ Keep awake Heroku instance by running a cron job, every 30 minutes except betwee
 Enable PostgreSQL add-on on Heroku dashboard.
 
 
-Set environment variable `ENVIRONMENT` to `HEROKU`:
+Set environment variable `LYRICSMIXER_ENVIRONMENT` to `HEROKU`:
 
 ```bash
-heroku config:set ENVIRONMENT=HEROKU
+heroku config:set LYRICSMIXER_ENVIRONMENT=HEROKU
 ```
 
 Run provisioning script:
