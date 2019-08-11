@@ -1,5 +1,5 @@
 # LyricsMixer
-Mix pairs of song lyrics into a new text. It uses [lyricwikia|https://github.com/enricobacis/lyricwikia] to retrieve lyrics from Wikia.
+Mix pairs of song lyrics into a new text. It uses [lyricwikia](https://github.com/enricobacis/lyricwikia) to retrieve lyrics from Wikia.
 
 Run tests with `pipenv run pytest`, you can enable console print by running `pipenv run pytest -s`.
 
@@ -25,11 +25,11 @@ gunicorn rest_api:app
 
 
 ## Implementation
-Implemented using [Flask|https://palletsprojects.com/p/flask/], in file `rest_api.py`
+Implemented using [Flask](https://palletsprojects.com/p/flask/), in file `rest_api.py`
 
 
 # Twitter Bot
-Implemented using [Tweepy|https://www.tweepy.org/].
+Implemented using [Tweepy](https://www.tweepy.org/).
 
 Environment variables for storing auth tokens:
 
