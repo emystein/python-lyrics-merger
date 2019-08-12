@@ -17,21 +17,21 @@ class LyricsMixer(object):
         return self.mix(song1, song2)
 
     def mix_random_lyrics_by_artists(self, artist1, artist2):
-        try:
-            song1, song2 = self.lyrics_api_client.get_random_songs_by_artists([artist1, artist2])
-            mixed_lyrics = self.mix(song1, song2)
-        except Exception as e:
-            logger.error("Error mixing lyrics, returning empty lyrics", exc_info=True)
-            mixed_lyrics = EmptyMixedLyrics()
-        logger.info(f"Mixed lyrics: {mixed_lyrics.title}")
-        return mixed_lyrics
+        song1, song2 = self.lyrics_api_client.get_random_songs_by_artists([artist1, artist2])
+        return self.mix(song1, song2)
 
     def mix_two_specific_lyrics(self, song_title1, song_title2):
         song1, song2 = self.lyrics_api_client.get_songs([song_title1, song_title2])
         return self.mix(song1, song2)
 
     def mix(self, song1, song2):
-        return self.lyrics_mix_strategy.mix_lyrics(song1, song2)
+        try:
+            mixed_lyrics = self.lyrics_mix_strategy.mix_lyrics(song1, song2)
+        except Exception as e:
+            logger.error("Error mixing lyrics, returning empty lyrics", exc_info=True)
+            mixed_lyrics = EmptyMixedLyrics()
+        logger.info(f"Mixed lyrics: {mixed_lyrics.title}")
+        return mixed_lyrics
 
 
 from itertools import groupby
