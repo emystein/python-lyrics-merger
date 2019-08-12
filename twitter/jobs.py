@@ -18,7 +18,8 @@ def tweet_random_lyrics(twitter_api):
 
 def reply_to_mentions(twitter_api):
     cursor, created = StreamCursor.get_or_create(key = 'twitter')
-    cursor.position = check_mentions(twitter_api, cursor.position, MixLyricsReplyStrategy(ArtistsParser(), lyrics_mixer))
+    reply_strategy = MixLyricsReplyStrategy(ArtistsParser(), lyrics_mixer)
+    cursor.position = twitter_api.reply_to_mentions_since(cursor.position, reply_strategy) 
     cursor.save()
 
 
@@ -32,16 +33,4 @@ class MixLyricsReplyStrategy(object):
         parsed = self.input_parser.parse(tweet.text)
         mixed_lyrics = self.lyrics_mixer.mix_random_lyrics_by_artists(parsed.artist1, parsed.artist2)
         return f"@{tweet.user.name} {mixed_lyrics}"
-
-
-def check_mentions(twitter_api, since_id, reply_strategy):
-    logger.info(f"Checking mentions since: {since_id}")
-
-    new_since_id = since_id
-    mentions = twitter_api.mentions_since(since_id)
-    for tweet in mentions:
-        reply_text = reply_strategy.get_reply_for(tweet)
-        twitter_api.reply_tweet_with(tweet, reply_text)
-        new_since_id = tweet.id
-    return new_since_id
 

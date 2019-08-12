@@ -1,5 +1,10 @@
+import logging
 import twitter
 import tweepy
+
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger()
 
 
 class TwitterApiWrapper(object):
@@ -17,5 +22,15 @@ class TwitterApiWrapper(object):
         self.twitter_api.update_status(tweet[:twitter.MAX_TWEET_LENGTH])
 
     def reply_tweet_with(self, tweet, reply_text):
-        self.twitter_api.update_status(
-            status=reply_text[:twitter.MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
+        self.twitter_api.update_status(status=reply_text[:twitter.MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
+
+	def reply_to_mentions_since(self, since_id, reply_strategy):
+		logger.info(f"Checking mentions since: {since_id}")
+
+		new_since_id = since_id
+		mentions = self.mentions_since(since_id)
+		for tweet in mentions:
+			reply_text = reply_strategy.get_reply_for(tweet)
+			twitter_api.reply_tweet_with(tweet, reply_text)
+			new_since_id = tweet.id
+		return new_since_id
