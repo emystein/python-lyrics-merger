@@ -7,7 +7,7 @@ class TwitterApiWrapper(object):
         self.twitter_api = twitter_api
 
     def mentions_since(self, since_id):
-        tweets = tweepy.Cursor(twitter_api.mentions_timeline, since_id=since_id).items()
+        tweets = tweepy.Cursor(self.twitter_api.mentions_timeline, since_id=since_id).items()
         return filter(self.is_not_reply, tweets)
 
     def is_not_reply(self, tweet):
