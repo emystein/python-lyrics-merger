@@ -21,6 +21,7 @@ def reply_to_mentions(twitter_api):
     logger.info(f"Replying to mentions since: {cursor.position}")
     mentions = twitter_api.mentions_since(cursor.position)
     reply_strategy = MixLyricsReplyStrategy(ArtistsParser(), lyrics_mixer)
+    new_since_id = 1
     for mention in mentions:
         new_since_id = mention.reply_with(reply_strategy) 
     cursor.position = max(cursor.position, new_since_id)
