@@ -18,7 +18,7 @@ class TwitterApiWrapper(object):
         return wrapped_mentions
 
     def wrap_mention(self, mention):
-        return MentionWrapper(self.twitter_api, mention)
+        return MentionWrapper(self, mention)
 
     def is_not_reply(self, tweet):
     	return tweet.in_reply_to_status_id is None
