@@ -41,8 +41,8 @@ class MentionWrapper(object):
     def __init__(self, twitter_api_wrapper, tweet):
         self.twitter_api_wrapper = twitter_api_wrapper
         self.tweet = tweet
+        self.id = tweet.id
 
     def reply_with(self, reply_strategy):
         reply = reply_strategy.get_reply_for(self.tweet)
         self.twitter_api_wrapper.reply_tweet_with(self.tweet, reply)
-        return self.tweet.id
