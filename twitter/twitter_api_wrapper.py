@@ -14,8 +14,7 @@ class TwitterApiWrapper(object):
     def mentions_since(self, since_id):
         tweets = tweepy.Cursor(self.twitter_api.mentions_timeline, since_id=since_id).items()
         mentions = filter(self.is_not_reply, tweets)
-        wrapped_mentions = list(map(lambda mention: self.wrap_mention(mention), mentions))
-        return wrapped_mentions
+        return list(map(lambda mention: self.wrap_mention(mention), mentions))
 
     def wrap_mention(self, mention):
         return MentionWrapper(self, mention)
@@ -39,11 +38,11 @@ class TwitterApiWrapper(object):
 
 
 class MentionWrapper(object):
-    def __init__(self, twitter_api, tweet):
-        self.twitter_api = twitter_api
+    def __init__(self, twitter_api_wrapper, tweet):
+        self.twitter_api_wrapper = twitter_api_wrapper
         self.tweet = tweet
 
     def reply_with(self, reply_strategy):
         reply = reply_strategy.get_reply_for(self.tweet)
-        self.twitter_api.reply_tweet_with(self.tweet, reply)
+        self.twitter_api_wrapper.reply_tweet_with(self.tweet, reply)
         return self.tweet.id
