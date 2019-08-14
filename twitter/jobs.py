@@ -17,7 +17,7 @@ def tweet_random_lyrics(twitter_api):
 
 
 def reply_to_mentions(twitter_api):
-    cursor = MentionsReplyCursor.get_or_create()
+    cursor, created = MentionsReplyCursor.get_or_create(key = 'twitter')
     logger.info(f"Replying to mentions since: {cursor.position}")
     mentions = twitter_api.mentions_since(cursor.position)
     reply_strategy = MixLyricsReplyStrategy(ArtistsParser(), lyrics_mixer)
@@ -40,19 +40,8 @@ class MixLyricsReplyStrategy(object):
         return f"@{tweet.user.name} {mixed_lyrics}"
 
 
-class MentionsReplyCursor(object):
-    def __init__(self, wrapped_cursor):
-        self.wrapped_cursor = wrapped_cursor
-
-    def get_or_create():
-        cursor, created = StreamCursor.get_or_create(key = 'twitter') 
-        return MentionsReplyCursor(cursor) 
-
-    @property
-    def position(self):
-        return self.wrapped_cursor.position
-
+class MentionsReplyCursor(StreamCursor):
     def update_from_mentions(self, mentions):
         new_since_id = mentions[-1].id if len(mentions) > 0 else 1
-        self.wrapped_cursor.position = max(self.wrapped_cursor.position, new_since_id)
-        self.wrapped_cursor.save()
+        self.position = max(self.position, new_since_id)
+        self.save()
