@@ -48,6 +48,7 @@ class MentionsReplyCursor(object):
         cursor, created = StreamCursor.get_or_create(key = 'twitter') 
         return MentionsReplyCursor(cursor) 
 
+    @property
     def position(self):
         return self.wrapped_cursor.position
 
