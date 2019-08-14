@@ -4,7 +4,7 @@ import twitter
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix, EmptyMixedLyrics
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 from lyrics_mixer.artists_parser import ArtistsParser
-from twitter.twitter import MentionsReplyCursor
+from twitter import MentionsReplyCursor
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
