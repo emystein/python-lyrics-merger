@@ -13,10 +13,10 @@ def with_database_txn():
 
 
 def test_create_stream_cursor():
-    cursor = StreamCursor.create(key = 'tweeter', position = 1)
-    assert StreamCursor.get(StreamCursor.key == 'tweeter').position == 1
+    cursor = StreamCursor.create(key = 'twitter', position = 1)
+    assert StreamCursor.get(StreamCursor.key == 'twitter').position == 1
 
 
 def test_get_or_create_stream_cursor():
-    cursor = StreamCursor.get_or_create(key = 'tweeter', position = 1)
-    assert StreamCursor.get(StreamCursor.key == 'tweeter').position == 1
+    cursor = StreamCursor.get_or_create(key = 'twitter', position = 1)
+    assert StreamCursor.get(StreamCursor.key == 'twitter').position == 1
