@@ -42,9 +42,8 @@ class MentionsReplyCursor(object):
     def save(self):
         self.cursor.save()
 
-    def update_from_mentions(self, mentions):
-        new_since_id = mentions[-1].id if len(mentions) > 0 else 1
-        self.cursor.position = max(self.cursor.position, new_since_id)
+    def point_to(self, mention):
+        self.cursor.position = max(self.cursor.position, mention.id)
         self.cursor.save()
 
 

@@ -18,4 +18,4 @@ def reply_to_mentions(twitter_api, reply_strategy):
     mentions = twitter_api.mentions_since(cursor.position)
     for mention in mentions:
         mention.reply_with(reply_strategy) 
-    cursor.update_from_mentions(mentions)
+        cursor.point_to(mention)
