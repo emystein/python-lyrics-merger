@@ -45,10 +45,27 @@ Environment variables for storing auth tokens:
 # Deployment in Heroku
 The file `Procfile` describes both the REST API app and the Twitter bot (as a worker).
 
-Keep awake Heroku instance by running a cron job, every 30 minutes except between 2 am and 8 am, since Heroku force sleep free instances 6 hours a day:
+Keep awake Heroku instance by running a schedule job.
+
+## Cron
+Every 30 minutes except between 2 am and 8 am, since Heroku force sleep free instances 6 hours a day:
 
 `0/30 0-2,8-23 * * * /usr/bin/curl https://lyricsmixer.herokuapp.com > /tmp/lyricsmixer-ping.log`
 
+## Systemd Timer
+Install unit provided in the root directory of this project: `heroku_lyricsmixer_ping.timer`, `heroku_lyricsmixer_ping.service`
+
+```bash
+sudo cp heroku_lyricsmixer_ping.* /etc/systemd/system
+sudo systemctl enable heroku_lyricsmixer_ping.timer
+sudo systemctl start heroku_lyricsmixer_ping.service
+```
+
+Check timer is installed:
+
+```bash
+sudo systemctl list-timers --all
+```
 
 # Database setup
 Enable PostgreSQL add-on on Heroku dashboard.

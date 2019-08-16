@@ -1,0 +1,6 @@
+[Unit]
+Description=Ping Heroku Lyrics Mixer
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sh -c '/usr/bin/curl https://lyricsmixer.herokuapp.com > /tmp/lyricsmixer-ping.log'

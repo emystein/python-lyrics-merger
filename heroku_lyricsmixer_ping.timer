@@ -1,0 +1,9 @@
+[Unit]
+Description=Ping Heroku Lyrics Mixer every 15 minutes
+
+[Timer]
+OnBootSec=5min
+OnCalendar=*:0/15
+
+[Install]
+WantedBy=timers.target
