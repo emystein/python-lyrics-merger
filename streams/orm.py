@@ -4,8 +4,6 @@ from urllib.parse import urlparse, uses_netloc
 import psycopg2
 
 
-database_proxy = DatabaseProxy()
-
 if 'DATABASE_URL' in os.environ:
     uses_netloc.append('postgres')
     url = urlparse(os.environ["DATABASE_URL"])
@@ -13,7 +11,9 @@ if 'DATABASE_URL' in os.environ:
 else:
     database = SqliteDatabase(':memory:')
 
+database_proxy = DatabaseProxy()
 database_proxy.initialize(database)
+
 
 class StreamCursor(Model):
     key = CharField(primary_key=True)

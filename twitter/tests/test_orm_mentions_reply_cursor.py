@@ -4,9 +4,8 @@ from streams.orm import *
 from twitter.twitter import MentionsReplyCursor
 
 
-database = SqliteDatabase(':memory:')
-database_proxy.initialize(database)
 database.create_tables([StreamCursor])
+
 
 @pytest.fixture(autouse=True)
 def with_database_txn():

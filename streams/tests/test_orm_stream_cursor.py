@@ -3,8 +3,6 @@ from peewee import *
 from streams.orm import *
 
 
-database = SqliteDatabase(':memory:')
-database_proxy.initialize(database)
 database.create_tables([StreamCursor])
 
 
