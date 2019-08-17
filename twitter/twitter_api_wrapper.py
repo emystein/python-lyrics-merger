@@ -35,8 +35,8 @@ class TweetWrapper(object):
         self.text = tweet.text
 
     def reply_using_strategy(self, reply_strategy):
-        reply = reply_strategy.get_reply_for(self)
-        self.reply_with(reply)
+        reply_text = reply_strategy.get_reply_for(self)
+        self.reply_with(reply_text)
 
     def reply_with(self, reply_text):
         self.twitter_api_wrapper.reply_tweet_with(self.tweet, reply_text)
