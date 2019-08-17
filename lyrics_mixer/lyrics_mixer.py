@@ -13,16 +13,29 @@ class LyricsMixer(object):
 
     def mix_two_random_lyrics(self):
         logger.info('Mixing two random lyrics')
-        song1, song2 = self.lyrics_api_client.get_random_songs(2)
-        return self.mix(song1, song2)
+        try:
+            song1, song2 = self.lyrics_api_client.get_random_songs(2)
+            return self.mix(song1, song2)
+        except Exception as e:
+            logger.error("Error mixing lyrics, returning empty lyrics", exc_info=True)
+            return EmptyMixedLyrics()
+
 
     def mix_random_lyrics_by_artists(self, artist1, artist2):
-        song1, song2 = self.lyrics_api_client.get_random_songs_by_artists([artist1, artist2])
-        return self.mix(song1, song2)
+        try:
+            song1, song2 = self.lyrics_api_client.get_random_songs_by_artists([artist1, artist2])
+            return self.mix(song1, song2)
+        except Exception as e:
+            logger.error("Error mixing lyrics, returning empty lyrics", exc_info=True)
+            return EmptyMixedLyrics()
 
     def mix_two_specific_lyrics(self, song_title1, song_title2):
-        song1, song2 = self.lyrics_api_client.get_songs([song_title1, song_title2])
-        return self.mix(song1, song2)
+        try:
+            song1, song2 = self.lyrics_api_client.get_songs([song_title1, song_title2])
+            return self.mix(song1, song2)
+        except Exception as e:
+            logger.error("Error mixing lyrics, returning empty lyrics", exc_info=True)
+            return EmptyMixedLyrics()
 
     def mix(self, song1, song2):
         try:
