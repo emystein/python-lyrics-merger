@@ -1,7 +1,6 @@
 import time
 import twitter
-from twitter import MentionsReplyCursor, MixLyricsReplyStrategy
-
+from twitter.twitter import MentionsReplyCursor
 
 def tweet_random_lyrics(twitter_api, lyrics_mixer):
     mixed_lyrics = lyrics_mixer.mix_two_random_lyrics()
@@ -9,6 +8,7 @@ def tweet_random_lyrics(twitter_api, lyrics_mixer):
 
 
 def reply_to_mentions(twitter_api, reply_strategy):
+    # TODO: pass MentionsReplyCursor as parameter?
     cursor = MentionsReplyCursor()
     mentions = twitter_api.mentions_since(cursor.position)
     for mention in mentions:

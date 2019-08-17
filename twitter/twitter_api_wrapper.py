@@ -1,10 +1,5 @@
-import logging
 import twitter
 import tweepy
-
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger()
 
 
 class TwitterApiWrapper(object):
