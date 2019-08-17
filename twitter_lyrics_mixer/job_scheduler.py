@@ -1,3 +1,4 @@
+import logging
 import schedule
 import time
 import twitter.twitter
@@ -8,6 +9,8 @@ from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 from twitter.twitter_api_wrapper import TwitterApiWrapper
 from reply_strategies import MixLyricsReplyStrategy
+
+logging.basicConfig(level=logging.INFO)
 
 twitter_api = twitter.twitter.create_api()
 twitter_api_wrapper = TwitterApiWrapper(twitter_api)
