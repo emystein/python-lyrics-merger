@@ -14,4 +14,5 @@ def initialize():
         database = PostgresqlDatabase(database=url.path[1:], user=url.username, password=url.password, host=url.hostname, port=url.port)
     else:
         database = SqliteDatabase(':memory:')
-        database_proxy.initialize(database)
+
+    database_proxy.initialize(database)
