@@ -1,8 +1,8 @@
 import logging
+from lyrics_mixer.songs_picker import *
 from lyrics_mixer.song import Lyrics
 
 
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
 
 
@@ -33,35 +33,6 @@ class LyricsMixer(object):
 
     def mix_two_songs(self, song1, song2):
         return self.lyrics_mix_strategy.mix_lyrics(song1, song2)
-
-
-class TwoSongsPicker:
-    def __init__(self, lyrics_api_client):
-        self.lyrics_api_client = lyrics_api_client
-
-
-class TwoRandomSongsPicker(TwoSongsPicker):
-    def pick_two_songs(self):
-        logger.info('Mixing two random lyrics')
-        return self.lyrics_api_client.get_random_songs(2)
-        
-
-class TwoRandomSongsByArtistsPicker(TwoSongsPicker):
-    def __init__(self, lyrics_api_client, artist1, artist2):
-        self.lyrics_api_client = lyrics_api_client
-        self.artist1, self.artist2 = artist1, artist2
-
-    def pick_two_songs(self):
-        return self.lyrics_api_client.get_random_songs_by_artists([self.artist1, self.artist2])
-
-
-class TwoSpecificSongsPicker(TwoSongsPicker):
-    def __init__(self, lyrics_api_client, song_title1, song_title2):
-        self.lyrics_api_client = lyrics_api_client
-        self.song_title1, self.song_title2 = song_title1, song_title2
-
-    def pick_two_songs(self):
-        return self.lyrics_api_client.get_songs([self.song_title1, self.song_title2])
 
 
 from itertools import groupby
