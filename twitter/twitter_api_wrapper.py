@@ -27,7 +27,7 @@ class TwitterApiWrapper(object):
 
 
 class TweetWrapper(object):
-    def __init__(self, twitter_api, tweet):
+    def __init__(self, twitter_api_wrapper, tweet):
         self.twitter_api_wrapper = twitter_api_wrapper
         self.tweet = tweet
 
