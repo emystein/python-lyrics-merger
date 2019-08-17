@@ -1,7 +1,7 @@
 import tweepy
 import logging
 from os import environ
-from lyrics_mixer.orm import StreamCursor
+from streams.orm import StreamCursor
 
 MAX_TWEET_LENGTH = 280
 

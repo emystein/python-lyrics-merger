@@ -1,9 +1,12 @@
 import pytest
 from peewee import *
-from lyrics_mixer.orm import *
+from streams.orm import *
 
 
+database = SqliteDatabase(':memory:')
+database_proxy.initialize(database)
 database.create_tables([StreamCursor])
+
 
 @pytest.fixture(autouse=True)
 def with_database_txn():

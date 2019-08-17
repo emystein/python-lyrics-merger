@@ -2,11 +2,14 @@ import schedule
 import time
 import twitter.twitter
 import jobs
-from twitter.twitter_api_wrapper import TwitterApiWrapper
+import lyrics_mixer.orm
 from lyrics_mixer.artists_parser import ArtistsParser
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient
+from twitter.twitter_api_wrapper import TwitterApiWrapper
 from reply_strategies import MixLyricsReplyStrategy
+
+lyrics_mixer.orm.initialize()
 
 twitter_api = twitter.twitter.create_api()
 twitter_api_wrapper = TwitterApiWrapper(twitter_api)

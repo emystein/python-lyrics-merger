@@ -1,9 +1,11 @@
 import pytest
 from peewee import *
-from lyrics_mixer.orm import *
+from streams.orm import *
 from twitter.twitter import MentionsReplyCursor
 
 
+database = SqliteDatabase(':memory:')
+database_proxy.initialize(database)
 database.create_tables([StreamCursor])
 
 @pytest.fixture(autouse=True)
