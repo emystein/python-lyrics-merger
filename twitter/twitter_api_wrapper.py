@@ -1,4 +1,4 @@
-import twitter
+import twitter.twitter
 import tweepy
 
 
@@ -15,10 +15,10 @@ class TwitterApiWrapper(object):
     	return tweet.in_reply_to_status_id is None
 
     def update_status(self, tweet):
-        self.twitter_api.update_status(tweet[:twitter.MAX_TWEET_LENGTH])
+        self.twitter_api.update_status(tweet[:twitter.twitter.MAX_TWEET_LENGTH])
 
     def reply_tweet_with(self, tweet, reply_text):
-        self.twitter_api.update_status(status=reply_text[:twitter.MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
+        self.twitter_api.update_status(status=reply_text[:twitter.twitter.MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
 
 
 class TweetWrapper(object):
