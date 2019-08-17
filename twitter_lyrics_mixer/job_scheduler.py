@@ -1,6 +1,6 @@
 import schedule
 import time
-import twitter
+import twitter.twitter
 import jobs
 from twitter.twitter_api_wrapper import TwitterApiWrapper
 from lyrics_mixer.artists_parser import ArtistsParser
