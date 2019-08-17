@@ -30,18 +30,9 @@ class TweetWrapper(object):
     def __init__(self, twitter_api_wrapper, tweet):
         self.twitter_api_wrapper = twitter_api_wrapper
         self.tweet = tweet
-
-    @property
-    def id(self):
-        return self.tweet.id
-
-    @property
-    def user(self):
-        return self.tweet.user
-
-    @property
-    def text(self):
-        return self.tweet.text
+        self.id = tweet.id
+        self.user = tweet.user
+        self.text = tweet.text
 
     def reply_with(self, reply_text):
         self.twitter_api_wrapper.reply_tweet_with(self.tweet, reply_text)
