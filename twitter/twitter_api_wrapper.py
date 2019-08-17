@@ -26,12 +26,32 @@ class TwitterApiWrapper(object):
         self.twitter_api.update_status(status=reply_text[:twitter.MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
 
 
-class MentionWrapper(object):
-    def __init__(self, twitter_api_wrapper, tweet):
+class TweetWrapper(object):
+    def __init__(self, twitter_api, tweet):
         self.twitter_api_wrapper = twitter_api_wrapper
         self.tweet = tweet
+
+    @property
+    def id(self):
+        return self.tweet.id
+
+    @property
+    def user(self):
+        return self.tweet.user
+
+    @property
+    def text(self):
+        return self.tweet.text
+
+    def reply_with(self, reply_text):
+        self.twitter_api_wrapper.reply_tweet_with(self.tweet, reply_text)
+
+
+class MentionWrapper(object):
+    def __init__(self, twitter_api_wrapper, tweet):
+        self.tweet = TweetWrapper(twitter_api_wrapper, tweet)
         self.id = tweet.id
 
     def reply_with(self, reply_strategy):
         reply = reply_strategy.get_reply_for(self.tweet)
-        self.twitter_api_wrapper.reply_tweet_with(self.tweet, reply)
+        self.tweet.reply_with(reply)
