@@ -12,12 +12,9 @@ class TwitterApiWrapper(object):
         self.twitter_api = twitter_api
 
     def mentions_since(self, since_id):
-        tweets = tweepy.Cursor(self.twitter_api.mentions_timeline, since_id=since_id).items()
+        tweets = tweepy.Cursor(self.twitter_api.mentions_timeline, since_id).items()
         mentions = filter(self.is_not_reply, tweets)
-        return list(map(lambda mention: self.wrap_mention(mention), mentions))
-
-    def wrap_mention(self, mention):
-        return MentionWrapper(self, mention)
+        return list(map(lambda mention: MentionWrapper(self, mention), mentions))
 
     def is_not_reply(self, tweet):
     	return tweet.in_reply_to_status_id is None
