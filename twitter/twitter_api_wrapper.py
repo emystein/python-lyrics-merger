@@ -28,14 +28,6 @@ class TwitterApiWrapper(object):
     def reply_tweet_with(self, tweet, reply_text):
         self.twitter_api.update_status(status=reply_text[:twitter.MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
 
-    def reply_to_mentions(self, mentions, reply_strategy):
-        new_since_id = 1
-        for tweet in mentions:
-            reply = reply_strategy.get_reply_for(tweet)
-            self.twitter_api.reply_tweet_with(tweet, reply)
-            new_since_id = tweet.id
-        return new_since_id
-
 
 class MentionWrapper(object):
     def __init__(self, twitter_api_wrapper, tweet):
