@@ -44,7 +44,7 @@ class MentionsReplyCursor(object):
         self.cursor.save()
 
     def point_to(self, mention):
-        self.cursor.position = max(self.cursor.position, mention.id)
+        self.position = max(self.position, mention.id)
         self.save()
 
 

@@ -32,6 +32,7 @@ def test_update_position():
 def test_point_to_mention():
     cursor = MentionsReplyCursor()
     mention = FakeMention(id = 2)
+
     cursor.point_to(mention)
 
     assert StreamCursor.get(StreamCursor.key == 'twitter').position == 2
