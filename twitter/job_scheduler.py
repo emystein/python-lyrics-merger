@@ -4,7 +4,7 @@ import twitter
 import jobs
 from twitter_api_wrapper import TwitterApiWrapper
 from lyrics_mixer.artists_parser import ArtistsParser
-from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix, EmptyMixedLyrics
+from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 from jobs import MixLyricsReplyStrategy
 

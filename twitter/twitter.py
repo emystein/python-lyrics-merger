@@ -45,7 +45,7 @@ class MentionsReplyCursor(object):
 
     def point_to(self, mention):
         self.cursor.position = max(self.cursor.position, mention.id)
-        self.cursor.save()
+        self.save()
 
 
 class MixLyricsReplyStrategy(object):
