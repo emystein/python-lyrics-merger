@@ -12,39 +12,56 @@ class LyricsMixer(object):
         self.lyrics_mix_strategy = lyrics_mix_strategy
 
     def mix_two_random_lyrics(self):
-        logger.info('Mixing two random lyrics')
-        try:
-            song1, song2 = self.lyrics_api_client.get_random_songs(2)
-            return self.mix(song1, song2)
-        except Exception as e:
-            logger.error("Error mixing lyrics, returning empty lyrics", exc_info=True)
-            return EmptyMixedLyrics()
-
+        song_picker = TwoRandomSongsPicker(self.lyrics_api_client)
+        return self.mix_using_picker(song_picker)
 
     def mix_random_lyrics_by_artists(self, artist1, artist2):
-        try:
-            song1, song2 = self.lyrics_api_client.get_random_songs_by_artists([artist1, artist2])
-            return self.mix(song1, song2)
-        except Exception as e:
-            logger.error("Error mixing lyrics, returning empty lyrics", exc_info=True)
-            return EmptyMixedLyrics()
+        song_picker = TwoRandomSongsByArtistsPicker(self.lyrics_api_client, artist1, artist2)
+        return self.mix_using_picker(song_picker)
 
     def mix_two_specific_lyrics(self, song_title1, song_title2):
+        song_picker = TwoSpecificSongsPicker(self.lyrics_api_client, song_title1, song_title2)
+        return self.mix_using_picker(song_picker)
+
+    def mix_using_picker(self, song_picker):
         try:
-            song1, song2 = self.lyrics_api_client.get_songs([song_title1, song_title2])
-            return self.mix(song1, song2)
+            song1, song2 = song_picker.pick_two_songs()
+            return self.mix_two_songs(song1, song2)
         except Exception as e:
             logger.error("Error mixing lyrics, returning empty lyrics", exc_info=True)
             return EmptyMixedLyrics()
 
-    def mix(self, song1, song2):
-        try:
-            mixed_lyrics = self.lyrics_mix_strategy.mix_lyrics(song1, song2)
-        except Exception as e:
-            logger.error("Error mixing lyrics, returning empty lyrics", exc_info=True)
-            mixed_lyrics = EmptyMixedLyrics()
-        logger.info(f"Mixed lyrics: {mixed_lyrics.title}")
-        return mixed_lyrics
+    def mix_two_songs(self, song1, song2):
+        return self.lyrics_mix_strategy.mix_lyrics(song1, song2)
+
+
+class TwoSongsPicker:
+    def __init__(self, lyrics_api_client):
+        self.lyrics_api_client = lyrics_api_client
+
+
+class TwoRandomSongsPicker(TwoSongsPicker):
+    def pick_two_songs(self):
+        logger.info('Mixing two random lyrics')
+        return self.lyrics_api_client.get_random_songs(2)
+        
+
+class TwoRandomSongsByArtistsPicker(TwoSongsPicker):
+    def __init__(self, lyrics_api_client, artist1, artist2):
+        self.lyrics_api_client = lyrics_api_client
+        self.artist1, self.artist2 = artist1, artist2
+
+    def pick_two_songs(self):
+        return self.lyrics_api_client.get_random_songs_by_artists([self.artist1, self.artist2])
+
+
+class TwoSpecificSongsPicker(TwoSongsPicker):
+    def __init__(self, lyrics_api_client, song_title1, song_title2):
+        self.lyrics_api_client = lyrics_api_client
+        self.song_title1, self.song_title2 = song_title1, song_title2
+
+    def pick_two_songs(self):
+        return self.lyrics_api_client.get_songs([self.song_title1, self.song_title2])
 
 
 from itertools import groupby
