@@ -12,5 +12,5 @@ def reply_to_mentions(twitter_api, reply_strategy):
     cursor = MentionsReplyCursor()
     mentions = twitter_api.mentions_since(cursor.position)
     for mention in mentions:
-        mention.reply_with(reply_strategy) 
+        mention.reply_using_strategy(reply_strategy) 
         cursor.point_to(mention)
