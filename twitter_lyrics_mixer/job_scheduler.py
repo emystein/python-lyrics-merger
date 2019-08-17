@@ -8,7 +8,7 @@ from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 from reply_strategies import MixLyricsReplyStrategy
 
-twitter_api = twitter.create_api()
+twitter_api = twitter.twitter.create_api()
 twitter_api_wrapper = TwitterApiWrapper(twitter_api)
 
 lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
