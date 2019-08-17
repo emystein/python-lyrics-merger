@@ -27,3 +27,16 @@ def test_update_position():
     assert cursor.position == 2
     cursor.save()
     assert StreamCursor.get(StreamCursor.key == 'twitter').position == 2
+
+
+def test_point_to_mention():
+    cursor = MentionsReplyCursor()
+    mention = FakeMention(id = 2)
+    cursor.point_to(mention)
+
+    assert StreamCursor.get(StreamCursor.key == 'twitter').position == 2
+
+
+class FakeMention(object):
+    def __init__(self, id):
+        self.id = id
