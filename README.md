@@ -69,14 +69,14 @@ Check timer is installed:
 sudo systemctl list-timers --all
 ```
 
-# Database setup
+## Database setup
 Enable PostgreSQL add-on on Heroku dashboard.
 
 Run provisioning script:
 
 ```bash
 heroku run bash
-python database_provision.py
+python setup/database_provision.py
 ```
 
 Verify:
