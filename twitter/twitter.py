@@ -44,8 +44,7 @@ class TwitterApi(object):
         self.twitter_api.update_status(tweet[:MAX_TWEET_LENGTH])
 
     def reply_tweet_with(self, tweet, reply_text):
-        self.twitter_api.update_status(
-            status=reply_text[:MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
+        self.twitter_api.update_status(status=reply_text[:MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
 
 
 class Tweet(object):
@@ -63,3 +62,22 @@ class Tweet(object):
 
     def reply_with(self, reply_text):
         self.twitter_api.reply_tweet_with(self.tweet, reply_text)
+
+
+class TweetReply:
+    def for_tweet(tweet):
+        return TweetReply(tweet)
+
+    def __init__(self, tweet):
+        self.tweet = tweet
+    
+    def parse_tweet_with(self, tweet_parser):
+        self.parsed_input = tweet_parser.parse(self.tweet.text)
+        return self
+    
+    def write_with(self, reply_strategy):
+        self.text = reply_strategy.write_reply(self.tweet, self.parsed_input)
+        return self
+    
+    def send(self):
+        self.tweet.reply_with(self.text)
