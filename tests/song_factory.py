@@ -1,4 +1,4 @@
-from lyrics_mixer.song import Song
+from songs.model import Song
 
 
 def create_stairway_to_heaven():

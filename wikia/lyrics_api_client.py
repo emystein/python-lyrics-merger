@@ -1,6 +1,6 @@
 import lyricwikia
 import random
-from lyrics_mixer.song import Song
+from songs.model import Song
 from wikia.song_url_parser import WikiaSongUrlParser
 
 def find_all_songs_by_artist(artist_name):

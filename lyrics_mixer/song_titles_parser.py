@@ -1,5 +1,5 @@
 import re
-from lyrics_mixer.song import SongTitle
+from songs.model import SongTitle
 
 def parse(text):
 	match = re.match(r"(.*)(?:, | y )(.*)", text)

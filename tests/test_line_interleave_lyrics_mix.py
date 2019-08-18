@@ -1,7 +1,7 @@
 import pytest
 from lyrics_mixer.lyrics_mixer import LineInterleaveLyricsMix
-from lyrics_mixer.song import Song
-from lyrics_mixer.song import Lyrics
+from songs.model import Song
+from songs.model import Lyrics
 
 @pytest.fixture
 def lyrics_editor():

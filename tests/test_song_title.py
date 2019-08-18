@@ -1,5 +1,5 @@
 import pytest
-from lyrics_mixer.song import SongTitle
+from songs.model import SongTitle
 import tests.song_title_factory
 from tests.fixtures.song_titles import song_title1, song_title2
 

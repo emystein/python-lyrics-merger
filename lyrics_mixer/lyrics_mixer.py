@@ -1,6 +1,6 @@
 import logging
-from lyrics_mixer.songs_picker import *
-from lyrics_mixer.song import Lyrics
+from songs.pickers import *
+from songs.model import Lyrics
 
 
 logger = logging.getLogger()

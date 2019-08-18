@@ -1,5 +1,5 @@
 import pytest
-from lyrics_mixer.song import SongTitle
+from songs.model import SongTitle
 from lyrics_mixer.lyrics_mixer import LyricsMixer, ParagraphInterleaveLyricsMix, EmptyMixedLyrics
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 import tests.song_title_factory

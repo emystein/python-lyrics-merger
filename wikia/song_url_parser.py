@@ -1,6 +1,6 @@
 import requests
 import urllib
-from lyrics_mixer.song import SongTitle
+from songs.model import SongTitle
 
 
 class WikiaSongUrlParser(object):

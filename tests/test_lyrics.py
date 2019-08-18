@@ -1,5 +1,5 @@
 import pytest
-from lyrics_mixer.song import Lyrics
+from songs.model import Lyrics
 
 
 def test_lyrics_text():
