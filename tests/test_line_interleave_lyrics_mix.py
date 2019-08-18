@@ -1,11 +1,12 @@
 import pytest
 from lyrics_mixer.lyrics_mixer import LineInterleaveLyricsMix
-from songs.model import Song
-from songs.model import Lyrics
+from songs.model import Song, Lyrics
+
 
 @pytest.fixture
 def lyrics_editor():
     return LineInterleaveLyricsMix()
+
 
 def test_mix_lyrics_with_same_number_of_lines(lyrics_editor):
     song1 = Song('artist1', 'title1', 'lyrics 1 first line\nlyrics 1 second line')

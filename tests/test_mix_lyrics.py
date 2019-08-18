@@ -2,8 +2,7 @@ import pytest
 from songs.model import SongTitle
 from lyrics_mixer.lyrics_mixer import LyricsMixer, ParagraphInterleaveLyricsMix, EmptyMixedLyrics
 from wikia.lyrics_api_client import WikiaLyricsApiClient
-import tests.song_title_factory
-from tests.fixtures.song_titles import song_title1, song_title2
+from songs.tests.fixtures.song_titles import song_title1, song_title2
 
 
 @pytest.fixture

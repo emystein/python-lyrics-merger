@@ -3,7 +3,7 @@ from songs.model import SongTitle
 import wikia.lyrics_api_client
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 import lyricwikia
-from tests.fixtures.song_titles import song_title1, song_title2
+from songs.tests.fixtures.song_titles import song_title1, song_title2
 
 
 @pytest.fixture

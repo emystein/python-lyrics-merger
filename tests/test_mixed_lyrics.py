@@ -1,15 +1,15 @@
 import pytest
 from lyrics_mixer.lyrics_mixer import ParagraphInterleaveLyricsMix, MixedLyrics
-import tests.song_factory
+import songs.tests.song_factory
 
 @pytest.fixture
 def song1():
-	return tests.song_factory.create_stairway_to_heaven()
+	return songs.tests.song_factory.create_stairway_to_heaven()
 
 
 @pytest.fixture
 def song2():
-	return tests.song_factory.create_born_to_be_wild()
+	return songs.tests.song_factory.create_born_to_be_wild()
 
 
 def test_mixed_lyrics(song1, song2):

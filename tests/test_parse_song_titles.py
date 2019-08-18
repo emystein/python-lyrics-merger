@@ -1,8 +1,7 @@
 import pytest
 import lyrics_mixer.song_titles_parser
 from songs.model import SongTitle
-import tests.song_title_factory
-from tests.fixtures.song_titles import song_title1, song_title2
+from songs.tests.fixtures.song_titles import song_title1, song_title2
 
 
 @pytest.mark.usefixtures('song_title1', 'song_title2')
