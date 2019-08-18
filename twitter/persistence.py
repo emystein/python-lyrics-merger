@@ -1,5 +1,5 @@
 import logging
-from streams.orm import StreamCursor
+from streams.persistence import StreamCursor
 
 
 logger = logging.getLogger()

@@ -1,6 +1,6 @@
 import pytest
 from peewee import *
-from streams.orm import *
+from streams.persistence import *
 
 
 database.create_tables([StreamCursor])

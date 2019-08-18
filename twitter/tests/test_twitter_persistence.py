@@ -1,6 +1,6 @@
 import pytest
 from peewee import *
-from streams.orm import *
+from streams.persistence import *
 from twitter.persistence import MentionsReplyCursor
 
 
