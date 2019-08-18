@@ -3,7 +3,6 @@ import schedule
 import time
 import twitter.twitter
 import jobs
-import streams.orm
 from lyrics_mixer.artists_parser import ArtistsParser
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient
