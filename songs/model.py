@@ -3,6 +3,11 @@ class Song:
         self.title, self.lyrics = SongTitle(artist, title), Lyrics(lyrics_text)
 
 
+class NullSong:
+    def __init__(self):
+        self.title, self.lyrics = SongTitle('', ''), Lyrics('')
+    
+
 class SongTitle:
     def __init__(self, artist, title):
         self.artist, self.title = artist.strip(), title.strip()

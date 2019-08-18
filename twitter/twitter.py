@@ -44,8 +44,7 @@ class TwitterApi(object):
         self.twitter_api.update_status(tweet[:MAX_TWEET_LENGTH])
 
     def reply_tweet_with(self, tweet, reply_text):
-        if len(reply_text) > 0:
-            self.twitter_api.update_status(status=reply_text[:MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
+        self.twitter_api.update_status(status=reply_text[:MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
 
 
 class Tweet(object):

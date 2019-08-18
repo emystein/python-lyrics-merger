@@ -1,6 +1,6 @@
 import lyricwikia
 import random
-from songs.model import Song
+from songs.model import Song, NullSong
 from wikia.song_url_parser import WikiaSongUrlParser
 
 def find_all_songs_by_artist(artist_name):
@@ -31,8 +31,11 @@ class WikiaLyricsApiClient(object):
 
     def get_random_song_by_artist(self, artist):
         remote_songs = find_all_songs_by_artist(artist)
-        remote_song = random.choice(remote_songs)
-        return Song(remote_song.artist, remote_song.title, remote_song.lyrics)
+        if len(remote_songs) > 0:
+            remote_song = random.choice(remote_songs)
+            return Song(remote_song.artist, remote_song.title, remote_song.lyrics)
+        else:
+            return NullSong()
 
     def get_random_songs_by_artists(self, artists):
         return [self.get_random_song_by_artist(artist) for artist in artists]
