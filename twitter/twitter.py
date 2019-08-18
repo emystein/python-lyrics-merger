@@ -68,6 +68,7 @@ class Tweet(object):
 class TweetReply:
     def __init__(self, tweet):
         self.tweet = tweet
+        self.id = tweet.id
     
     def parse_with(self, tweet_parser):
         self.parsed_input = tweet_parser.parse(self.tweet.text)

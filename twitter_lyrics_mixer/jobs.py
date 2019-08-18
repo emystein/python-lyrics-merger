@@ -11,7 +11,7 @@ def reply_to_mentions(twitter_api, mention_parser, reply_strategy):
     # TODO: pass MentionsReplyCursor as parameter?
     cursor = MentionsReplyCursor()
     mentions = twitter_api.mentions_since(cursor.position)
-    for mention in mentions:
-        reply = TweetReply(mention).parse_with(mention_parser).write_with(reply_strategy)
+    replies = map(lambda mention: TweetReply(mention).parse_with(mention_parser).write_with(reply_strategy), mentions)
+    for reply in replies:
         reply.send()
-        cursor.point_to(mention)
+        cursor.point_to(reply)
