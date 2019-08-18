@@ -27,7 +27,7 @@ def create_tweepy_api():
     return api
 
 
-class TwitterApiWrapper(object):
+class TwitterApi(object):
     def __init__(self):
         tweepy_api = create_tweepy_api()
         self.twitter_api = tweepy_api
