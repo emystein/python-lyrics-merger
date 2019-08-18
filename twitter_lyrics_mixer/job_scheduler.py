@@ -5,7 +5,7 @@ import jobs
 from lyrics_mixer.artists_parser import ArtistsParser
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient
-from twitter import TwitterApiWrapper
+from twitter.twitter import TwitterApiWrapper
 from reply_strategies import MixLyricsReplyStrategy
 
 logging.basicConfig(level=logging.INFO)
