@@ -65,6 +65,18 @@ class Tweet(object):
         self.twitter_api.reply_tweet_with(self.tweet, reply_text)
 
 
+class TweetReplyFactory:
+    def __init__(self, input_parser, reply_strategy):
+        self.input_parser = input_parser
+        self.reply_strategy = reply_strategy
+
+    def create_from_many(self, tweets):
+        return map(lambda tweet: self.create_from(tweet), tweets)
+
+    def create_from(self, tweet):
+        return TweetReply(tweet).parse_with(self.input_parser).write_with(self.reply_strategy)
+
+
 class TweetReply:
     def __init__(self, tweet):
         self.tweet = tweet
