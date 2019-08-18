@@ -8,9 +8,9 @@ def tweet_random_lyrics(twitter_api, lyrics_mixer):
 
 
 def reply_to_mentions(twitter_api, mention_parser, reply_strategy):
-    # TODO: pass MentionsReplyCursor as parameter?
     reply_cursor = MentionsReplyCursor()
     mentions = twitter_api.mentions_since(reply_cursor.position)
+    # TODO model TweetReply(mention).parse_with(mention_parser) as LyricsMixParsedTweet
     replies = map(lambda mention: TweetReply(mention).parse_with(mention_parser).write_with(reply_strategy), mentions)
     send(replies)
 
