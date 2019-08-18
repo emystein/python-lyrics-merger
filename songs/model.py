@@ -1,9 +1,9 @@
-class Song(object):
+class Song:
     def __init__(self, artist, title, lyrics_text):
         self.title, self.lyrics = SongTitle(artist, title), Lyrics(lyrics_text)
 
 
-class SongTitle(object):
+class SongTitle:
     def __init__(self, artist, title):
         self.artist, self.title = artist.strip(), title.strip()
 
@@ -14,7 +14,7 @@ class SongTitle(object):
         return self.artist + ' - ' + self.title
 
 
-class Lyrics(object):
+class Lyrics:
     def __init__(self, text):
         self.text = text
 
