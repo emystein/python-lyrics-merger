@@ -56,8 +56,9 @@ class Tweet(object):
         self.user = tweet.user
         self.text = tweet.text
 
-    def reply_using_strategy(self, reply_strategy):
-        reply_text = reply_strategy.get_reply_for(self)
+    def reply_using(self, mention_parser, reply_strategy):
+        parsed_input = mention_parser.parse(self.text)
+        reply_text = reply_strategy.write_reply(self, parsed_input)
         self.reply_with(reply_text)
 
     def reply_with(self, reply_text):
