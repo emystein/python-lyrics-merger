@@ -29,8 +29,7 @@ def create_tweepy_api():
 
 class TwitterApi(object):
     def __init__(self):
-        tweepy_api = create_tweepy_api()
-        self.twitter_api = tweepy_api
+        self.twitter_api = create_tweepy_api()
 
     def mentions_since(self, since_id):
         tweets = tweepy.Cursor(
@@ -42,12 +41,11 @@ class TwitterApi(object):
         return tweet.in_reply_to_status_id is None
 
     def update_status(self, tweet):
-        self.twitter_api.update_status(
-            tweet[:twitter.twitter.MAX_TWEET_LENGTH])
+        self.twitter_api.update_status(tweet[:MAX_TWEET_LENGTH])
 
     def reply_tweet_with(self, tweet, reply_text):
         self.twitter_api.update_status(
-            status=reply_text[:twitter.twitter.MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
+            status=reply_text[:MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
 
 
 class TweetWrapper(object):
