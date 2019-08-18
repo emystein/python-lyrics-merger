@@ -1,7 +1,7 @@
 import pytest
 from peewee import *
 from streams.orm import *
-from twitter.twitter import MentionsReplyCursor
+from twitter.persistence import MentionsReplyCursor
 
 
 database.create_tables([StreamCursor])

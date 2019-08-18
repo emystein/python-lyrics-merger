@@ -1,6 +1,6 @@
 import time
 import twitter
-from twitter.twitter import MentionsReplyCursor
+from twitter.persistence import MentionsReplyCursor
 
 def tweet_random_lyrics(twitter_api, lyrics_mixer):
     mixed_lyrics = lyrics_mixer.mix_two_random_lyrics()
