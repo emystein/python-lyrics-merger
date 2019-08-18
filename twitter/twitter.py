@@ -35,7 +35,7 @@ class TwitterApi(object):
         tweets = tweepy.Cursor(
             self.twitter_api.mentions_timeline, since_id).items()
         mentions = filter(self.is_not_reply, tweets)
-        return map(lambda mention: TweetWrapper(self, mention), mentions)
+        return map(lambda mention: Tweet(self, mention), mentions)
 
     def is_not_reply(self, tweet):
         return tweet.in_reply_to_status_id is None
@@ -48,9 +48,9 @@ class TwitterApi(object):
             status=reply_text[:MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
 
 
-class TweetWrapper(object):
-    def __init__(self, twitter_api_wrapper, tweet):
-        self.twitter_api_wrapper = twitter_api_wrapper
+class Tweet(object):
+    def __init__(self, twitter_api, tweet):
+        self.twitter_api = twitter_api
         self.tweet = tweet
         self.id = tweet.id
         self.user = tweet.user
@@ -61,4 +61,4 @@ class TweetWrapper(object):
         self.reply_with(reply_text)
 
     def reply_with(self, reply_text):
-        self.twitter_api_wrapper.reply_tweet_with(self.tweet, reply_text)
+        self.twitter_api.reply_tweet_with(self.tweet, reply_text)
