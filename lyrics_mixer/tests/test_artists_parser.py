@@ -12,6 +12,16 @@ def test_parse_artists(parser):
     assert results.artists == ['Divididos', 'Las Pelotas']
 
 
+def test_parse_artists_connector_con(parser):
+    results = parser.parse("Divididos con Las Pelotas")
+    assert results.artists == ['Divididos', 'Las Pelotas']
+
+
+def test_parse_artists_connector_with(parser):
+    results = parser.parse("Divididos with Las Pelotas")
+    assert results.artists == ['Divididos', 'Las Pelotas']
+
+
 def test_parse_artists_prefix_mezclá(parser):
     results = parser.parse("mezclá Divididos y Las Pelotas")
     assert results.artists == ['Divididos', 'Las Pelotas']

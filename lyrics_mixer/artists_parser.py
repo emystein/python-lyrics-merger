@@ -5,7 +5,7 @@ class ArtistsParser(object):
 	def parse(self, text):
 		prefixes = ".*mezcl.|.*combin.|.*mix"
 		artist = self.optionally_quoted("([^'\"]+)")
-		match = re.match(r"(?:" + prefixes + r")?\s?" + artist + " (?:y|and) " + artist, text)
+		match = re.match(r"(?:" + prefixes + r")?\s?" + artist + " (?:y|con|and|with) " + artist, text)
 		return ParseResult(artists = list(match.groups()))
 	
 	def optionally_quoted(self, pattern):

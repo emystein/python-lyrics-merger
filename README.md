@@ -5,7 +5,7 @@ Run tests with `pipenv run pytest -v`.
 
 You can enable console print by running `pipenv run pytest -s`.
 
-Code coverage: `pipenv run pytest -v --cov=. --cov-report html`.
+Code coverage: `pipenv run pytest -v --cov=. --cov-report html`. Then access the coverage report at `htmlcov/index.html`
 
 # REST API
 Run locally with:
