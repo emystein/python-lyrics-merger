@@ -9,6 +9,7 @@ rope = "*"
 autopep8 = "*"
 pylint = "*"
 pytest-cov = "*"
+pytest-flask = "*"
 
 [packages]
 lyricwikia = "*"

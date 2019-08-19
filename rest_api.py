@@ -27,3 +27,4 @@ def configure_views(app):
 		mixed = lyrics_mixer.mix_two_specific_lyrics(
 			SongTitle(artist1, title1), SongTitle(artist2, title2))
 		return f'{escape(str(mixed))}'
+
