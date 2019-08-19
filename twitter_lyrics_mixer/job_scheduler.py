@@ -8,7 +8,7 @@ from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 from twitter.twitter import TwitterApi, TweetReplyFactory
 from reply_strategies import MixLyricsReplyStrategy
-import streams.persistence
+from streams.persistence import StreamCursor
 
 
 logging.basicConfig(level=logging.INFO)
