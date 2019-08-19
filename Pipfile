@@ -8,6 +8,7 @@ pytest = "*"
 rope = "*"
 autopep8 = "*"
 pylint = "*"
+pytest-cov = "*"
 
 [packages]
 lyricwikia = "*"
