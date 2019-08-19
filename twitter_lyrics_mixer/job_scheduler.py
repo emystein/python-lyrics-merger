@@ -28,8 +28,9 @@ if 'DATABASE_URL' in os.environ:
 else:
     database = SqliteDatabase(':memory:')
 
-database_proxy = DatabaseProxy()
-database_proxy.initialize(database)
+# database_proxy = DatabaseProxy()
+# database_proxy.initialize(database)
+database.bind([StreamCursor])
 
 lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
 
