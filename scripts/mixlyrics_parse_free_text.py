@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 from argparse import ArgumentParser
 from lyrics_mixer.artists_parser import ArtistsParser
-from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix, ParagraphInterleaveLyricsMix
+from lyrics_mixer.lyrics_mixer import LyricsMixer
+from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix, ParagraphInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 
 

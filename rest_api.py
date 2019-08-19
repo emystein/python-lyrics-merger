@@ -1,6 +1,7 @@
 from flask import Flask, escape, request
 from datetime import datetime
-from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix, ParagraphInterleaveLyricsMix
+from lyrics_mixer.lyrics_mixer import LyricsMixer
+from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix, ParagraphInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 from songs.model import SongTitle
 

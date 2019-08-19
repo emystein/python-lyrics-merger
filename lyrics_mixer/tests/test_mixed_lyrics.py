@@ -1,5 +1,6 @@
 import pytest
-from lyrics_mixer.lyrics_mixer import ParagraphInterleaveLyricsMix, MixedLyrics
+from lyrics_mixer.lyrics_mixer import MixedLyrics
+from lyrics_mixer.lyrics_mix_strategies import ParagraphInterleaveLyricsMix
 import songs.tests.song_factory
 from songs.tests.fixtures.songs import song1, song2
 

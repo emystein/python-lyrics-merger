@@ -3,7 +3,8 @@ import schedule
 import time
 import jobs
 from lyrics_mixer.artists_parser import ArtistsParser
-from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
+from lyrics_mixer.lyrics_mixer import LyricsMixer
+from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 from twitter.twitter import TwitterApi, TweetReplyFactory
 from reply_strategies import MixLyricsReplyStrategy
