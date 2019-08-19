@@ -8,11 +8,26 @@ from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 from twitter.twitter import TwitterApi, TweetReplyFactory
 from reply_strategies import MixLyricsReplyStrategy
+import streams.persistence
 
 
 logging.basicConfig(level=logging.INFO)
 
 twitter_api = TwitterApi()
+
+import os
+from urllib.parse import urlparse, uses_netloc
+import psycopg2
+
+
+if 'DATABASE_URL' in os.environ:
+    uses_netloc.append('postgres')
+    url = urlparse(os.environ["DATABASE_URL"])
+    database = PostgresqlDatabase(database=url.path[1:], user=url.username, password=url.password, host=url.hostname, port=url.port)
+else:
+    database = SqliteDatabase(':memory:')
+
+database_proxy.initialize(database)
 
 lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
 
