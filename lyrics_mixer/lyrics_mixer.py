@@ -41,6 +41,9 @@ class MixedLyrics(object):
         self.title = str(song1.title) + ', ' + str(song2.title)
         self.text = '\n\n'.join(paragraphs)
 
+    def __eq__(self, other):
+        return self.title == other.title and self.text == other.text
+
     def __ne__(self, other):
         return self.title != other.title or self.text != other.text
 

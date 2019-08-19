@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import Mock 
 from songs.tests.fixtures.songs import song1, song2
-from lyrics_mixer.lyrics_mixer import LyricsMixer, MixedLyrics
+from lyrics_mixer.lyrics_mixer import LyricsMixer, MixedLyrics, EmptyMixedLyrics
 
 
 def test_two_random_songs_mixer(song1, song2):
@@ -53,3 +53,16 @@ def test_two_specific_songs_mixer(song1, song2):
 	lyrics_api_client.get_songs.assert_called_once_with([song1.title, song2.title])
 	lyrics_mix_strategy.mix_lyrics.assert_called_once_with(song1, song2)
 	assert mixed_lyrics == expected_mixed_lyrics
+
+
+def test_error_on_lyrics_download(song1, song2):
+	lyrics_api_client = Mock()
+	lyrics_mix_strategy = Mock()
+	
+	lyrics_api_client.get_random_songs.side_effect = RuntimeError('Cannot download lyrics')
+
+	mixer = LyricsMixer(lyrics_api_client, lyrics_mix_strategy)
+
+	mixed_lyrics = mixer.mix_two_random_lyrics()
+
+	assert mixed_lyrics == EmptyMixedLyrics()

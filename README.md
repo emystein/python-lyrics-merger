@@ -1,8 +1,11 @@
 # LyricsMixer
 Mix pairs of song lyrics into a new text. It uses [lyricwikia](https://github.com/enricobacis/lyricwikia) to retrieve lyrics from Wikia.
 
-Run tests with `pipenv run pytest`, you can enable console print by running `pipenv run pytest -s`.
+Run tests with `pipenv run pytest -v`.
 
+You can enable console print by running `pipenv run pytest -s`.
+
+Code coverage: `pipenv run pytest -v --cov=. --cov-report html`.
 
 # REST API
 Run locally with:

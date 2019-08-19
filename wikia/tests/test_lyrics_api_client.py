@@ -1,5 +1,5 @@
 import pytest
-from songs.model import SongTitle
+from songs.model import SongTitle, NullSong
 import wikia.lyrics_api_client
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 import lyricwikia
@@ -58,3 +58,7 @@ def test_get_random_songs_by_artists(lyrics_api_client):
         assert song.title.artist == 'Led Zeppelin' or song.title.artist == 'Steppenwolf'
         assert song.title.title != ''
         assert song.lyrics.text != ''
+
+def test_lyrics_not_found(lyrics_api_client):
+    song = lyrics_api_client.get_random_song_by_artist('Emiliano Menéndez')
+    assert song == NullSong()
