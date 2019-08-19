@@ -17,6 +17,7 @@ twitter_api = TwitterApi()
 
 import os
 from urllib.parse import urlparse, uses_netloc
+from peewee import *
 import psycopg2
 
 
