@@ -2,24 +2,19 @@ import logging
 import schedule
 import time
 import jobs
+import os
+from urllib.parse import urlparse, uses_netloc
+from peewee import *
+import psycopg2
+from streams.persistence import StreamCursor
 from lyrics_mixer.artists_parser import ArtistsParser
 from lyrics_mixer.lyrics_mixer import LyricsMixer
 from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 from twitter.twitter import TwitterApi, TweetReplyFactory
 from reply_strategies import MixLyricsReplyStrategy
-from streams.persistence import StreamCursor
-
 
 logging.basicConfig(level=logging.INFO)
-
-twitter_api = TwitterApi()
-
-import os
-from urllib.parse import urlparse, uses_netloc
-from peewee import *
-import psycopg2
-
 
 if 'DATABASE_URL' in os.environ:
     uses_netloc.append('postgres')
@@ -28,9 +23,9 @@ if 'DATABASE_URL' in os.environ:
 else:
     database = SqliteDatabase(':memory:')
 
-# database_proxy = DatabaseProxy()
-# database_proxy.initialize(database)
 database.bind([StreamCursor])
+
+twitter_api = TwitterApi()
 
 lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
 

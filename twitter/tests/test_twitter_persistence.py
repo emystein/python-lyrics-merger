@@ -4,6 +4,8 @@ from streams.persistence import *
 from twitter.persistence import MentionsReplyCursor
 
 
+database = SqliteDatabase(':memory:')
+database.bind([StreamCursor])
 database.create_tables([StreamCursor])
 
 

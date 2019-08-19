@@ -3,6 +3,8 @@ from peewee import *
 from streams.persistence import *
 
 
+database = SqliteDatabase(':memory:')
+database.bind([StreamCursor])
 database.create_tables([StreamCursor])
 
 
