@@ -19,6 +19,7 @@ tweepy = "*"
 peewee = "*"
 psycopg2-binary = "*"
 schedule = "*"
+flask-injector = "*"
 
 [requires]
 python_version = "3"
