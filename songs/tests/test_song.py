@@ -9,6 +9,13 @@ def test_create_song():
 	assert song.lyrics.text == lyrics_text
 
 
+def test_null_song():
+	null_song = NullSong()
+	assert null_song.artist == ''
+	assert null_song.title == SongTitle('', '')
+	assert null_song.lyrics.text == ''
+
+
 def read_file(filename):
     file = open(filename, 'r')
     return file.read()

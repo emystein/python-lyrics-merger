@@ -5,7 +5,7 @@ class Song:
 
 class NullSong:
     def __init__(self):
-        self.title, self.lyrics = SongTitle('', ''), Lyrics('')
+        self.artist, self.title, self.lyrics = '', SongTitle('', ''), Lyrics('')
     
 
 class SongTitle:
