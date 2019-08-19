@@ -11,7 +11,7 @@ import psycopg2
 # else:
 #     database = SqliteDatabase(':memory:')
 
-database_proxy = DatabaseProxy()
+# database_proxy = DatabaseProxy()
 # database_proxy.initialize(database)
 
 
