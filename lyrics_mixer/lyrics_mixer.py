@@ -25,7 +25,7 @@ class LyricsMixer(object):
 
     def mix_using_picker(self, song_picker):
         try:
-            song1, song2 = song_picker.pick_two_songs()
+            song1, song2 = song_picker.pick_two()
             return self.lyrics_mix_strategy.mix(song1, song2)
         except Exception as e:
             logger.error("Error mixing lyrics, returning empty lyrics", exc_info=True)
