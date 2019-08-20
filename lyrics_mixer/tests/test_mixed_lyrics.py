@@ -7,7 +7,7 @@ from songs.tests.fixtures.songs import song1, song2
 
 def test_mixed_lyrics(song1, song2):
 	lyrics_editor = ParagraphInterleaveLyricsMix()
-	expected = lyrics_editor.mix_lyrics(song1, song2)
+	expected = lyrics_editor.mix(song1, song2)
 
 	mixed_lyrics = MixedLyrics(song1, song2, [], expected.paragraphs)
 

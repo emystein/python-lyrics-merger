@@ -2,7 +2,7 @@ from itertools import groupby
 from lyrics_mixer.lyrics_mixer import MixedLyrics
 
 class LineInterleaveLyricsMix(object):
-    def mix_lyrics(self, song1, song2):
+    def mix(self, song1, song2):
         # see: https://stackoverflow.com/questions/7946798/interleave-multiple-lists-of-the-same-length-in-python
         lines = [val for pair in zip(song1.lyrics.lines(), song2.lyrics.lines()) for val in pair]
         # see https://stackoverflow.com/questions/14529523/python-split-for-lists
@@ -11,7 +11,7 @@ class LineInterleaveLyricsMix(object):
 
 
 class ParagraphInterleaveLyricsMix(object):
-    def mix_lyrics(self, song1, song2):
+    def mix(self, song1, song2):
         # see: https://stackoverflow.com/questions/7946798/interleave-multiple-lists-of-the-same-length-in-python
         paragraphs = [val for pair in zip(song1.lyrics.paragraphs(), song2.lyrics.paragraphs()) for val in pair]
         lines = [lines.split('\n') for lines in paragraphs]
