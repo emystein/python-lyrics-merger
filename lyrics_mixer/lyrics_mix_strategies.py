@@ -1,5 +1,5 @@
 from itertools import groupby
-from lyrics_mixer.lyrics_mixer import MixedLyrics
+from lyrics_mixer.mixed_lyrics import MixedLyrics
 
 class LineInterleaveLyricsMix(object):
     def mix(self, song1, song2):

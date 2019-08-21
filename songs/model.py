@@ -5,10 +5,10 @@ class Song:
 
 class NullSong:
     def __init__(self):
-        self.artist, self.title, self.lyrics = '', SongTitle('', ''), Lyrics('')
+        self.title, self.lyrics = SongTitle('', ''), Lyrics('')
     
     def __eq__(self, other):
-        return (self.artist == other.artist) and (self.title == other.title) and (self.lyrics == other.lyrics)
+        return (self.title == other.title) and (self.lyrics == other.lyrics)
 
 class SongTitle:
     def __init__(self, artist, title):

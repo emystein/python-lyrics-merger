@@ -11,7 +11,6 @@ def test_create_song():
 
 def test_null_song():
 	null_song = NullSong()
-	assert null_song.artist == ''
 	assert null_song.title == SongTitle('', '')
 	assert null_song.lyrics.text == ''
 

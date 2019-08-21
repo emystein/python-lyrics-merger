@@ -1,6 +1,7 @@
 import logging
 from songs.pickers import *
-from songs.model import Lyrics
+from songs.model import Lyrics, NullSong
+from lyrics_mixer.song_pair import SongPair
 
 
 logger = logging.getLogger()
@@ -24,30 +25,6 @@ class LyricsMixer(object):
         return self.mix_using_picker(song_picker)
 
     def mix_using_picker(self, song_picker):
-        try:
-            song1, song2 = song_picker.pick_two()
-            return self.lyrics_mix_strategy.mix(song1, song2)
-        except Exception as e:
-            logger.error("Error mixing lyrics, returning empty lyrics", exc_info=True)
-            return EmptyMixedLyrics()
+        songs = SongPair.picked_using(song_picker)
+        return songs.mix_lyrics(self.lyrics_mix_strategy)
 
-
-class MixedLyrics(object):
-    def __init__(self, song1, song2, lines, paragraphs):
-        self.song1, self.song2, self.lines, self.paragraphs = song1, song2, lines, paragraphs
-        self.title = str(song1.title) + ', ' + str(song2.title)
-        self.text = '\n\n'.join(paragraphs)
-
-    def __eq__(self, other):
-        return self.title == other.title and self.text == other.text
-
-    def __ne__(self, other):
-        return self.title != other.title or self.text != other.text
-
-    def __str__(self): 
-        return self.title + '\n\n' + self.text
-
-
-class EmptyMixedLyrics(MixedLyrics):
-    def __init__(self):
-        self.title, self.text = '', ''
