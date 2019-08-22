@@ -4,7 +4,7 @@ import logging
 logger = logging.getLogger()
 
 
-class TwoSongsPicker:
+class SongPairPicker:
     def pick_song_pair(self):
         try:
             song1, song2 = self.pick_song_pair_internal()
@@ -14,7 +14,7 @@ class TwoSongsPicker:
             return EmptySongPair()
 
 
-class TwoRandomSongsPicker(TwoSongsPicker):
+class RandomSongPairPicker(SongPairPicker):
     def __init__(self, lyrics_api_client):
         self.lyrics_api_client = lyrics_api_client
 
@@ -23,7 +23,7 @@ class TwoRandomSongsPicker(TwoSongsPicker):
         return self.lyrics_api_client.get_random_songs(2)
         
 
-class TwoRandomSongsByArtistsPicker(TwoSongsPicker):
+class RandomByArtistsSongPairPicker(SongPairPicker):
     def __init__(self, lyrics_api_client, artist1, artist2):
         self.lyrics_api_client, self.artist1, self.artist2 = lyrics_api_client, artist1, artist2
 
@@ -32,7 +32,7 @@ class TwoRandomSongsByArtistsPicker(TwoSongsPicker):
         return self.lyrics_api_client.get_random_songs_by_artists([self.artist1, self.artist2])
 
 
-class TwoSpecificSongsPicker(TwoSongsPicker):
+class SpecificSongPairPicker(SongPairPicker):
     def __init__(self, lyrics_api_client, song_title1, song_title2):
         self.lyrics_api_client, self.song_title1, self.song_title2 = lyrics_api_client, song_title1, song_title2
 
