@@ -7,14 +7,6 @@ logger = logging.getLogger()
 
 
 class SongPair:
-    def picked_using(song_picker):
-        try:
-            song1, song2 = song_picker.pick_song_pair()
-            return SongPair(song1, song2)
-        except Exception as e:
-            logger.error("Error picking songs, returning empty song pair.", exc_info=True)
-            return EmptySongPair()
-
     def __init__(self, song1, song2):
         self.song1, self.song2 = song1, song2
 

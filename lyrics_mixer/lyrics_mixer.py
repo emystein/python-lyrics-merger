@@ -1,5 +1,5 @@
 import logging
-from lyrics_mixer.pickers import *
+from lyrics_mixer.song_pickers import *
 from songs.model import Lyrics, NullSong
 from lyrics_mixer.song_pair import SongPair
 
