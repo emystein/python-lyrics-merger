@@ -44,6 +44,9 @@ class SongPair:
     def __init__(self, song1, song2):
         self.song1, self.song2 = song1, song2
 
+    def __eq__(self, other):
+        return self.song1 == other.song1 and self.song2 == other.song2
+
     def mix_lyrics(self, lyrics_mix_strategy):
         return lyrics_mix_strategy.mix(self.song1, self.song2)
 
