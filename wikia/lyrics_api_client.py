@@ -19,7 +19,7 @@ def find_all_songs_by_artist(artist_name):
 # TODO convert to module
 class WikiaLyricsApiClient:
     def get_song(self, song_title):
-        logger.info(f'Retrieving song: {song_title}')
+        logger.info(f'Retrieving song: {str(song_title)}')
         remote_song = lyricwikia.Song(song_title.artist, song_title.title)
         return Song(remote_song.artist, remote_song.title, remote_song.lyrics)
 
@@ -27,7 +27,7 @@ class WikiaLyricsApiClient:
         return [self.get_song(song_title) for song_title in song_titles]
 
     def get_random_song(self):
-        logger.info('Retrieving two random lyrics')
+        logger.info('Retrieving random song')
         song_title = wikia.song_url_parser.get_random_song()
         return self.get_song(song_title)
 

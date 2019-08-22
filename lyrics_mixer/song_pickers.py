@@ -53,7 +53,7 @@ class EmptySongPair:
         self.song1, self.song2 = NullSong(), NullSong()
 
     def __eq__(self, other):
-        return self.song1 == other.song1 and self.song2 == other.song2
+        return other.song1 == other.song2 == NullSong()
 
     def mix_lyrics(self, lyrics_mix_strategy):
         return EmptyMixedLyrics()
