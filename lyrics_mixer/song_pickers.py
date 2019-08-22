@@ -1,3 +1,5 @@
+from lyrics_mixer.mixed_lyrics import EmptyMixedLyrics
+from songs.model import NullSong
 import logging
 
 
@@ -10,7 +12,7 @@ class SongPairPicker:
             song1, song2 = self.pick_song_pair_internal()
             return SongPair(song1, song2)
         except Exception as e:
-            logger.error("Error picking songs, returning empty song pair.", exc_info=True)
+            logger.error('Error picking songs, returning empty song pair.', exc_info=True)
             return EmptySongPair()
 
 
@@ -21,7 +23,7 @@ class RandomSongPairPicker(SongPairPicker):
     def pick_song_pair_internal(self):
         logger.info('Picking two random songs')
         return self.lyrics_api_client.get_random_songs(2)
-        
+
 
 class RandomByArtistsSongPairPicker(SongPairPicker):
     def __init__(self, lyrics_api_client, artist1, artist2):
@@ -49,16 +51,12 @@ class SongPair:
         return lyrics_mix_strategy.mix(self.song1, self.song2)
 
 
-from songs.model import NullSong
-from lyrics_mixer.mixed_lyrics import EmptyMixedLyrics
-
-
 class EmptySongPair:
-	def __init__(self):
-		self.song1, self.song2 = NullSong(), NullSong()
+    def __init__(self):
+        self.song1, self.song2 = NullSong(), NullSong()
 
-	def __eq__(self, other):
-		return self.song1 == other.song1 and self.song2 == other.song2
-	
-	def mix_lyrics(self, lyrics_mix_strategy):
-		return EmptyMixedLyrics()
+    def __eq__(self, other):
+        return self.song1 == other.song1 and self.song2 == other.song2
+
+    def mix_lyrics(self, lyrics_mix_strategy):
+        return EmptyMixedLyrics()
