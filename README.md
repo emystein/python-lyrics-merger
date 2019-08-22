@@ -12,7 +12,7 @@ Run locally with:
 
 ```bash
 pipenv shell
-gunicorn rest_api_context:app
+gunicorn lyrics_mixer.rest_api.rest_api_context:app
 ```
 
 
@@ -28,7 +28,7 @@ gunicorn rest_api_context:app
 
 
 ## Implementation
-Implemented using [Flask](https://palletsprojects.com/p/flask/), in file `rest_api.py`
+Implemented using [Flask](https://palletsprojects.com/p/flask/), in directory `lyrics_mixer/rest_api` 
 
 
 # Twitter Bot
