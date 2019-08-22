@@ -2,7 +2,6 @@ import pytest
 from unittest.mock import Mock 
 from songs.tests.fixtures.songs import song1, song2
 from lyrics_mixer.song_pickers import *
-from lyrics_mixer.song_pair import SongPair
 
 
 def test_two_random_songs_picker(song1, song2):

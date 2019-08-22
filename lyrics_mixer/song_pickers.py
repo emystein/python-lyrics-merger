@@ -1,5 +1,4 @@
 import logging
-from lyrics_mixer.song_pair import SongPair, EmptySongPair
 
 
 logger = logging.getLogger()
@@ -40,3 +39,26 @@ class TwoSpecificSongsPicker(TwoSongsPicker):
     def pick_song_pair_internal(self):
         logger.info(f'Picking songs: {self.song_title1} and {self.song_title2}')
         return self.lyrics_api_client.get_songs([self.song_title1, self.song_title2])
+
+
+class SongPair:
+    def __init__(self, song1, song2):
+        self.song1, self.song2 = song1, song2
+
+    def mix_lyrics(self, lyrics_mix_strategy):
+        return lyrics_mix_strategy.mix(self.song1, self.song2)
+
+
+from songs.model import NullSong
+from lyrics_mixer.mixed_lyrics import EmptyMixedLyrics
+
+
+class EmptySongPair:
+	def __init__(self):
+		self.song1, self.song2 = NullSong(), NullSong()
+
+	def __eq__(self, other):
+		return self.song1 == other.song1 and self.song2 == other.song2
+	
+	def mix_lyrics(self, lyrics_mix_strategy):
+		return EmptyMixedLyrics()

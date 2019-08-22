@@ -1,9 +1,8 @@
 import pytest
 from unittest.mock import Mock
 from songs.tests.fixtures.songs import song1, song2
-from lyrics_mixer.song_pair import SongPair, EmptySongPair
+from lyrics_mixer.song_pickers import SongPair, EmptySongPair
 from lyrics_mixer.mixed_lyrics import MixedLyrics, EmptyMixedLyrics
-from songs.model import NullSong
 
 
 def test_song_pair_mix_lyrics(song1, song2):
