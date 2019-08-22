@@ -1,5 +1,5 @@
 import logging
-from songs.pickers import *
+from lyrics_mixer.pickers import *
 from songs.model import Lyrics, NullSong
 from lyrics_mixer.song_pair import SongPair
 
@@ -25,6 +25,6 @@ class LyricsMixer(object):
         return self.mix_using_picker(song_picker)
 
     def mix_using_picker(self, song_picker):
-        songs = SongPair.picked_using(song_picker)
+        songs = song_picker.pick_song_pair()
         return songs.mix_lyrics(self.lyrics_mix_strategy)
 
