@@ -57,10 +57,10 @@ Every 30 minutes except between 2 am and 8 am, since Heroku force sleep free ins
 `0/30 0-2,8-23 * * * /usr/bin/curl https://lyricsmixer.herokuapp.com > /tmp/lyricsmixer-ping.log`
 
 ### Systemd Timer
-Install unit provided in the `management` directory: `heroku_lyricsmixer_ping.timer`, `heroku_lyricsmixer_ping.service`
+Install unit provided in the `lyrics_mixer/setup` directory: `heroku_lyricsmixer_ping.timer`, `heroku_lyricsmixer_ping.service`
 
 ```bash
-cd management
+cd lyrics_mixer/setup
 sudo cp heroku_lyricsmixer_ping.* /etc/systemd/system
 sudo systemctl enable heroku_lyricsmixer_ping.timer
 sudo systemctl start heroku_lyricsmixer_ping.service
@@ -79,7 +79,7 @@ Run provisioning script:
 
 ```bash
 heroku run bash
-python setup/database_provision.py
+python lyrics_mixer/setup/database_provision.py
 ```
 
 Verify:
