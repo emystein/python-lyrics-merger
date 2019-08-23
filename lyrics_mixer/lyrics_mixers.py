@@ -9,7 +9,7 @@ logger = logging.getLogger()
 class LyricsMixer:
     def mix_lyrics(self):
         try:
-            song1, song2 = self.pick_song_pair_internal()
+            song1, song2 = self.pick_song_pair()
             song_pair = SongPair(song1, song2)
             return song_pair.mix_lyrics(self.lyrics_mix_strategy)
         except Exception as e:
@@ -22,7 +22,7 @@ class RandomLyricsMixer(LyricsMixer):
         self.lyrics_api_client = lyrics_api_client
         self.lyrics_mix_strategy = lyrics_mix_strategy
 
-    def pick_song_pair_internal(self):
+    def pick_song_pair(self):
         return self.lyrics_api_client.get_random_songs(2)
 
 
@@ -30,7 +30,7 @@ class RandomByArtistsLyricsMixer(LyricsMixer):
     def __init__(self, lyrics_api_client, lyrics_mix_strategy, artist1, artist2):
         self.lyrics_api_client, self.lyrics_mix_strategy, self.artist1, self.artist2 = lyrics_api_client, lyrics_mix_strategy, artist1, artist2
 
-    def pick_song_pair_internal(self):
+    def pick_song_pair(self):
         return self.lyrics_api_client.get_random_songs_by_artists([self.artist1, self.artist2])
 
 
@@ -38,7 +38,7 @@ class SpecificLyricsMixer(LyricsMixer):
     def __init__(self, lyrics_api_client, lyrics_mix_strategy, song_title1, song_title2):
         self.lyrics_api_client, self.lyrics_mix_strategy, self.song_title1, self.song_title2 = lyrics_api_client, lyrics_mix_strategy, song_title1, song_title2
 
-    def pick_song_pair_internal(self):
+    def pick_song_pair(self):
         return self.lyrics_api_client.get_songs([self.song_title1, self.song_title2])
 
 
