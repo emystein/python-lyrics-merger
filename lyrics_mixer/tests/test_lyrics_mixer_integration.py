@@ -1,6 +1,6 @@
 import pytest
 from songs.model import SongTitle
-from lyrics_mixer.lyrics_mixer import LyricsMixer
+from lyrics_mixer.lyrics_mixer import Dispatcher
 from lyrics_mixer.mixed_lyrics import EmptyMixedLyrics
 from lyrics_mixer.lyrics_mix_strategies import ParagraphInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient
@@ -9,7 +9,7 @@ from songs.tests.fixtures.song_titles import song_title1, song_title2
 
 @pytest.fixture
 def lyrics_mixer():
-    return LyricsMixer(WikiaLyricsApiClient(), ParagraphInterleaveLyricsMix())
+    return Dispatcher(WikiaLyricsApiClient(), ParagraphInterleaveLyricsMix())
 
 
 # TODO mock WikiaLyricsApiClient and ParagraphInterleaveLyricsMix

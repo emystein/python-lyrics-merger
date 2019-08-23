@@ -2,7 +2,7 @@ import logging
 from lyrics_mixer.song_lyrics_mixers import *
 
 
-class LyricsMixer(object):
+class Dispatcher(object):
     def __init__(self, lyrics_api_client, lyrics_mix_strategy):
         self.lyrics_api_client = lyrics_api_client
         self.lyrics_mix_strategy = lyrics_mix_strategy
