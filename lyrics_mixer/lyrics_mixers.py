@@ -6,7 +6,7 @@ import logging
 logger = logging.getLogger()
 
 
-class SongPairLyricsMixer:
+class LyricsMixer:
     def mix_lyrics(self):
         try:
             song1, song2 = self.pick_song_pair_internal()
@@ -17,7 +17,7 @@ class SongPairLyricsMixer:
             return EmptyMixedLyrics()
 
 
-class RandomSongPairLyricsMixer(SongPairLyricsMixer):
+class RandomLyricsMixer(LyricsMixer):
     def __init__(self, lyrics_api_client, lyrics_mix_strategy):
         self.lyrics_api_client = lyrics_api_client
         self.lyrics_mix_strategy = lyrics_mix_strategy
@@ -26,7 +26,7 @@ class RandomSongPairLyricsMixer(SongPairLyricsMixer):
         return self.lyrics_api_client.get_random_songs(2)
 
 
-class RandomByArtistsSongPairLyricsMixer(SongPairLyricsMixer):
+class RandomByArtistsLyricsMixer(LyricsMixer):
     def __init__(self, lyrics_api_client, lyrics_mix_strategy, artist1, artist2):
         self.lyrics_api_client, self.lyrics_mix_strategy, self.artist1, self.artist2 = lyrics_api_client, lyrics_mix_strategy, artist1, artist2
 
@@ -34,7 +34,7 @@ class RandomByArtistsSongPairLyricsMixer(SongPairLyricsMixer):
         return self.lyrics_api_client.get_random_songs_by_artists([self.artist1, self.artist2])
 
 
-class SpecificSongPairLyricsMixer(SongPairLyricsMixer):
+class SpecificLyricsMixer(LyricsMixer):
     def __init__(self, lyrics_api_client, lyrics_mix_strategy, song_title1, song_title2):
         self.lyrics_api_client, self.lyrics_mix_strategy, self.song_title1, self.song_title2 = lyrics_api_client, lyrics_mix_strategy, song_title1, song_title2
 
