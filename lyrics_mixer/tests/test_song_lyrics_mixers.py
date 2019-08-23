@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import Mock 
 from songs.tests.fixtures.songs import song1, song2
-from lyrics_mixer.song_lyrics_mixers import *
+from lyrics_mixer.lyrics_mixers import *
 from lyrics_mixer.mixed_lyrics import *
 
 

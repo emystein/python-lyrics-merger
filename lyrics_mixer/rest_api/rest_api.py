@@ -1,6 +1,6 @@
 from flask import Flask, escape
 from datetime import datetime
-from lyrics_mixer.lyrics_mixer import Dispatcher
+from lyrics_mixer.dispatcher import Dispatcher
 from songs.model import SongTitle
 
 

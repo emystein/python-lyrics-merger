@@ -8,7 +8,7 @@ from peewee import *
 import psycopg2
 from streams.persistence import StreamCursor
 from lyrics_mixer.artists_parser import ArtistsParser
-from lyrics_mixer.lyrics_mixer import Dispatcher
+from lyrics_mixer.dispatcher import Dispatcher
 from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 from twitter.twitter import TwitterApi, TweetReplyFactory

@@ -1,5 +1,5 @@
 import logging
-from lyrics_mixer.song_lyrics_mixers import *
+from lyrics_mixer.lyrics_mixers import *
 
 
 class Dispatcher(object):

@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import Mock 
 from songs.tests.fixtures.songs import song1, song2
-from lyrics_mixer.lyrics_mixer import Dispatcher
+from lyrics_mixer.dispatcher import Dispatcher
 from lyrics_mixer.mixed_lyrics import MixedLyrics, EmptyMixedLyrics
 
 
