@@ -1,5 +1,5 @@
 import logging
-from lyrics_mixer.song_pickers import *
+from lyrics_mixer.song_lyrics_mixers import *
 
 
 class LyricsMixer(object):
@@ -8,18 +8,14 @@ class LyricsMixer(object):
         self.lyrics_mix_strategy = lyrics_mix_strategy
 
     def mix_two_random_lyrics(self):
-        song_picker = RandomSongPairPicker(self.lyrics_api_client)
-        return self.mix_using_picker(song_picker)
+        song_lyrics_mixer = RandomSongPairLyricsMixer(self.lyrics_api_client, self.lyrics_mix_strategy)
+        return song_lyrics_mixer.mix_lyrics()
 
     def mix_random_lyrics_by_artists(self, artist1, artist2):
-        song_picker = RandomByArtistsSongPairPicker(self.lyrics_api_client, artist1, artist2)
-        return self.mix_using_picker(song_picker)
+        song_lyrics_mixer = RandomByArtistsSongPairLyricsMixer(self.lyrics_api_client, self.lyrics_mix_strategy, artist1, artist2)
+        return song_lyrics_mixer.mix_lyrics()
 
     def mix_two_specific_lyrics(self, song_title1, song_title2):
-        song_picker = SpecificSongPairPicker(self.lyrics_api_client, song_title1, song_title2)
-        return self.mix_using_picker(song_picker)
-
-    def mix_using_picker(self, song_picker):
-        songs = song_picker.pick_song_pair()
-        return songs.mix_lyrics(self.lyrics_mix_strategy)
+        song_lyrics_mixer = SpecificSongPairLyricsMixer(self.lyrics_api_client, self.lyrics_mix_strategy, song_title1, song_title2)
+        return song_lyrics_mixer.mix_lyrics()
 
