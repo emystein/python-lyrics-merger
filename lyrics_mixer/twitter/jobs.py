@@ -6,8 +6,8 @@ from twitter.twitter import TweetReplyFactory
 logger = logging.getLogger()
 
 
-def tweet_random_lyrics(twitter_api, lyrics_mixer):
-    mixed_lyrics = lyrics_mixer.mix_two_random_lyrics()
+def tweet_random_lyrics(twitter_api, dispatcher):
+    mixed_lyrics = dispatcher.mix_two_random_lyrics()
     twitter_api.update_status(str(mixed_lyrics)) 
 
 

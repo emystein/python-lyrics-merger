@@ -29,8 +29,8 @@ twitter_api = TwitterApi()
 
 dispatcher = Dispatcher(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
 
-schedule.every().minute.do(jobs.reply_to_mentions, twitter_api = twitter_api, tweet_reply_factory = TweetReplyFactory(ArtistsParser(), MixLyricsReplyStrategy(lyrics_mixer)))
-schedule.every(4).hours.do(jobs.tweet_random_lyrics, twitter_api = twitter_api, lyrics_mixer = lyrics_mixer).run()
+schedule.every().minute.do(jobs.reply_to_mentions, twitter_api = twitter_api, tweet_reply_factory = TweetReplyFactory(ArtistsParser(), MixLyricsReplyStrategy(dispatcher)))
+schedule.every(4).hours.do(jobs.tweet_random_lyrics, twitter_api = twitter_api, dispatcher = dispatcher).run()
     
 def main():
     while True:
