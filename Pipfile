@@ -8,6 +8,8 @@ pytest = "*"
 rope = "*"
 autopep8 = "*"
 pylint = "*"
+pytest-cov = "*"
+pytest-flask = "*"
 
 [packages]
 lyricwikia = "*"
@@ -18,6 +20,7 @@ tweepy = "*"
 peewee = "*"
 psycopg2-binary = "*"
 schedule = "*"
+flask-injector = "*"
 
 [requires]
 python_version = "3"

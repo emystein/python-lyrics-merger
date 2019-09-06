@@ -1,18 +1,18 @@
 import tweepy
 import logging
 from os import environ
-from lyrics_mixer.orm import StreamCursor
+
 
 MAX_TWEET_LENGTH = 280
 
 logger = logging.getLogger()
 
 
-def create_api():
-    CONSUMER_KEY = environ['LYRICSMIXER_TWITTER_CONSUMER_KEY']
-    CONSUMER_SECRET = environ['LYRICSMIXER_TWITTER_CONSUMER_SECRET']
-    ACCESS_TOKEN = environ['LYRICSMIXER_TWITTER_ACCESS_TOKEN']
-    ACCESS_TOKEN_SECRET = environ['LYRICSMIXER_TWITTER_ACCESS_TOKEN_SECRET']
+def create_tweepy_api():
+    CONSUMER_KEY = environ['TWITTER_CONSUMER_KEY']
+    CONSUMER_SECRET = environ['TWITTER_CONSUMER_SECRET']
+    ACCESS_TOKEN = environ['TWITTER_ACCESS_TOKEN']
+    ACCESS_TOKEN_SECRET = environ['TWITTER_ACCESS_TOKEN_SECRET']
 
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
@@ -27,22 +27,68 @@ def create_api():
     return api
 
 
-class MentionsReplyCursor(object):
+class TwitterApi(object):
     def __init__(self):
-        self.cursor, self.created = StreamCursor.get_or_create(key = 'twitter')
+        self.twitter_api = create_tweepy_api()
 
-    @property
-    def position(self):
-        return self.cursor.position
+    def mentions_since(self, since_id):
+        tweets = tweepy.Cursor(
+            self.twitter_api.mentions_timeline, since_id).items()
+        mentions = filter(self.is_not_reply, tweets)
+        return map(lambda mention: Tweet(self, mention), mentions)
 
-    @position.setter
-    def position(self, position):
-        self.cursor.position = position
+    def is_not_reply(self, tweet):
+        return tweet.in_reply_to_status_id is None
 
-    def save(self):
-        self.cursor.save()
+    def update_status(self, tweet):
+        self.twitter_api.update_status(tweet[:MAX_TWEET_LENGTH])
 
-    def update_from_mentions(self, mentions):
-        new_since_id = mentions[-1].id if len(mentions) > 0 else 1
-        self.cursor.position = max(self.cursor.position, new_since_id)
-        self.cursor.save()
+    def reply_tweet_with(self, tweet, reply_text):
+        self.twitter_api.update_status(status=reply_text[:MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
+
+
+class Tweet(object):
+    def __init__(self, twitter_api, tweet):
+        self.twitter_api = twitter_api
+        self.tweet = tweet
+        self.id = tweet.id
+        self.user = tweet.user
+        self.text = tweet.text
+
+    # TODO remove after confirming TweetReply deprecates this
+    def reply_using(self, mention_parser, reply_strategy):
+        parsed_input = mention_parser.parse(self.text)
+        reply_text = reply_strategy.write_reply(self, parsed_input)
+        self.reply_with(reply_text)
+
+    def reply_with(self, reply_text):
+        self.twitter_api.reply_tweet_with(self.tweet, reply_text)
+
+
+class TweetReplyFactory:
+    def __init__(self, input_parser, reply_strategy):
+        self.input_parser = input_parser
+        self.reply_strategy = reply_strategy
+
+    def create_from_many(self, tweets):
+        return map(lambda tweet: self.create_from(tweet), tweets)
+
+    def create_from(self, tweet):
+        return TweetReply(tweet).parse_with(self.input_parser).write_with(self.reply_strategy)
+
+
+class TweetReply:
+    def __init__(self, tweet):
+        self.tweet = tweet
+        self.id = tweet.id
+    
+    def parse_with(self, tweet_parser):
+        self.parsed_input = tweet_parser.parse(self.tweet.text)
+        return self
+    
+    def write_with(self, reply_strategy):
+        self.text = reply_strategy.write_reply(self.tweet, self.parsed_input)
+        return self
+    
+    def send(self):
+        self.tweet.reply_with(self.text)

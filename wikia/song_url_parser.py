@@ -1,20 +1,19 @@
 import requests
 import urllib
-from lyrics_mixer.song import SongTitle
+from songs.model import SongTitle
 
 
-class WikiaSongUrlParser(object):
-    def __init__(self):
-        self.base_url = 'https://lyrics.fandom.com/wiki/'
-        self.random_lyrics_url = self.base_url + 'special:randomincategory/Song'
+base_url = 'https://lyrics.fandom.com/wiki/'
+
+random_lyrics_url = base_url + 'special:randomincategory/Song'
 
 
-    def get_random_song(self):
-        response = requests.get(self.random_lyrics_url)
-        return self.parse_url(response.url)
+def get_random_song():
+    response = requests.get(random_lyrics_url)
+    return parse_url(response.url)
 
 
-    def parse_url(self, url):
-        unescaped_url = urllib.parse.unquote(url)
-        artist, title = unescaped_url.lstrip(self.base_url).replace('_', ' ').split(':', 2)
-        return SongTitle(artist, title)
+def parse_url(url):
+    unescaped_url = urllib.parse.unquote(url)
+    artist, title = unescaped_url.lstrip(base_url).replace('_', ' ').split(':', 2)
+    return SongTitle(artist, title)
