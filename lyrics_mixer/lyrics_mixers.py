@@ -10,8 +10,7 @@ class LyricsMixer:
     def mix_lyrics(self, lyrics_mix_strategy):
         try:
             song1, song2 = self.pick_two_songs()
-            song_pair = SongPair(song1, song2)
-            return song_pair.mix_lyrics(lyrics_mix_strategy)
+            return lyrics_mix_strategy.mix(song1, song2)
         except Exception as e:
             logger.error('Error picking songs, returning empty lyrics.', exc_info=True)
             return EmptyMixedLyrics()
@@ -39,25 +38,3 @@ class SpecificLyricsMixer(LyricsMixer):
 
     def pick_two_songs(self):
         return self.lyrics_api_client.get_songs([self.song_title1, self.song_title2])
-
-
-class SongPair:
-    def __init__(self, song1, song2):
-        self.song1, self.song2 = song1, song2
-
-    def __eq__(self, other):
-        return self.song1 == other.song1 and self.song2 == other.song2
-
-    def mix_lyrics(self, lyrics_mix_strategy):
-        return lyrics_mix_strategy.mix(self.song1, self.song2)
-
-
-class EmptySongPair:
-    def __init__(self):
-        self.song1, self.song2 = NullSong(), NullSong()
-
-    def __eq__(self, other):
-        return other.song1 == other.song2 == NullSong()
-
-    def mix_lyrics(self, lyrics_mix_strategy):
-        return EmptyMixedLyrics()
