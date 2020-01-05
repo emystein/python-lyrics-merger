@@ -1,13 +1,15 @@
 import logging
 from twitter.persistence import MentionsReplyCursor
 from twitter.twitter import TweetReplyFactory
+from lyrics_mixer.lyrics_mixers import RandomLyricsMixer
 
 
 logger = logging.getLogger()
 
 
-def tweet_random_lyrics(twitter_api, dispatcher):
-    mixed_lyrics = dispatcher.mix_two_random_lyrics()
+def tweet_random_lyrics(twitter_api, lyrics_library, lyrics_mix_strategy):
+    lyrics_mixer = RandomLyricsMixer(lyrics_library)
+    mixed_lyrics = lyrics_mixer.mix_lyrics(lyrics_mix_strategy)
     twitter_api.update_status(str(mixed_lyrics)) 
 
 
