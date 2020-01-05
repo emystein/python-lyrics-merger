@@ -1,62 +1,54 @@
 import pytest
-from unittest.mock import Mock 
+from lyrics_mixer.tests.fixtures.mocks import lyrics_library_mock, lyrics_mix_strategy_mock
 from songs.tests.fixtures.songs import song1, song2
 from lyrics_mixer.lyrics_mixers import *
 from lyrics_mixer.mixed_lyrics import *
 
 
-def test_two_random_songs_mixer(song1, song2):
-	lyrics_library = Mock()
-	lyrics_mix_strategy = Mock()
-	lyrics_library.get_random_songs.return_value = [song1, song2]
+def test_two_random_songs_mixer(lyrics_library_mock, lyrics_mix_strategy_mock, song1, song2):
+	lyrics_library_mock.get_random_songs.return_value = [song1, song2]
 	expected_mixed_lyrics = MixedLyrics(song1, song2, [], [])
-	lyrics_mix_strategy.mix.return_value = expected_mixed_lyrics
+	lyrics_mix_strategy_mock.mix.return_value = expected_mixed_lyrics
 
-	mixer = RandomLyricsMixer(lyrics_library)
-	mixed_lyrics = mixer.mix_lyrics(lyrics_mix_strategy)
+	mixer = RandomLyricsMixer(lyrics_library_mock)
+	mixed_lyrics = mixer.mix_lyrics(lyrics_mix_strategy_mock)
 
-	lyrics_library.get_random_songs.assert_called_once_with(2)
-	lyrics_mix_strategy.mix.assert_called_once_with(song1, song2)
+	lyrics_library_mock.get_random_songs.assert_called_once_with(2)
+	lyrics_mix_strategy_mock.mix.assert_called_once_with(song1, song2)
 	assert mixed_lyrics == expected_mixed_lyrics
 
 
-def test_two_random_songs_by_artists_mixer(song1, song2):
-	lyrics_library = Mock()
-	lyrics_mix_strategy = Mock()
-	lyrics_library.get_random_songs_by_artists.return_value = [song1, song2]
+def test_two_random_songs_by_artists_mixer(lyrics_library_mock, lyrics_mix_strategy_mock, song1, song2):
+	lyrics_library_mock.get_random_songs_by_artists.return_value = [song1, song2]
 	expected_mixed_lyrics = MixedLyrics(song1, song2, [], [])
-	lyrics_mix_strategy.mix.return_value = expected_mixed_lyrics
+	lyrics_mix_strategy_mock.mix.return_value = expected_mixed_lyrics
 
-	mixer = RandomByArtistsLyricsMixer(lyrics_library, song1.title.artist, song2.title.artist)
-	mixed_lyrics = mixer.mix_lyrics(lyrics_mix_strategy)
+	mixer = RandomByArtistsLyricsMixer(lyrics_library_mock, song1.title.artist, song2.title.artist)
+	mixed_lyrics = mixer.mix_lyrics(lyrics_mix_strategy_mock)
 
-	lyrics_library.get_random_songs_by_artists.assert_called_once_with([song1.title.artist, song2.title.artist])
-	lyrics_mix_strategy.mix.assert_called_once_with(song1, song2)
+	lyrics_library_mock.get_random_songs_by_artists.assert_called_once_with([song1.title.artist, song2.title.artist])
+	lyrics_mix_strategy_mock.mix.assert_called_once_with(song1, song2)
 	assert mixed_lyrics == expected_mixed_lyrics
 
 
-def test_two_specific_songs_mixer(song1, song2):
-	lyrics_library = Mock()
-	lyrics_mix_strategy = Mock()
-	lyrics_library.get_songs.return_value = [song1, song2]
+def test_two_specific_songs_mixer(lyrics_library_mock, lyrics_mix_strategy_mock, song1, song2):
+	lyrics_library_mock.get_songs.return_value = [song1, song2]
 	expected_mixed_lyrics = MixedLyrics(song1, song2, [], [])
-	lyrics_mix_strategy.mix.return_value = expected_mixed_lyrics
+	lyrics_mix_strategy_mock.mix.return_value = expected_mixed_lyrics
 
-	mixer = SpecificLyricsMixer(lyrics_library, song1.title, song2.title)
-	mixed_lyrics = mixer.mix_lyrics(lyrics_mix_strategy)
+	mixer = SpecificLyricsMixer(lyrics_library_mock, song1.title, song2.title)
+	mixed_lyrics = mixer.mix_lyrics(lyrics_mix_strategy_mock)
 
-	lyrics_library.get_songs.assert_called_once_with([song1.title, song2.title])
-	lyrics_mix_strategy.mix.assert_called_once_with(song1, song2)
+	lyrics_library_mock.get_songs.assert_called_once_with([song1.title, song2.title])
+	lyrics_mix_strategy_mock.mix.assert_called_once_with(song1, song2)
 	assert mixed_lyrics == expected_mixed_lyrics
 
 
-def test_error_while_picking_songs_creates_an_empty_mixed_lyrics():
-	lyrics_library = Mock()
-	lyrics_mix_strategy = Mock()
-	lyrics_library.get_random_songs.side_effect = RuntimeError('Song not found')
+def test_error_while_picking_songs_creates_an_empty_mixed_lyrics(lyrics_library_mock):
+	lyrics_library_mock.get_random_songs.side_effect = RuntimeError('Song not found')
 
-	mixer = RandomLyricsMixer(lyrics_library)
-	mixed_lyrics = mixer.mix_lyrics(lyrics_mix_strategy)
+	mixer = RandomLyricsMixer(lyrics_library_mock)
+	mixed_lyrics = mixer.mix_lyrics(lyrics_mix_strategy_mock)
 
-	lyrics_library.get_random_songs.assert_called_once()
+	lyrics_library_mock.get_random_songs.assert_called_once()
 	assert mixed_lyrics == EmptyMixedLyrics()
