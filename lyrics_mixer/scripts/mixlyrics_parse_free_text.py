@@ -16,7 +16,7 @@ def main():
         artists_parser = ArtistsParser()
         artist1, artist2 = artists_parser.parse(args.text).artists
         dispatcher = Dispatcher(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
-        mixed = lyrics_mixer.mix_random_lyrics_by_artists(artist1, artist2)
+        mixed = dispatcher.mix_random_lyrics_by_artists(artist1, artist2)
         print(str(mixed))
     except Exception as e:
         print('ERROR: %s' % str(e))
