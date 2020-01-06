@@ -8,6 +8,7 @@ from peewee import *
 import psycopg2
 from streams.persistence import StreamCursor
 from lyrics_mixer.artists_parser import ArtistsParser
+from lyrics_mixer.dispatcher import Dispatcher
 from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 from twitter.twitter import TwitterApi, TweetReplyFactory
@@ -25,11 +26,11 @@ else:
 database.bind([StreamCursor])
 
 twitter_api = TwitterApi()
-lyrics_library = WikiaLyricsApiClient() 
-lyrics_mix_strategy = LineInterleaveLyricsMix()
 
-schedule.every().minute.do(jobs.reply_to_mentions, twitter_api = twitter_api, tweet_reply_factory = TweetReplyFactory(ArtistsParser(), MixLyricsReplyStrategy(lyrics_library, lyrics_mix_strategy))
-schedule.every(4).hours.do(jobs.tweet_random_lyrics, twitter_api = twitter_api, lyrics_library = lyrics_library, lyrics_mix_strategy = lyrics_mix_strategy).run()
+dispatcher = Dispatcher(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
+
+schedule.every().minute.do(jobs.reply_to_mentions, twitter_api = twitter_api, tweet_reply_factory = TweetReplyFactory(ArtistsParser(), MixLyricsReplyStrategy(dispatcher)))
+schedule.every(4).hours.do(jobs.tweet_random_lyrics, twitter_api = twitter_api, dispatcher = dispatcher).run()
     
 def main():
     while True:
