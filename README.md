@@ -7,20 +7,6 @@ You can enable console print by running `pipenv run pytest -s`.
 
 Code coverage: `pipenv run pytest -v --cov=. --cov-report html`. Then access the coverage report at `htmlcov/index.html`
 
-# Standalone scripts
-
-## Mix lyrics by two artists
-
-```bash
-pipenv run python lyrics_mixer/scripts/mixlyrics_two_artists.py 'Madonna' 'Slayer'
-```
-
-## Mix lyrics parsing artists from free text
-
-```bash
-pipenv run python lyrics_mixer/scripts/mixlyrics_parse_free_text.py 'Madonna and Slayer'
-```
-
 # REST API
 Run locally with:
 
