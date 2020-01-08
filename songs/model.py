@@ -1,24 +1,31 @@
 class Song:
     def __init__(self, artist, title, lyrics_text):
-        self.title, self.lyrics = SongTitle(artist, title), Lyrics(lyrics_text)
+        self.title = SongTitle(artist, title)
+        self.lyrics = Lyrics(lyrics_text)
 
 
 class NullSong:
     def __init__(self):
-        self.title, self.lyrics = SongTitle('', ''), Lyrics('')
+        self.title = SongTitle('', '')
+        self.lyrics = Lyrics('')
     
     def __eq__(self, other):
         return (self.title == other.title) and (self.lyrics == other.lyrics)
 
+
 class InstrumentalSong(Song):
     def __init__(self, artist, title):
-        self.title, self.lyrics = SongTitle(artist, title), Lyrics('')
+        self.title = SongTitle(artist, title)
+        self.lyrics = Lyrics('')
+
     def __eq__(self, other):
         return type(self) == type(other) and (self.title == other.title)
 
+
 class SongTitle:
     def __init__(self, artist, title):
-        self.artist, self.title = artist.strip(), title.strip()
+        self.artist = artist.strip()
+        self.title = title.strip()
 
     def __eq__(self, other):
         return (self.artist == other.artist) and (self.title == other.title)
