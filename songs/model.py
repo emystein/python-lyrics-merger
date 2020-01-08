@@ -7,7 +7,7 @@ class Song:
 class NullSong:
     def __init__(self):
         self.title = SongTitle('', '')
-        self.lyrics = Lyrics('')
+        self.lyrics = EmptyLyrics()
     
     def __eq__(self, other):
         return (self.title == other.title) and (self.lyrics == other.lyrics)
@@ -16,7 +16,7 @@ class NullSong:
 class InstrumentalSong(Song):
     def __init__(self, artist, title):
         self.title = SongTitle(artist, title)
-        self.lyrics = Lyrics('')
+        self.lyrics = EmptyLyrics()
 
     def __eq__(self, other):
         return type(self) == type(other) and (self.title == other.title)
@@ -49,3 +49,9 @@ class Lyrics:
 
     def __eq__(self, other):
         return (self.text == other.text)
+
+
+class EmptyLyrics(Lyrics):
+    def __init__(self):
+        super().__init__('')
+
