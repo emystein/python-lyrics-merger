@@ -1,7 +1,7 @@
 import logging
 import lyricwikia
 import random
-from songs.model import Song, NullSong
+from songs.model import Song, NullSong, InstrumentalSong
 import wikia.song_url_parser 
 
 
@@ -21,7 +21,10 @@ class WikiaLyricsApiClient:
     def get_song(self, song_title):
         logger.info(f'Retrieving song: {str(song_title)}')
         remote_song = lyricwikia.Song(song_title.artist, song_title.title)
-        return Song(remote_song.artist, remote_song.title, remote_song.lyrics)
+        if remote_song.lyrics == 'Instrumental':
+            return InstrumentalSong(remote_song.artist, remote_song.title)
+        else:
+            return Song(remote_song.artist, remote_song.title, remote_song.lyrics)
 
     def get_songs(self, song_titles):
         return [self.get_song(song_title) for song_title in song_titles]

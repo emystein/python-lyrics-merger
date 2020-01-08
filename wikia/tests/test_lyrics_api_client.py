@@ -1,5 +1,5 @@
 import pytest
-from songs.model import SongTitle, NullSong
+from songs.model import SongTitle, NullSong, InstrumentalSong
 import wikia.lyrics_api_client
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 import lyricwikia
@@ -59,6 +59,13 @@ def test_get_random_songs_by_artists(lyrics_library):
         assert song.title.title != ''
         assert song.lyrics.text != ''
 
+
 def test_lyrics_not_found(lyrics_library):
     song = lyrics_library.get_random_song_by_artist('Emiliano Menéndez')
     assert song == NullSong()
+
+
+def test_instrumental_song(lyrics_library):
+    song_title = SongTitle('Deep Forest', 'Boheme')
+    song = lyrics_library.get_song(song_title)
+    assert song == InstrumentalSong('Deep Forest', 'Boheme')

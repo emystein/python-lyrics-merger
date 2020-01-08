@@ -10,6 +10,12 @@ class NullSong:
     def __eq__(self, other):
         return (self.title == other.title) and (self.lyrics == other.lyrics)
 
+class InstrumentalSong(Song):
+    def __init__(self, artist, title):
+        self.title, self.lyrics = SongTitle(artist, title), Lyrics('')
+    def __eq__(self, other):
+        return type(self) == type(other) and (self.title == other.title)
+
 class SongTitle:
     def __init__(self, artist, title):
         self.artist, self.title = artist.strip(), title.strip()
