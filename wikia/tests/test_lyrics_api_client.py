@@ -61,11 +61,9 @@ def test_get_random_songs_by_artists(lyrics_library):
 
 
 def test_lyrics_not_found(lyrics_library):
-    song = lyrics_library.get_random_song_by_artist('Emiliano Menéndez')
-    assert song == NullSong()
+    assert lyrics_library.get_random_song_by_artist('Emiliano Menéndez') == NullSong()
 
 
 def test_instrumental_song(lyrics_library):
     song_title = SongTitle('Deep Forest', 'Boheme')
-    song = lyrics_library.get_song(song_title)
-    assert song == InstrumentalSong('Deep Forest', 'Boheme')
+    assert lyrics_library.get_song(song_title) == InstrumentalSong('Deep Forest', 'Boheme')
