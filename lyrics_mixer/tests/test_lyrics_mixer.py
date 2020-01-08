@@ -42,6 +42,5 @@ def test_error_on_lyrics_download(lyrics_library_mock, song1, song2):
 
 	mixer = LyricsMixer(lyrics_library_mock, lyrics_mix_strategy)
 
-	mixed_lyrics = mixer.mix_two_random_lyrics()
-
-	assert mixed_lyrics == EmptyMixedLyrics()
+	with pytest.raises(Exception):
+		mixer.mix_two_random_lyrics()

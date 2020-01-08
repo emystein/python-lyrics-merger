@@ -6,8 +6,13 @@ from twitter.twitter import TweetReplyFactory
 logger = logging.getLogger()
 
 
-def tweet_random_lyrics(twitter_api, dispatcher):
-    mixed_lyrics = dispatcher.mix_two_random_lyrics()
+def tweet_random_lyrics(twitter_api, lyrics_mixer):
+    try:
+        mixed_lyrics = lyrics_mixer.mix_two_random_lyrics()
+    except Exception as e:
+        logger.error('Error picking songs, returning empty lyrics.', exc_info=True)
+        mixed_lyrics = EmptyMixedLyrics()
+
     twitter_api.update_status(str(mixed_lyrics)) 
 
 

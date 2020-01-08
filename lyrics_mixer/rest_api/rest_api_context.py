@@ -12,8 +12,8 @@ class AppModule(Module):
         self.app = app
 
     def configure(self, binder):
-        dispatcher = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
-        binder.bind(LyricsMixer, to=dispatcher, scope=singleton)
+        lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
+        binder.bind(LyricsMixer, to=lyrics_mixer, scope=singleton)
 
 
 app = Flask(__name__)

@@ -10,5 +10,9 @@ class MixLyricsReplyStrategy(object):
     
     def write_reply(self, tweet, parsed):
         logger.info(f"Mixing lyrics requested by: {tweet.user.name}, using input: '{tweet.text}'")
-        mixed_lyrics = self.lyrics_mixer.mix_random_lyrics_by_artists(parsed.artist1, parsed.artist2)
+        try:
+            mixed_lyrics = self.lyrics_mixer.mix_random_lyrics_by_artists(parsed.artist1, parsed.artist2)
+        except Exception as e:
+            logger.error('Error picking songs, returning empty lyrics.', exc_info=True)
+            mixed_lyrics = EmptyMixedLyrics()
         return f"@{tweet.user.name} {mixed_lyrics}"

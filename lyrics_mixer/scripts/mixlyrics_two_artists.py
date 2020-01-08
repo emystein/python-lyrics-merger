@@ -13,8 +13,8 @@ def main():
     args = parser.parse_args()
 
     try:
-        dispatcher = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
-        mixed = dispatcher.mix_random_lyrics_by_artists(args.ARTIST1, args.ARTIST2)
+        lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
+        mixed = lyrics_mixer.mix_random_lyrics_by_artists(args.ARTIST1, args.ARTIST2)
         print(str(mixed))
     except Exception as e:
         print('ERROR: %s' % str(e))
