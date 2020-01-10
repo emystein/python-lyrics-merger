@@ -5,7 +5,9 @@ from lyrics_mixer.lyrics_mixer import LyricsMixer
 from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
 from lyrics_mixer.mixed_lyrics import MixedLyrics, EmptyMixedLyrics
 
+
 lyrics_mix_strategy = LineInterleaveLyricsMix()
+
 
 def test_two_random_songs_mixer(lyrics_library_mock, song1, song2):
 	mixer = LyricsMixer(lyrics_library_mock, lyrics_mix_strategy)

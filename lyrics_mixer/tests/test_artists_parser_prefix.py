@@ -1,6 +1,7 @@
 import pytest
-from lyrics_mixer.artists_parser import ArtistsParser
+from lyrics_mixer.title_parsers import ArtistsParser
 from songs.model import SongTitle
+
 
 @pytest.fixture
 def parser():

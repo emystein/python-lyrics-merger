@@ -1,6 +1,7 @@
 import pytest
-from lyrics_mixer.artists_parser import ArtistsParser
+from lyrics_mixer.title_parsers import ArtistsParser
 from songs.model import SongTitle
+
 
 @pytest.fixture
 def parser():
@@ -28,10 +29,14 @@ def test_parse_artists_connector_with(parser):
 
 
 def test_parse_artists_fist_artist_name_contains_connector(parser):
-    results = parser.parse("mezcla Patricio Rey y sus redonditos de ricotta y Sumo")
-    assert results.artists == ['Patricio Rey y sus redonditos de ricotta', 'Sumo']
+    results = parser.parse(
+        "mezcla Patricio Rey y sus redonditos de ricotta y Sumo")
+    assert results.artists == [
+        'Patricio Rey y sus redonditos de ricotta', 'Sumo']
 
 
 def test_parse_artists_second_artist_name_contains_connector(parser):
-    results = parser.parse("mezcla Sumo y 'Patricio Rey y sus redonditos de ricotta'")
-    assert results.artists == ['Sumo', 'Patricio Rey y sus redonditos de ricotta']
+    results = parser.parse(
+        "mezcla Sumo y 'Patricio Rey y sus redonditos de ricotta'")
+    assert results.artists == [
+        'Sumo', 'Patricio Rey y sus redonditos de ricotta']
