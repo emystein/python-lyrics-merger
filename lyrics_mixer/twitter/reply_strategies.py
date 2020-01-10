@@ -1,5 +1,6 @@
 import logging
 from lyrics_mixer.mix_commands import ArtistsMixCommand, SongTitlesMixCommand
+from lyrics_mixer.mixed_lyrics import EmptyMixedLyrics
 
 logger = logging.getLogger()
 
