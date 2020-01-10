@@ -2,12 +2,12 @@ import re
 from songs.model import SongTitle
 from lyrics_mixer.mix_commands import ArtistsMixCommand, SongTitlesMixCommand
 
+prefixes = r"(?:" + ".*mezcl.|.*combin.|.*mix" + r")?\s?"
 
 class ArtistsParser:
     def parse(self, text):
-        prefixes = ".*mezcl.|.*combin.|.*mix"
         artist = self.optionally_quoted("([^'\"]+)")
-        match = re.match(r"(?:" + prefixes + r")?\s?" +
+        match = re.match(prefixes +
                          artist + " (?:y|con|and|with) " + artist, text)
         return ArtistsMixCommand(artists=list(match.groups()))
 
@@ -18,7 +18,7 @@ class ArtistsParser:
 
 class SongTitlesParser:
 	def parse(self, text):
-		match = re.match(r"(.*)(?:, | y )(.*)", text)
+		match = re.match(prefixes + r"(.*)(?:, | y )(.*)", text)
 		titles = list(match.groups())
 		if '-' in text:
 			return SongTitlesMixCommand(titles)
