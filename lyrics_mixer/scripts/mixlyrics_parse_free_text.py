@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from argparse import ArgumentParser
-from lyrics_mixer.title_parsers import ArtistsParser
+from lyrics_mixer.title_parsers import SongTitlesParser
 from lyrics_mixer.lyrics_mixer import LyricsMixer
 from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix, ParagraphInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient
@@ -13,11 +13,10 @@ def main():
     args = parser.parse_args()
 
     try:
-        artists_parser = ArtistsParser()
-        artist1, artist2 = artists_parser.parse(args.text).artists
-        lyrics_mixer = LyricsMixer(
-            WikiaLyricsApiClient(), LineInterleaveLyricsMix())
-        mixed = lyrics_mixer.mix_random_lyrics_by_artists(artist1, artist2)
+        titles_parser = SongTitlesParser()
+        mix_command = titles_parser.parse(args.text)
+        lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
+        mixed = mix_command.mix(lyrics_mixer)
         print(str(mixed))
     except Exception as e:
         print('ERROR: %s' % str(e))

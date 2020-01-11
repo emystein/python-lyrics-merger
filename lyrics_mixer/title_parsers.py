@@ -18,7 +18,7 @@ class ArtistsParser:
 
 class SongTitlesParser:
 	def parse(self, text):
-		match = re.match(prefixes + r"(.*)(?:, | y )(.*)", text)
+		match = re.match(prefixes + r"(.*)(?:, | y | and )(.*)", text)
 		titles = list(match.groups())
 		if '-' in text:
 			return SongTitlesMixCommand(titles)
