@@ -1,5 +1,4 @@
 import pytest
-from lyrics_mixer.title_parsers import SongTitlesParser, ArtistsParser
 from lyrics_mixer.mix_commands import ArtistsMixCommand, SongTitlesMixCommand
 from songs.tests.fixtures.song_titles import song_title1, song_title2
 from unittest.mock import Mock

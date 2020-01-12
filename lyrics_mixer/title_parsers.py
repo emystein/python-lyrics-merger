@@ -5,7 +5,7 @@ from lyrics_mixer.mix_commands import ArtistsMixCommand, SongTitlesMixCommand
 prefixes = r"(?:" + ".*mezcl.|.*combin.|.*mix" + r")?\s?"
 connectors = "(?:, | y | and | con | with )"
 
-class ArtistsParser:
+class ArtistsSplitter:
     def split(self, text):
         artist = self.optionally_quoted("([^'\"]+)")
         match = re.match(prefixes + artist + connectors + artist, text)
@@ -15,18 +15,24 @@ class ArtistsParser:
         optional_quote = "['\"]?"
         return optional_quote + pattern + optional_quote
 
+
+class ArtistsParser:
     def parse(self, text):
-        split_text = self.split(text)
+        splitter = ArtistsSplitter()
+        split_text = splitter.split(text)
         return ArtistsMixCommand(split_text)
 
 
-class SongTitlesParser:
+class SongTitlesSplitter:
     def split(self, text):
         match = re.match(prefixes + "(.*)" + connectors + "(.*)", text)
         return list(match.groups())
 
+
+class SongTitlesParser:
     def parse(self, text):
-        split_text = self.split(text)
+        splitter = SongTitlesSplitter()
+        split_text = splitter.split(text)
 
         all_mix_commands = [SongTitlesMixCommand(split_text), ArtistsMixCommand(split_text)]
 
