@@ -52,10 +52,10 @@ def test_get_random_song_by_artist(lyrics_library):
 
 
 def test_get_random_songs_by_artists(lyrics_library):
-    songs = lyrics_library.get_random_songs_by_artists(['Led Zeppelin', 'Steppenwolf'])
+    songs = lyrics_library.get_random_songs_by_artists(['Madonna', 'Slayer'])
     assert len(songs) == 2
     for song in songs:
-        assert song.title.artist == 'Led Zeppelin' or song.title.artist == 'Steppenwolf'
+        assert song.title.artist == 'Madonna' or song.title.artist == 'Slayer'
         assert song.title.title != ''
         assert song.lyrics.text != ''
 

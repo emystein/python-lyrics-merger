@@ -1,4 +1,5 @@
 import pytest
+from lyrics_mixer.title_parsers import SongTitlesParser, ArtistsParser
 from lyrics_mixer.mix_commands import ArtistsMixCommand, SongTitlesMixCommand
 from songs.tests.fixtures.song_titles import song_title1, song_title2
 from unittest.mock import Mock
@@ -22,6 +23,14 @@ def test_artist_mix_command():
         'Led Zeppelin', 'Steppenwolf')
 
 
+def test_artist_mix_command_accepts_text():
+    artists = ['Led Zeppelin', 'Steppenwolf']
+
+    mix_command = ArtistsMixCommand(artists)
+
+    assert mix_command.accepts('Led Zeppelin and Steppenwolf')
+
+
 @pytest.mark.usefixtures('song_title1', 'song_title2')
 def test_song_titles_mix_command(song_title1, song_title2):
     flat_titles = [
@@ -37,3 +46,13 @@ def test_song_titles_mix_command(song_title1, song_title2):
 
     lyrics_mixer.mix_two_specific_lyrics.assert_called_with(
         song_title1, song_title2)
+
+
+def test_song_titles_mix_command_accepts_text():
+    titles = ['Led Zeppelin - Stairway to Heaven', 'Steppenwolf - Born to be wild']
+
+    mix_command = SongTitlesMixCommand(titles)
+
+    flat_titles = 'Led Zeppelin - Stairway to Heaven, Steppenwolf - Born to be wild'
+
+    assert mix_command.accepts(flat_titles)
