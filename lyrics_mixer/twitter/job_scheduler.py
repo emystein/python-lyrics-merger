@@ -7,7 +7,7 @@ from urllib.parse import urlparse, uses_netloc
 from peewee import *
 import psycopg2
 from streams.persistence import StreamCursor
-from lyrics_mixer.title_parsers import SongTitlesParser
+from lyrics_mixer.song_titles_parser import SongTitlesParser
 from lyrics_mixer.lyrics_mixer import LyricsMixer
 from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient

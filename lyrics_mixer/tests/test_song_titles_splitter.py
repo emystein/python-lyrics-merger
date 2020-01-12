@@ -1,5 +1,5 @@
 import pytest
-from lyrics_mixer.title_parsers import SongTitlesSplitter
+from lyrics_mixer.song_titles_parser import SongTitlesSplitter
 from songs.model import SongTitle
 
 
