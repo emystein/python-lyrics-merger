@@ -1,11 +1,11 @@
 import pytest
-from lyrics_mixer.title_parsers import ArtistsSplitter
+from lyrics_mixer.title_parsers import SongTitlesSplitter
 from songs.model import SongTitle
 
 
 @pytest.fixture
 def splitter():
-    return ArtistsSplitter()
+    return SongTitlesSplitter()
 
 
 def test_split_artists_enclosed_by_single_quote(splitter):
