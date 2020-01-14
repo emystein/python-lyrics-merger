@@ -10,16 +10,10 @@ Code coverage: `pipenv run pytest -v --cov=. --cov-report html`. Then access the
 
 # Standalone scripts
 
-## Mix lyrics by two artists
-
-```bash
-pipenv run python lyrics_mixer/scripts/mixlyrics_two_artists.py 'Madonna' 'Slayer'
-```
-
 ## Mix lyrics parsing artists from free text
 
 ```bash
-pipenv run python lyrics_mixer/scripts/mixlyrics_parse_free_text.py 'Madonna and Slayer'
+pipenv run python lyrics_mixer/scripts/mixlyrics_parse_free_text.py 'Madonna, Slayer'
 ```
 
 
