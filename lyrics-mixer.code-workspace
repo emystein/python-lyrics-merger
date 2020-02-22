@@ -3,5 +3,8 @@
 		{
 			"path": "."
 		}
-	]
+	],
+	"settings": {
+		"python.pythonPath": "/home/emy/.local/share/virtualenvs/python-lyrics-mixer-VGvAIG7o/bin/python"
+	}
 }

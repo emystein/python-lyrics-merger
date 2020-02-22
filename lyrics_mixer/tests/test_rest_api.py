@@ -1,10 +1,10 @@
 import pytest
-import rest_api_context
+import lyrics_mixer.rest_api_context
 
 
 @pytest.fixture
 def app():
-    return rest_api_context.app
+    return lyrics_mixer.rest_api_context.app
 
 def test_root(client):
     response = client.get("/")

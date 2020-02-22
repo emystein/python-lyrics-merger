@@ -4,7 +4,7 @@ from flask_injector import FlaskInjector
 from lyrics_mixer.lyrics_mixer import LyricsMixer
 from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix, ParagraphInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient
-from lyrics_mixer.rest_api.rest_api import configure_views
+from lyrics_mixer.rest_api import configure_views
 
 
 class AppModule(Module):

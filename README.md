@@ -28,7 +28,7 @@ Run locally with:
 
 ```bash
 pipenv shell
-gunicorn lyrics_mixer.rest_api.rest_api_context:app
+gunicorn lyrics_mixer.rest_api_context:app
 ```
 
 
