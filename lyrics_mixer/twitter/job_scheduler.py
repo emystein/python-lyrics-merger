@@ -7,7 +7,7 @@ from urllib.parse import urlparse, uses_netloc
 from peewee import *
 import psycopg2
 from streams.persistence import StreamCursor
-from lyrics_mixer.song_titles_parser import SongTitlesParser
+from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
 from lyrics_mixer.lyrics_mixer import LyricsMixer
 from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
 from wikia.lyrics_api_client import WikiaLyricsApiClient
@@ -31,7 +31,7 @@ twitter_api = TwitterApi()
 lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
 
 schedule.every().minute.do(jobs.reply_to_mentions, twitter_api=twitter_api,
-                           tweet_reply_factory=TweetReplyFactory(SongTitlesParser(), MixLyricsReplyStrategy(lyrics_mixer)))
+                           tweet_reply_factory=TweetReplyFactory(SongTitlesParser(SongTitlesSplitter()), MixLyricsReplyStrategy(lyrics_mixer)))
 schedule.every(4).hours.do(jobs.tweet_random_lyrics,
                            twitter_api=twitter_api, lyrics_mixer=lyrics_mixer).run()
 

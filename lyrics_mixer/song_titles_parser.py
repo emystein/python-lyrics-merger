@@ -17,11 +17,11 @@ class SongTitlesSplitter:
 
 
 class SongTitlesParser:
-    def __init__(self):
-        self.splitter = SongTitlesSplitter()
+    def __init__(self, titles_splitter):
+        self.titles_splitter = titles_splitter
 
     def parse(self, text):
-        split_text = self.split(text)
+        split_text = self.titles_splitter.split(text)
 
         all_mix_commands = [
             SongTitlesMixCommand(split_text),
@@ -29,6 +29,3 @@ class SongTitlesParser:
         ]
 
         return next(command for command in all_mix_commands if command.accepts(text))
-
-    def split(self, text):
-        return self.splitter.split(text)
