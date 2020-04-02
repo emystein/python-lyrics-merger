@@ -57,8 +57,8 @@ class Tweet(object):
 
     # TODO remove after confirming TweetReply deprecates this
     def reply_using(self, mention_parser, reply_strategy):
-        parsed_input = mention_parser.parse(self.text)
-        reply_text = reply_strategy.write_reply(self, parsed_input)
+        parsed_song_titles = mention_parser.parse(self.text)
+        reply_text = reply_strategy.write_reply(self, parsed_song_titles)
         self.reply_with(reply_text)
 
     def reply_with(self, reply_text):
@@ -83,11 +83,11 @@ class TweetReply:
         self.id = tweet.id
     
     def parse_with(self, tweet_parser):
-        self.parsed_input = tweet_parser.parse(self.tweet.text)
+        self.parsed_song_titles = tweet_parser.parse(self.tweet.text)
         return self
     
     def write_with(self, reply_strategy):
-        self.text = reply_strategy.write_reply(self.tweet, self.parsed_input)
+        self.text = reply_strategy.write_reply(self.tweet, self.parsed_song_titles)
         return self
     
     def send(self):

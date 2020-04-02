@@ -34,6 +34,26 @@ class SongTitle:
         return self.artist + ' - ' + self.title
 
 
+class EmptySongTitle(SongTitle):
+    def __init__(self):
+        return
+
+    def __eq__(self, other):
+        return self.__class__ == other.__class__
+
+    def __str__(self):
+        return 'Empty Song Title'
+
+
+class ArtistOnlySongTitle(SongTitle):
+    def __init__(self, artist):
+        self.artist = artist.strip()
+        self.title = None
+
+    def __eq__(self, other):
+        return other.__class__ == self.__class__ and (other.artist == self.artist) 
+
+
 class Lyrics:
     def __init__(self, text):
         self.text = text

@@ -1,9 +1,17 @@
 import re
-from songs.model import SongTitle
-from lyrics_mixer.mix_commands import ArtistsMixCommand, SongTitlesMixCommand
+from songs.model import SongTitle, EmptySongTitle
+from lyrics_mixer.mix_commands import ParsedSongTitles, ParsedArtists
 
 
 class SongTitlesSplitter:
+    @staticmethod
+    def prefixes():
+        return ['', 'mezclá ', 'combiná ', 'mix ']
+
+    @staticmethod
+    def connectors():
+        return [', ', ' y ', ' and ', ' con ', ' with ']
+
     def split(self, text):
         prefixes = r"(?:" + ".*mezcl.|.*combin.|.*mix" + r")?\s?"
         connectors = "(?:, | y | and | con | with )"
@@ -23,9 +31,6 @@ class SongTitlesParser:
     def parse(self, text):
         split_text = self.titles_splitter.split(text)
 
-        all_mix_commands = [
-            SongTitlesMixCommand(split_text),
-            ArtistsMixCommand(split_text)
-        ]
+        parse_structures = [ParsedSongTitles(split_text), ParsedArtists(split_text)]
 
-        return next(command for command in all_mix_commands if command.accepts(text))
+        return next(parsed for parsed in parse_structures if parsed.accepts(split_text))
