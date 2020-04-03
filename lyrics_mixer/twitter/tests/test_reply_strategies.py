@@ -3,7 +3,7 @@ from unittest.mock import Mock
 from songs.tests.fixtures.songs import song1, song2
 from lyrics_mixer.twitter.reply_strategies import MixLyricsReplyStrategy
 from lyrics_mixer.mixed_lyrics import MixedLyrics
-from lyrics_mixer.twitter.tests.model import User, TweetForTest
+from twitter.tests.model import User, TweetForTest
 
 
 parsed_song_titles = Mock()

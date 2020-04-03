@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import Mock
 from twitter.twitter import Tweet
-from lyrics_mixer.twitter.tests.model import User, TweetForTest
+from twitter.tests.model import User, TweetForTest
 
 
 def test_tweet_str():
