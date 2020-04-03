@@ -3,7 +3,7 @@ class User:
         self.name = name
 
 
-class Tweet:
+class TweetForTest:
     def __init__(self, username, text):
         self.user = User(username)
         self.text = text

@@ -3,7 +3,7 @@ from unittest.mock import Mock
 from songs.tests.fixtures.songs import song1, song2
 from lyrics_mixer.twitter.reply_strategies import MixLyricsReplyStrategy
 from lyrics_mixer.mixed_lyrics import MixedLyrics
-from lyrics_mixer.twitter.tests.model import User, Tweet
+from lyrics_mixer.twitter.tests.model import User, TweetForTest
 
 
 parsed_song_titles = Mock()
@@ -12,11 +12,11 @@ reply_strategy = MixLyricsReplyStrategy(lyrics_mixer=Mock())
 
 
 def test_reply(song1, song2):
-    tweet = Tweet('emenendez', 'text')
+    tweet = TweetForTest('emenendez', 'text')
 
     expected_mixed_lyrics = MixedLyrics(song1, song2, [], [])
 
-    parsed_song_titles.mix.return_value = expected_mixed_lyrics 
+    parsed_song_titles.mix.return_value = expected_mixed_lyrics
 
     result = reply_strategy.write_reply(tweet, parsed_song_titles)
 

@@ -10,7 +10,6 @@ class MixLyricsReplyStrategy:
         self.lyrics_mixer = lyrics_mixer
 
     def write_reply(self, tweet, parsed_data_from_tweet):
-        logger.info(f"Replying to: {tweet.user.name}, mention: '{tweet.text}'")
         mixed_lyrics = self.mix(parsed_data_from_tweet)
         return f"@{tweet.user.name} {mixed_lyrics}"
 

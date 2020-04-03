@@ -51,12 +51,14 @@ class Tweet(object):
     def __init__(self, twitter_api, tweet):
         self.twitter_api = twitter_api
         self.tweet = tweet
-        self.id = tweet.id
         self.user = tweet.user
         self.text = tweet.text
 
     def reply_with(self, reply_text):
         self.twitter_api.reply_tweet_with(self.tweet, reply_text)
+
+    def __str__(self):
+        return f"Author: @{self.user.name}, Text: {self.text}"
 
 
 class TweetReplyFactory:
@@ -85,4 +87,5 @@ class TweetReply:
         return self
     
     def send(self):
+        logger.info(f"Replying to tweet: {self.tweet}")
         self.tweet.reply_with(self.text)
