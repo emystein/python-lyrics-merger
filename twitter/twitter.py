@@ -77,11 +77,11 @@ class TweetReply:
         self.id = tweet.id
     
     def parse_with(self, tweet_parser):
-        self.parsed_song_titles = tweet_parser.parse(self.tweet.text)
+        self.parsed_data_from_tweet = tweet_parser.parse(self.tweet.text)
         return self
     
     def write_with(self, reply_strategy):
-        self.text = reply_strategy.write_reply(self.tweet, self.parsed_song_titles)
+        self.text = reply_strategy.write_reply(self.tweet, self.parsed_data_from_tweet)
         return self
     
     def send(self):

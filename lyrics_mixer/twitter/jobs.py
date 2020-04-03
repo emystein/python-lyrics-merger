@@ -1,6 +1,7 @@
 import logging
 from twitter.persistence import MentionsReplyCursor
 from twitter.twitter import TweetReplyFactory
+from lyrics_mixer.mixed_lyrics import EmptyMixedLyrics
 
 
 logger = logging.getLogger()
@@ -26,6 +27,7 @@ def reply_to_mentions(twitter_api, tweet_reply_factory):
 
 def send(replies):
     reply_cursor = MentionsReplyCursor()
+
     for reply in replies:
         reply.send()
         reply_cursor.point_to(reply)

@@ -1,6 +1,6 @@
 import logging
-from lyrics_mixer.mix_commands import ArtistsMixCommand, SongTitlesMixCommand
 from lyrics_mixer.mixed_lyrics import EmptyMixedLyrics
+
 
 logger = logging.getLogger()
 
@@ -9,11 +9,14 @@ class MixLyricsReplyStrategy:
     def __init__(self, lyrics_mixer):
         self.lyrics_mixer = lyrics_mixer
 
-    def write_reply(self, tweet, parsed_song_titles):
+    def write_reply(self, tweet, parsed_data_from_tweet):
         logger.info(f"Replying to: {tweet.user.name}, mention: '{tweet.text}'")
+        mixed_lyrics = self.mix(parsed_data_from_tweet)
+        return f"@{tweet.user.name} {mixed_lyrics}"
+
+    def mix(self, parsed_song_titles):
         try:
-            mixed_lyrics = parsed_song_titles.mix(self.lyrics_mixer)
+            return parsed_song_titles.mix(self.lyrics_mixer)
         except Exception as e:
             logger.error('Returning empty lyrics.', exc_info=True)
-            mixed_lyrics = EmptyMixedLyrics()
-        return f"@{tweet.user.name} {mixed_lyrics}"
+            return EmptyMixedLyrics()
