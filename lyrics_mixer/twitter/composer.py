@@ -5,7 +5,7 @@ from lyrics_mixer.mixed_lyrics import EmptyMixedLyrics
 logger = logging.getLogger()
 
 
-class MixLyricsReplyComposer:
+class MixLyricsComposer:
     def __init__(self, lyrics_mixer):
         self.lyrics_mixer = lyrics_mixer
 

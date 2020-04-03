@@ -64,15 +64,15 @@ class Tweet(object):
 
 
 class TweetReplyFactory:
-    def __init__(self, input_parser, reply_composer):
+    def __init__(self, input_parser, composer):
         self.input_parser = input_parser
-        self.reply_composer = reply_composer
+        self.composer = composer
 
     def create_from_many(self, tweets):
         return map(lambda tweet: self.create_from(tweet), tweets)
 
     def create_from(self, tweet):
-        return TweetReply(tweet).parse_with(self.input_parser).write_with(self.reply_composer)
+        return TweetReply(tweet).parse_with(self.input_parser).write_with(self.composer)
 
 
 class TweetReply:
@@ -84,9 +84,8 @@ class TweetReply:
         self.parsed_data_from_tweet = tweet_parser.parse(self.tweet.text)
         return self
 
-    def write_with(self, reply_composer):
-        self.text = reply_composer.write_reply(
-            self.tweet, self.parsed_data_from_tweet)
+    def write_with(self, composer):
+        self.text = composer.write_reply(self.tweet, self.parsed_data_from_tweet)
         return self
 
     def send(self):
