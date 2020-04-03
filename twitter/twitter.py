@@ -16,7 +16,8 @@ def create_tweepy_api():
 
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-    api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+    api = tweepy.API(auth, wait_on_rate_limit=True,
+                     wait_on_rate_limit_notify=True)
 
     try:
         api.verify_credentials()
@@ -44,7 +45,8 @@ class TwitterApi(object):
         self.twitter_api.update_status(tweet[:MAX_TWEET_LENGTH])
 
     def reply_tweet_with(self, tweet, reply_text):
-        self.twitter_api.update_status(status=reply_text[:MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
+        self.twitter_api.update_status(
+            status=reply_text[:MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
 
 
 class Tweet(object):
@@ -62,30 +64,31 @@ class Tweet(object):
 
 
 class TweetReplyFactory:
-    def __init__(self, input_parser, reply_strategy):
+    def __init__(self, input_parser, reply_composer):
         self.input_parser = input_parser
-        self.reply_strategy = reply_strategy
+        self.reply_composer = reply_composer
 
     def create_from_many(self, tweets):
         return map(lambda tweet: self.create_from(tweet), tweets)
 
     def create_from(self, tweet):
-        return TweetReply(tweet).parse_with(self.input_parser).write_with(self.reply_strategy)
+        return TweetReply(tweet).parse_with(self.input_parser).write_with(self.reply_composer)
 
 
 class TweetReply:
     def __init__(self, tweet):
         self.tweet = tweet
         self.id = tweet.id
-    
+
     def parse_with(self, tweet_parser):
         self.parsed_data_from_tweet = tweet_parser.parse(self.tweet.text)
         return self
-    
-    def write_with(self, reply_strategy):
-        self.text = reply_strategy.write_reply(self.tweet, self.parsed_data_from_tweet)
+
+    def write_with(self, reply_composer):
+        self.text = reply_composer.write_reply(
+            self.tweet, self.parsed_data_from_tweet)
         return self
-    
+
     def send(self):
         logger.info(f"Replying to tweet: {self.tweet}")
         self.tweet.reply_with(self.text)
