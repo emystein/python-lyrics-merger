@@ -18,24 +18,34 @@ class Tweet:
 
 def test_reply(song1, song2):
     lyrics_mixer = Mock()
+    parsed_song_titles = Mock()
     mix_command = Mock()
 
     reply_strategy = MixLyricsReplyStrategy(lyrics_mixer)
 
     tweet = Tweet('emenendez', 'text')
 
-    mix_command.mix.return_value = MixedLyrics(song1, song2, [], [])
+    parsed_song_titles.mix_command.return_value = mix_command
 
-    reply_strategy.write_reply(tweet, mix_command)
+    expected_mixed_lyrics = MixedLyrics(song1, song2, [], [])
+
+    mix_command.mix.return_value = expected_mixed_lyrics 
+
+    result = reply_strategy.write_reply(tweet, parsed_song_titles)
+
+    assert result == f"@{tweet.user.name} {expected_mixed_lyrics}"
 
 
 def test_exception_on_mix():
     lyrics_mixer = Mock()
+    parsed_song_titles = Mock()
     mix_command = Mock()
 
     reply_strategy = MixLyricsReplyStrategy(lyrics_mixer)
 
+    parsed_song_titles.mix_command.return_value = mix_command
+
     mix_command.mix.side_effect = RuntimeError('Error mixing songs')
 
     with pytest.raises(Exception):
-        reply_strategy.write_reply("some tweet", mix_command)
+        reply_strategy.write_reply("some tweet", parsed_song_titles)
