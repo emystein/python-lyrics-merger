@@ -55,12 +55,6 @@ class Tweet(object):
         self.user = tweet.user
         self.text = tweet.text
 
-    # TODO remove after confirming TweetReply deprecates this
-    def reply_using(self, mention_parser, reply_strategy):
-        parsed_song_titles = mention_parser.parse(self.text)
-        reply_text = reply_strategy.write_reply(self, parsed_song_titles)
-        self.reply_with(reply_text)
-
     def reply_with(self, reply_text):
         self.twitter_api.reply_tweet_with(self.tweet, reply_text)
 

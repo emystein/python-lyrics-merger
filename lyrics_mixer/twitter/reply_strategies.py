@@ -12,7 +12,7 @@ class MixLyricsReplyStrategy:
     def write_reply(self, tweet, parsed_song_titles):
         logger.info(f"Replying to: {tweet.user.name}, mention: '{tweet.text}'")
         try:
-            mixed_lyrics = parsed_song_titles.mix_command().mix(self.lyrics_mixer)
+            mixed_lyrics = parsed_song_titles.mix(self.lyrics_mixer)
         except Exception as e:
             logger.error('Returning empty lyrics.', exc_info=True)
             mixed_lyrics = EmptyMixedLyrics()

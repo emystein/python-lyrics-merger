@@ -7,8 +7,6 @@ from lyrics_mixer.twitter.tests.model import User, Tweet
 
 
 parsed_song_titles = Mock()
-mix_command = Mock()
-parsed_song_titles.mix_command.return_value = mix_command
 
 reply_strategy = MixLyricsReplyStrategy(lyrics_mixer=Mock())
 
@@ -18,7 +16,7 @@ def test_reply(song1, song2):
 
     expected_mixed_lyrics = MixedLyrics(song1, song2, [], [])
 
-    mix_command.mix.return_value = expected_mixed_lyrics 
+    parsed_song_titles.mix.return_value = expected_mixed_lyrics 
 
     result = reply_strategy.write_reply(tweet, parsed_song_titles)
 
@@ -26,7 +24,7 @@ def test_reply(song1, song2):
 
 
 def test_exception_on_mix():
-    mix_command.mix.side_effect = RuntimeError('Error mixing songs')
+    parsed_song_titles.mix.side_effect = RuntimeError('Error mixing songs')
 
     with pytest.raises(Exception):
         reply_strategy.write_reply("some tweet", parsed_song_titles)

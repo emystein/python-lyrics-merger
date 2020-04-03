@@ -1,7 +1,17 @@
+import abc
 from songs.model import SongTitle, EmptySongTitle, ArtistOnlySongTitle
 
 
-class ParsedSongTitles:
+class Mixable:
+    @abc.abstractmethod
+    def mix_command(self):
+        pass
+
+    def mix(self, lyrics_mixer):
+        self.mix_command().mix(lyrics_mixer)
+
+
+class ParsedSongTitles(Mixable):
     def __init__(self, split_text):
         if self.accepts(split_text):
             artist, title = split_text[0].split(' - ')
@@ -19,7 +29,7 @@ class ParsedSongTitles:
         return SongTitlesMixCommand()
 
 
-class ParsedArtists:
+class ParsedArtists(Mixable):
     def __init__(self, split_text):
         if self.accepts(split_text):
             self.song_title1 = ArtistOnlySongTitle(split_text[0])
