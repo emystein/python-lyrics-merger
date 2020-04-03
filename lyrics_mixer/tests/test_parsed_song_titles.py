@@ -5,7 +5,7 @@ from songs.tests.fixtures.song_titles import song_title1, song_title2
 
 
 @pytest.mark.usefixtures('song_title1', 'song_title2')
-def test_parse_song_titles(song_title1, song_title2):
+def test_parsed_song_titles(song_title1, song_title2):
     split_text = [song_title1.__str__(), song_title2.__str__()]
 
     parsed = ParsedSongTitles(split_text)
