@@ -27,4 +27,9 @@ class LyricsMixer(object):
 
     def mix_parsed_song_titles(self, parsed_song_titles):
         mix_command = MixCommands.select_for(parsed_song_titles)
-        return mix_command.mix(parsed_song_titles, self)
+
+        try:
+            return mix_command.mix(parsed_song_titles, self)
+        except Exception as e:
+            logger.error('Returning empty lyrics.', exc_info=True)
+            return EmptyMixedLyrics()

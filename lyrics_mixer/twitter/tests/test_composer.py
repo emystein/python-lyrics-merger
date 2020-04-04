@@ -24,10 +24,3 @@ def test_reply(song1, song2):
     result = composer.write_reply(tweet, parsed)
 
     assert result == f"@{tweet.user.name} {expected_mixed_lyrics}"
-
-
-def test_exception_on_mix():
-    lyrics_mixer.mix.side_effect = RuntimeError('Error mixing songs')
-
-    with pytest.raises(Exception):
-        composer.write_reply("some tweet", parsed)

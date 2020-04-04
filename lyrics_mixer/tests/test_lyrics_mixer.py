@@ -59,3 +59,16 @@ def test_mix_parsed_song_titles(lyrics_library_mock, song1, song2):
 	mixed_lyrics = mixer.mix_parsed_song_titles(parsed_song_titles)
 
 	assert mixed_lyrics == lyrics_mix_strategy.mix(song1, song2)
+
+
+def test_exception_on_mix_parsed_song_titles(lyrics_library_mock):
+	mixer = LyricsMixer(lyrics_library_mock, lyrics_mix_strategy)
+	
+	lyrics_library_mock.get_random_songs_by_artists.side_effect = RuntimeError('Error mixing songs')
+	
+	parsed_song_titles = ParsedArtists(['Led Zeppelin', 'Steppenwolf'])
+
+	mixed_lyrics = mixer.mix_parsed_song_titles(parsed_song_titles)
+
+	assert mixed_lyrics == EmptyMixedLyrics()
+
