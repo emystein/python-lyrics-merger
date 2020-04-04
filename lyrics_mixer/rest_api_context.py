@@ -1,7 +1,7 @@
 from flask import Flask
 from injector import Module, Injector, singleton
 from flask_injector import FlaskInjector
-from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix, ParagraphInterleaveLyricsMix
+from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy, ParagraphInterleaveLyricsMixStrategy
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 from lyrics_mixer.rest_api import configure_views
 
@@ -11,7 +11,8 @@ class AppModule(Module):
         self.app = app
 
     def configure(self, binder):
-        lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMix())
+        lyrics_mixer = LyricsMixer(
+            WikiaLyricsApiClient(), LineInterleaveLyricsMixStrategy())
         binder.bind(LyricsMixer, to=lyrics_mixer, scope=singleton)
 
 

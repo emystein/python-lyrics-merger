@@ -3,7 +3,9 @@ from lyrics_mixer.lyrics_pickers import *
 from itertools import groupby
 from lyrics_mixer.mix_commands import MixCommands
 
+
 logger = logging.getLogger()
+
 
 class LyricsMixer(object):
     def __init__(self, lyrics_library, lyrics_mix_strategy):
@@ -16,12 +18,14 @@ class LyricsMixer(object):
         return self.lyrics_mix_strategy.mix(song1, song2)
 
     def mix_random_lyrics_by_artists(self, artist1, artist2):
-        lyrics_picker = RandomByArtistsLyricsPicker(self.lyrics_library, artist1, artist2)
+        lyrics_picker = RandomByArtistsLyricsPicker(
+            self.lyrics_library, artist1, artist2)
         song1, song2 = lyrics_picker.pick_two_songs()
         return self.lyrics_mix_strategy.mix(song1, song2)
 
     def mix_two_specific_lyrics(self, song_title1, song_title2):
-        lyrics_picker = SpecificLyricsPicker(self.lyrics_library, song_title1, song_title2)
+        lyrics_picker = SpecificLyricsPicker(
+            self.lyrics_library, song_title1, song_title2)
         song1, song2 = lyrics_picker.pick_two_songs()
         return self.lyrics_mix_strategy.mix(song1, song2)
 
@@ -35,19 +39,22 @@ class LyricsMixer(object):
             return EmptyMixedLyrics()
 
 
-class LineInterleaveLyricsMix:
+class LineInterleaveLyricsMixStrategy:
     def mix(self, song1, song2):
         # see: https://stackoverflow.com/questions/7946798/interleave-multiple-lists-of-the-same-length-in-python
-        lines = [val for pair in zip(song1.lyrics.lines(), song2.lyrics.lines()) for val in pair]
+        lines = [val for pair in zip(
+            song1.lyrics.lines(), song2.lyrics.lines()) for val in pair]
         # see https://stackoverflow.com/questions/14529523/python-split-for-lists
-        paragraphs = ['\n'.join(list(l)) for k, l in groupby(lines, lambda x: x == '') if not k]
+        paragraphs = ['\n'.join(list(l)) for k, l in groupby(
+            lines, lambda x: x == '') if not k]
         return MixedLyrics(song1, song2, lines, paragraphs)
 
 
-class ParagraphInterleaveLyricsMix:
+class ParagraphInterleaveLyricsMixStrategy:
     def mix(self, song1, song2):
         # see: https://stackoverflow.com/questions/7946798/interleave-multiple-lists-of-the-same-length-in-python
-        paragraphs = [val for pair in zip(song1.lyrics.paragraphs(), song2.lyrics.paragraphs()) for val in pair]
+        paragraphs = [val for pair in zip(
+            song1.lyrics.paragraphs(), song2.lyrics.paragraphs()) for val in pair]
         lines = [lines.split('\n') for lines in paragraphs]
         # see: https://stackoverflow.com/questions/952914/how-to-make-a-flat-list-out-of-list-of-lists
         flat_list = [item for sublist in lines for item in sublist]
