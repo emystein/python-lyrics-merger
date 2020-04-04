@@ -1,10 +1,9 @@
 import pytest
 from lyrics_mixer.tests.fixtures.mocks import lyrics_library_mock
+import songs.tests.song_factory
 from songs.tests.fixtures.songs import song1, song2
-from lyrics_mixer.lyrics_mixer import LyricsMixer
-from lyrics_mixer.mix_commands import ParsedArtists
-from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
-from lyrics_mixer.mixed_lyrics import MixedLyrics, EmptyMixedLyrics
+from lyrics_mixer.song_titles_parser import ParsedArtists
+from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix, ParagraphInterleaveLyricsMix, MixedLyrics, EmptyMixedLyrics
 
 
 lyrics_mix_strategy = LineInterleaveLyricsMix()
@@ -71,4 +70,15 @@ def test_exception_on_mix_parsed_song_titles(lyrics_library_mock):
 	mixed_lyrics = mixer.mix_parsed_song_titles(parsed_song_titles)
 
 	assert mixed_lyrics == EmptyMixedLyrics()
+
+
+def test_mixed_lyrics(song1, song2):
+	lyrics_editor = ParagraphInterleaveLyricsMix()
+	expected = lyrics_editor.mix(song1, song2)
+
+	mixed_lyrics = MixedLyrics(song1, song2, [], expected.paragraphs)
+
+	assert mixed_lyrics.title == str(song1.title) + ', ' + str(song2.title)
+	assert mixed_lyrics.text == '\n\n'.join(expected.paragraphs)
+
 

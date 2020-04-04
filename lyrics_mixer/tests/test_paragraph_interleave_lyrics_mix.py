@@ -1,5 +1,5 @@
 import pytest
-from lyrics_mixer.lyrics_mix_strategies import ParagraphInterleaveLyricsMix
+from lyrics_mixer.lyrics_mixer import ParagraphInterleaveLyricsMix
 from songs.model import Song, Lyrics
 
 

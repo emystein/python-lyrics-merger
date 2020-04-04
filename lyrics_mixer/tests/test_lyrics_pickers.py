@@ -1,10 +1,8 @@
 import pytest
 from lyrics_mixer.tests.fixtures.mocks import lyrics_library_mock
 from songs.tests.fixtures.songs import song1, song2
-from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
+from lyrics_mixer.lyrics_mixer import LineInterleaveLyricsMix, MixedLyrics, EmptyMixedLyrics
 from lyrics_mixer.lyrics_pickers import *
-from lyrics_mixer.mixed_lyrics import *
-
 
 lyrics_mix_strategy = LineInterleaveLyricsMix()
 

@@ -1,6 +1,6 @@
 import logging
 from lyrics_mixer.lyrics_pickers import *
-from lyrics_mixer.mixed_lyrics import EmptyMixedLyrics
+from itertools import groupby
 from lyrics_mixer.mix_commands import MixCommands
 
 logger = logging.getLogger()
@@ -33,3 +33,43 @@ class LyricsMixer(object):
         except Exception as e:
             logger.error('Returning empty lyrics.', exc_info=True)
             return EmptyMixedLyrics()
+
+
+class LineInterleaveLyricsMix:
+    def mix(self, song1, song2):
+        # see: https://stackoverflow.com/questions/7946798/interleave-multiple-lists-of-the-same-length-in-python
+        lines = [val for pair in zip(song1.lyrics.lines(), song2.lyrics.lines()) for val in pair]
+        # see https://stackoverflow.com/questions/14529523/python-split-for-lists
+        paragraphs = ['\n'.join(list(l)) for k, l in groupby(lines, lambda x: x == '') if not k]
+        return MixedLyrics(song1, song2, lines, paragraphs)
+
+
+class ParagraphInterleaveLyricsMix:
+    def mix(self, song1, song2):
+        # see: https://stackoverflow.com/questions/7946798/interleave-multiple-lists-of-the-same-length-in-python
+        paragraphs = [val for pair in zip(song1.lyrics.paragraphs(), song2.lyrics.paragraphs()) for val in pair]
+        lines = [lines.split('\n') for lines in paragraphs]
+        # see: https://stackoverflow.com/questions/952914/how-to-make-a-flat-list-out-of-list-of-lists
+        flat_list = [item for sublist in lines for item in sublist]
+        return MixedLyrics(song1, song2, flat_list, paragraphs)
+
+
+class MixedLyrics:
+    def __init__(self, song1, song2, lines, paragraphs):
+        self.song1, self.song2, self.lines, self.paragraphs = song1, song2, lines, paragraphs
+        self.title = str(song1.title) + ', ' + str(song2.title)
+        self.text = '\n\n'.join(paragraphs)
+
+    def __eq__(self, other):
+        return self.title == other.title and self.text == other.text
+
+    def __ne__(self, other):
+        return self.title != other.title or self.text != other.text
+
+    def __str__(self):
+        return self.title + '\n\n' + self.text
+
+
+class EmptyMixedLyrics(MixedLyrics):
+    def __init__(self):
+        self.title, self.text = '', ''
