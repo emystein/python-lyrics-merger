@@ -8,7 +8,6 @@ song_titles_parser = SongTitlesParser(SongTitlesSplitter())
 connectors = [', ', ' y ', ' and ']
 
 
-@pytest.mark.usefixtures('song_title1', 'song_title2')
 @pytest.mark.parametrize('prefix', ['', '@lyricsmixer mezcla '])
 @pytest.mark.parametrize('connector', connectors)
 def test_parse_song_titles(song_title1, song_title2, prefix, connector):
@@ -26,7 +25,6 @@ def test_parse_artists_only(connector):
     assert parsed.song_title2.artist == 'Steppenwolf'
 
 
-@pytest.mark.usefixtures('song_title1', 'song_title2')
 def test_parsed_song_titles(song_title1, song_title2):
     split_text = [song_title1.__str__(), song_title2.__str__()]
 
@@ -36,7 +34,7 @@ def test_parsed_song_titles(song_title1, song_title2):
     assert parsed.song_title2 == song_title2
 
 
-def test_parse_artists_only():
+def test_parsed_artists_only():
     split_text = ['Led Zeppelin', 'Steppenwolf']
 
     parsed = ParsedArtists(split_text)
