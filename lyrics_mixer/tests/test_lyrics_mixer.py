@@ -2,6 +2,7 @@ import pytest
 from lyrics_mixer.tests.fixtures.mocks import lyrics_library_mock
 from songs.tests.fixtures.songs import song1, song2
 from lyrics_mixer.lyrics_mixer import LyricsMixer
+from lyrics_mixer.mix_commands import ParsedArtists
 from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
 from lyrics_mixer.mixed_lyrics import MixedLyrics, EmptyMixedLyrics
 
@@ -46,3 +47,15 @@ def test_error_on_lyrics_download(lyrics_library_mock, song1, song2):
 
 	with pytest.raises(Exception):
 		mixer.mix_two_random_lyrics()
+
+
+def test_mix_parsed_song_titles(lyrics_library_mock, song1, song2):
+	mixer = LyricsMixer(lyrics_library_mock, lyrics_mix_strategy)
+
+	lyrics_library_mock.get_random_songs_by_artists.return_value = [song1, song2]
+
+	parsed_song_titles = ParsedArtists(['Led Zeppelin', 'Steppenwolf'])
+
+	mixed_lyrics = mixer.mix_parsed_song_titles(parsed_song_titles)
+
+	assert mixed_lyrics == lyrics_mix_strategy.mix(song1, song2)

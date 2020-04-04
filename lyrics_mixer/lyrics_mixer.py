@@ -1,6 +1,7 @@
 import logging
 from lyrics_mixer.lyrics_pickers import *
 from lyrics_mixer.mixed_lyrics import EmptyMixedLyrics
+from lyrics_mixer.mix_commands import MixCommands
 
 logger = logging.getLogger()
 
@@ -23,3 +24,7 @@ class LyricsMixer(object):
         lyrics_picker = SpecificLyricsPicker(self.lyrics_library, song_title1, song_title2)
         song1, song2 = lyrics_picker.pick_two_songs()
         return self.lyrics_mix_strategy.mix(song1, song2)
+
+    def mix_parsed_song_titles(self, parsed_song_titles):
+        mix_command = MixCommands.select_for(parsed_song_titles)
+        return mix_command.mix(parsed_song_titles, self)

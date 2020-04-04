@@ -1,5 +1,6 @@
 import pytest
-from lyrics_mixer.mix_commands import ParsedSongTitles, ParsedArtists, ArtistsMixCommand, SongTitlesMixCommand
+from lyrics_mixer.song_titles_parser import ParsedSongTitles, ParsedArtists
+from lyrics_mixer.mix_commands import ArtistsMixCommand, SongTitlesMixCommand, MixCommands
 from songs.tests.fixtures.song_titles import song_title1, song_title2
 from unittest.mock import Mock
 
@@ -54,3 +55,19 @@ def test_song_titles_mix_command(song_title1, song_title2):
 
     lyrics_mixer.mix_two_specific_lyrics.assert_called_with(
         song_title1, song_title2)
+
+
+def test_select_song_titles_mix_command():
+    parsed = ParsedSongTitles([song_title1.__str__(), song_title2.__str__()])
+
+    mix_command = MixCommands.select_for(parsed)
+
+    assert isinstance(mix_command, SongTitlesMixCommand)
+
+
+def test_select_artist_mix_command():
+    parsed = ParsedArtists(['Led Zeppelin', 'Steppenwolf'])
+
+    mix_command = MixCommands.select_for(parsed)
+
+    assert isinstance(mix_command, ArtistsMixCommand)

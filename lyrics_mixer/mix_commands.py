@@ -1,48 +1,13 @@
-import abc
 from songs.model import SongTitle, EmptySongTitle, ArtistOnlySongTitle
+from lyrics_mixer.song_titles_parser import ParsedSongTitles, ParsedArtists
 
 
-class Mixable:
-    @abc.abstractmethod
-    def mix_command(self):
-        pass
+class MixCommands:
+    @staticmethod
+    def select_for(parsed):
+        mix_commands = [ArtistsMixCommand(), SongTitlesMixCommand()]
 
-    def mix(self, lyrics_mixer):
-        self.mix_command().mix(lyrics_mixer)
-
-
-class ParsedSongTitles(Mixable):
-    def __init__(self, split_text):
-        if self.accepts(split_text):
-            artist, title = split_text[0].split(' - ')
-            self.song_title1 = SongTitle(artist, title)
-            artist, title = split_text[1].split(' - ')
-            self.song_title2 = SongTitle(artist, title)
-        else:
-            self.song_title1 = EmptySongTitle()
-            self.song_title2 = EmptySongTitle()
-    
-    def accepts(self, split_text):
-        return '-' in split_text[0]
-    
-    def mix_command(self):
-        return SongTitlesMixCommand()
-
-
-class ParsedArtists(Mixable):
-    def __init__(self, split_text):
-        if self.accepts(split_text):
-            self.song_title1 = ArtistOnlySongTitle(split_text[0])
-            self.song_title2 = ArtistOnlySongTitle(split_text[1])
-        else:
-            self.song_title1 = EmptySongTitle()
-            self.song_title2 = EmptySongTitle()
-
-    def accepts(self, split_text):
-        return '-' not in split_text[0]
-
-    def mix_command(self):
-        return ArtistsMixCommand()
+        return next(mix_command for mix_command in mix_commands if mix_command.accepts(parsed))
 
 
 class ArtistsMixCommand:

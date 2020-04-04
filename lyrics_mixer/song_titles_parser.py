@@ -1,7 +1,5 @@
 import re
-from songs.model import SongTitle, EmptySongTitle
-from lyrics_mixer.mix_commands import ParsedSongTitles, ParsedArtists
-
+from songs.model import SongTitle, EmptySongTitle, ArtistOnlySongTitle
 
 class SongTitlesSplitter:
     @staticmethod
@@ -34,3 +32,33 @@ class SongTitlesParser:
         parse_structures = [ParsedSongTitles(split_text), ParsedArtists(split_text)]
 
         return next(parsed for parsed in parse_structures if parsed.accepts(split_text))
+
+
+class ParsedSongTitles:
+    def __init__(self, split_text):
+        if self.accepts(split_text):
+            artist, title = split_text[0].split(' - ')
+            self.song_title1 = SongTitle(artist, title)
+            artist, title = split_text[1].split(' - ')
+            self.song_title2 = SongTitle(artist, title)
+        else:
+            self.song_title1 = EmptySongTitle()
+            self.song_title2 = EmptySongTitle()
+    
+    def accepts(self, split_text):
+        return '-' in split_text[0]
+
+
+class ParsedArtists:
+    def __init__(self, split_text):
+        if self.accepts(split_text):
+            self.song_title1 = ArtistOnlySongTitle(split_text[0])
+            self.song_title2 = ArtistOnlySongTitle(split_text[1])
+        else:
+            self.song_title1 = EmptySongTitle()
+            self.song_title2 = EmptySongTitle()
+
+    def accepts(self, split_text):
+        return '-' not in split_text[0]
+
+

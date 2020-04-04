@@ -2,13 +2,16 @@ import pytest
 from unittest.mock import Mock
 from songs.tests.fixtures.songs import song1, song2
 from lyrics_mixer.twitter.composer import MixLyricsComposer
+from lyrics_mixer.song_titles_parser import ParsedArtists
 from lyrics_mixer.mixed_lyrics import MixedLyrics
 from twitter.tests.model import TweetForTest
 
 
-parsed_song_titles = Mock()
+lyrics_mixer=Mock()
 
-composer = MixLyricsComposer(lyrics_mixer=Mock())
+composer = MixLyricsComposer(lyrics_mixer)
+
+parsed = ParsedArtists(['Led Zeppelin', 'Steppenwolf'])
 
 
 def test_reply(song1, song2):
@@ -16,15 +19,15 @@ def test_reply(song1, song2):
 
     expected_mixed_lyrics = MixedLyrics(song1, song2, [], [])
 
-    parsed_song_titles.mix.return_value = expected_mixed_lyrics
+    lyrics_mixer.mix_parsed_song_titles.return_value = expected_mixed_lyrics
 
-    result = composer.write_reply(tweet, parsed_song_titles)
+    result = composer.write_reply(tweet, parsed)
 
     assert result == f"@{tweet.user.name} {expected_mixed_lyrics}"
 
 
 def test_exception_on_mix():
-    parsed_song_titles.mix.side_effect = RuntimeError('Error mixing songs')
+    lyrics_mixer.mix.side_effect = RuntimeError('Error mixing songs')
 
     with pytest.raises(Exception):
-        composer.write_reply("some tweet", parsed_song_titles)
+        composer.write_reply("some tweet", parsed)
