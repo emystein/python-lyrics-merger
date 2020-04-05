@@ -1,7 +1,7 @@
 import logging
 from twitter.persistence import MentionsReplyCursor
 from twitter.twitter import TweetReplyFactory
-from lyrics_mixer.mixed_lyrics import EmptyMixedLyrics
+from lyrics_mixer.lyrics_mixer import EmptyMixedLyrics
 
 
 logger = logging.getLogger()
