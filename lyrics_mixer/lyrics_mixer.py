@@ -1,5 +1,5 @@
 import logging
-from lyrics_mixer.lyrics_pickers import *
+from wikia.lyrics_pickers import *
 from itertools import groupby
 from lyrics_mixer.song_titles_parser import ParsedSongTitles, ParsedArtists
 
@@ -17,11 +17,13 @@ class LyricsMixer:
         return self.pick_and_mix_two_lyrics(lyrics_picker)
 
     def mix_random_lyrics_by_artists(self, artist1, artist2):
-        lyrics_picker = RandomByArtistsLyricsPicker(self.lyrics_library, artist1, artist2)
+        lyrics_picker = RandomByArtistsLyricsPicker(
+            self.lyrics_library, artist1, artist2)
         return self.pick_and_mix_two_lyrics(lyrics_picker)
 
     def mix_two_specific_lyrics(self, song_title1, song_title2):
-        lyrics_picker = SpecificLyricsPicker(self.lyrics_library, song_title1, song_title2)
+        lyrics_picker = SpecificLyricsPicker(
+            self.lyrics_library, song_title1, song_title2)
         return self.pick_and_mix_two_lyrics(lyrics_picker)
 
     def pick_and_mix_two_lyrics(self, lyrics_picker):

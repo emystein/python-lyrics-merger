@@ -4,7 +4,6 @@ from lyrics_mixer.tests.fixtures.mocks import lyrics_library_mock
 import songs.tests.song_factory
 from songs.tests.fixtures.songs import song1, song2
 from lyrics_mixer.song_titles_parser import ParsedArtists
-from lyrics_mixer.lyrics_pickers import SpecificLyricsPicker
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy, ParagraphInterleaveLyricsMixStrategy, MixedLyrics, EmptyMixedLyrics
 
 
