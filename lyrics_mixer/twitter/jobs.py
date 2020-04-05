@@ -1,19 +1,12 @@
 import logging
 from twitter.persistence import MentionsReplyCursor
-from twitter.twitter import TweetReplyFactory
-from lyrics_mixer.lyrics_mixer import EmptyMixedLyrics
 
 
 logger = logging.getLogger()
 
 
 def tweet_random_lyrics(twitter_api, lyrics_mixer):
-    try:
-        mixed_lyrics = lyrics_mixer.mix_two_random_lyrics()
-    except Exception as e:
-        logger.error('Error picking songs, returning empty lyrics.', exc_info=True)
-        mixed_lyrics = EmptyMixedLyrics()
-
+    mixed_lyrics = lyrics_mixer.mix_two_random_lyrics()
     twitter_api.update_status(str(mixed_lyrics)) 
 
 
