@@ -1,8 +1,10 @@
 import pytest
+from unittest.mock import Mock
 from lyrics_mixer.tests.fixtures.mocks import lyrics_library_mock
 import songs.tests.song_factory
 from songs.tests.fixtures.songs import song1, song2
 from lyrics_mixer.song_titles_parser import ParsedArtists
+from lyrics_mixer.lyrics_pickers import SpecificLyricsPicker
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy, ParagraphInterleaveLyricsMixStrategy, MixedLyrics, EmptyMixedLyrics
 
 
@@ -41,16 +43,6 @@ def test_two_specific_songs_mixer(lyrics_library_mock, song1, song2):
     assert mixed_lyrics == lyrics_mix_strategy.mix(song1, song2)
 
 
-def test_error_on_lyrics_download(lyrics_library_mock, song1, song2):
-    lyrics_library_mock.get_random_songs.side_effect = RuntimeError(
-        'Cannot download lyrics')
-
-    mixer = LyricsMixer(lyrics_library_mock, lyrics_mix_strategy)
-
-    with pytest.raises(Exception):
-        mixer.mix_two_random_lyrics()
-
-
 def test_mix_parsed_song_titles(lyrics_library_mock, song1, song2):
     mixer = LyricsMixer(lyrics_library_mock, lyrics_mix_strategy)
 
@@ -64,15 +56,14 @@ def test_mix_parsed_song_titles(lyrics_library_mock, song1, song2):
     assert mixed_lyrics == lyrics_mix_strategy.mix(song1, song2)
 
 
-def test_exception_on_mix_parsed_song_titles(lyrics_library_mock):
+def test_exception_on_pick_and_mix_two_lyrics(lyrics_library_mock):
     mixer = LyricsMixer(lyrics_library_mock, lyrics_mix_strategy)
 
-    lyrics_library_mock.get_random_songs_by_artists.side_effect = RuntimeError(
-        'Error mixing songs')
+    lyrics_picker = Mock()
 
-    parsed_song_titles = ParsedArtists(['Led Zeppelin', 'Steppenwolf'])
+    lyrics_picker.pick_two.side_effect = RuntimeError('Download error')
 
-    mixed_lyrics = mixer.mix_parsed_song_titles(parsed_song_titles)
+    mixed_lyrics = mixer.pick_and_mix_two_lyrics(lyrics_picker)
 
     assert mixed_lyrics == EmptyMixedLyrics()
 

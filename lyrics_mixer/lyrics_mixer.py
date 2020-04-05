@@ -25,17 +25,16 @@ class LyricsMixer:
         return self.pick_and_mix_two_lyrics(lyrics_picker)
 
     def pick_and_mix_two_lyrics(self, lyrics_picker):
-        song1, song2 = lyrics_picker.pick_two()
-        return self.lyrics_mix_strategy.mix(song1, song2)
-
-    def mix_parsed_song_titles(self, parsed_song_titles):
-        mix_command = MixCommands.select_for(parsed_song_titles)
-
         try:
-            return mix_command.mix(parsed_song_titles, self)
+            song1, song2 = lyrics_picker.pick_two()
+            return self.lyrics_mix_strategy.mix(song1, song2)
         except Exception as e:
             logger.error('Returning empty lyrics.', exc_info=True)
             return EmptyMixedLyrics()
+
+    def mix_parsed_song_titles(self, parsed_song_titles):
+        mix_command = MixCommands.select_for(parsed_song_titles)
+        return mix_command.mix(parsed_song_titles, self)
 
 
 class MixCommands:
