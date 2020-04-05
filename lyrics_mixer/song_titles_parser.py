@@ -1,3 +1,4 @@
+from abc import abstractmethod
 import re
 from songs.model import SongTitle, EmptySongTitle, ArtistOnlySongTitle
 
@@ -34,31 +35,51 @@ class SongTitlesParser:
         return next(parsed for parsed in parse_structures if parsed.accepts(split_text))
 
 
-class ParsedSongTitles:
+class SongTitleFactory:
+    @abstractmethod
+    def accepts(self, split_text):
+        pass
+
     def __init__(self, split_text):
-        if self.accepts(split_text):
-            artist, title = split_text[0].split(' - ')
-            self.song_title1 = SongTitle(artist, title)
-            artist, title = split_text[1].split(' - ')
-            self.song_title2 = SongTitle(artist, title)
-        else:
-            self.song_title1 = EmptySongTitle()
-            self.song_title2 = EmptySongTitle()
+        self.song_title1 = self.parse_song_title(split_text[0])
+        self.song_title2 = self.parse_song_title(split_text[1])
+
+    @abstractmethod
+    def can_create_from(self, text):
+        pass
     
+    @abstractmethod
+    def create_from(self, text):
+        pass
+
+    def create(self, can_create_from, create_from, text):
+        if can_create_from(text):
+            return create_from(text)
+        else:
+            return EmptySongTitle()
+
+    def parse_song_title(self, text):
+        return self.create(self.can_create_from, self.create_from, text)
+
+
+class ParsedSongTitles(SongTitleFactory):
+    def can_create_from(self, text):
+        return '-' in text
+
+    def create_from(self, text):
+        artist, title = text.split('-')
+        return SongTitle(artist, title)
+
     def accepts(self, split_text):
         return '-' in split_text[0]
 
 
-class ParsedArtists:
-    def __init__(self, split_text):
-        if self.accepts(split_text):
-            self.song_title1 = ArtistOnlySongTitle(split_text[0])
-            self.song_title2 = ArtistOnlySongTitle(split_text[1])
-        else:
-            self.song_title1 = EmptySongTitle()
-            self.song_title2 = EmptySongTitle()
+class ParsedArtists(SongTitleFactory):
+    def can_create_from(self, text):
+        return '-' not in text
+
+    def create_from(self, text):
+        return ArtistOnlySongTitle(text)
 
     def accepts(self, split_text):
         return '-' not in split_text[0]
-
-
