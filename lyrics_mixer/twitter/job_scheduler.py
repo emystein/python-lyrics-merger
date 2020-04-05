@@ -28,8 +28,7 @@ database.bind([StreamCursor])
 
 twitter_api = TwitterApi()
 
-lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(),
-                           LineInterleaveLyricsMixStrategy())
+lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMixStrategy())
 
 schedule.every().minute.do(jobs.reply_to_mentions, twitter_api=twitter_api,
                            tweet_reply_factory=TweetReplyFactory(SongTitlesParser(SongTitlesSplitter()), MixLyricsComposer(lyrics_mixer)))
