@@ -2,7 +2,7 @@ import logging
 import lyricwikia
 import random
 from songs.model import Song, NullSong, InstrumentalSong
-import wikia.song_url_parser 
+import wikia.song_title 
 
 
 logger = logging.getLogger()
@@ -21,6 +21,7 @@ class WikiaLyricsApiClient:
     def get_song(self, song_title):
         logger.info(f'Retrieving song: {str(song_title)}')
         remote_song = lyricwikia.Song(song_title.artist, song_title.title)
+        # FIXME: this is breaking encapsulation
         if remote_song.lyrics == 'Instrumental':
             return InstrumentalSong(remote_song.artist, remote_song.title)
         else:
@@ -31,7 +32,7 @@ class WikiaLyricsApiClient:
 
     def get_random_song(self):
         logger.info('Retrieving random song')
-        song_title = wikia.song_url_parser.get_random_song()
+        song_title = wikia.song_title.get_random()
         return self.get_song(song_title)
 
     def get_random_songs(self, count):
