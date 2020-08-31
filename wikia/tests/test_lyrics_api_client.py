@@ -1,7 +1,9 @@
 import pytest
+from unittest.mock import Mock
 from songs.model import SongTitle, NullSong, InstrumentalSong
 import wikia.lyrics_api_client
 from wikia.lyrics_api_client import WikiaLyricsApiClient
+from wikia.lyrics_pickers import *
 import lyricwikia
 from songs.tests.fixtures.song_titles import song_title1, song_title2
 

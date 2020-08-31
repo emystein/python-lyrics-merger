@@ -55,14 +55,14 @@ def test_mix_parsed_song_titles(lyrics_library_mock, song1, song2):
     assert mixed_lyrics == lyrics_mix_strategy.mix(song1, song2)
 
 
-def test_exception_on_pick_and_mix_two_lyrics(lyrics_library_mock):
+def test_exception_on_mix_lyrics(lyrics_library_mock):
     mixer = LyricsMixer(lyrics_library_mock, lyrics_mix_strategy)
 
     lyrics_picker = Mock()
 
     lyrics_picker.pick_two.side_effect = RuntimeError('Download error')
 
-    mixed_lyrics = mixer.pick_and_mix_two_lyrics(lyrics_picker)
+    mixed_lyrics = mixer.mix_lyrics(lyrics_picker)
 
     assert mixed_lyrics == EmptyMixedLyrics()
 

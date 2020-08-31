@@ -13,22 +13,17 @@ class LyricsMixer:
         self.lyrics_mix_strategy = lyrics_mix_strategy
 
     def mix_two_random_lyrics(self):
-        lyrics_picker = RandomLyricsPicker(self.lyrics_library)
-        return self.pick_and_mix_two_lyrics(lyrics_picker)
+        return self.mix_lyrics(RandomLyricsPicker())
 
     def mix_random_lyrics_by_artists(self, artist1, artist2):
-        lyrics_picker = RandomByArtistsLyricsPicker(
-            self.lyrics_library, artist1, artist2)
-        return self.pick_and_mix_two_lyrics(lyrics_picker)
+        return self.mix_lyrics(RandomByArtistsLyricsPicker(artist1, artist2))
 
     def mix_two_specific_lyrics(self, song_title1, song_title2):
-        lyrics_picker = SpecificLyricsPicker(
-            self.lyrics_library, song_title1, song_title2)
-        return self.pick_and_mix_two_lyrics(lyrics_picker)
+        return self.mix_lyrics(SpecificLyricsPicker(song_title1, song_title2))
 
-    def pick_and_mix_two_lyrics(self, lyrics_picker):
+    def mix_lyrics(self, lyrics_picker):
         try:
-            song1, song2 = lyrics_picker.pick_two()
+            song1, song2 = lyrics_picker.pick_two(self.lyrics_library)
             return self.lyrics_mix_strategy.mix(song1, song2)
         except Exception as e:
             logger.error('Returning empty lyrics.', exc_info=True)
