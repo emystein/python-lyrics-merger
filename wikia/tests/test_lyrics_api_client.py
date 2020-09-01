@@ -1,7 +1,7 @@
 import pytest
-from songs.model import SongTitle, NullSong, Song, Lyrics, EmptyLyrics
-from wikia.lyrics_api_client import WikiaLyricsApiClient
 import lyricwikia
+from wikia.lyrics_api_client import WikiaLyricsApiClient
+from songs.model import SongTitle, NullSong, Song, Lyrics, EmptyLyrics
 from songs.tests.fixtures.song_titles import song_title1, song_title2
 
 
