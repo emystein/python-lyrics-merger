@@ -8,14 +8,6 @@ import wikia.song_title
 logger = logging.getLogger()
 
 
-def find_all_songs_by_artist(artist_name):
-    artist = lyricwikia.Artist(artist_name)
-    songs = []
-    for album in artist.albums:
-        songs.extend(album.songs)
-    return songs
-
-
 # TODO convert to module
 class WikiaLyricsApiClient:
     def get_song(self, song_title):
@@ -40,7 +32,7 @@ class WikiaLyricsApiClient:
 
     def get_random_song_by_artist(self, artist):
         logger.info(f'Retrieving random song by artist: {artist}')
-        remote_songs = find_all_songs_by_artist(artist)
+        remote_songs = self.find_all_songs_by_artist(artist)
         if len(remote_songs) > 0:
             remote_song = random.choice(remote_songs)
             return Song(remote_song.artist, remote_song.title, remote_song.lyrics)
@@ -49,4 +41,12 @@ class WikiaLyricsApiClient:
 
     def get_random_songs_by_artists(self, artists):
         return [self.get_random_song_by_artist(artist) for artist in artists]
+
+    def find_all_songs_by_artist(self, artist_name):
+        artist = lyricwikia.Artist(artist_name)
+        songs = []
+        for album in artist.albums:
+            songs.extend(album.songs)
+        return songs
+
 
