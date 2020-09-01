@@ -6,7 +6,7 @@ from songs.model import SongTitle
 base_url = 'https://lyrics.fandom.com/wiki/'
 
 
-def get_random():
+def random_song_title():
     response = requests.get(base_url + 'special:randomincategory/Song')
     return parse_url(response.url)
 

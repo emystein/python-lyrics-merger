@@ -4,7 +4,7 @@ import wikia.song_title
 
 
 def test_parse_random_song_url():
-	song = wikia.song_title.get_random()
+	song = wikia.song_title.random_song_title()
 
 	assert song.artist != ''
 	assert song.title != ''

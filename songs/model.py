@@ -1,26 +1,26 @@
 class Song:
     def __init__(self, artist, title, lyrics_text):
         self.artist = artist
-        self.title = SongTitle(artist, title)
+        self.title = title
         self.lyrics = Lyrics(lyrics_text)
 
+    def full_title(self):
+        return self.artist + ' - ' + self.title
+
+    def has_lyrics(self):
+        return self.lyrics != EmptyLyrics()
+
+    def __eq__(self, other):
+        return (self.artist == other.artist) and (self.title == other.title)
 
 class NullSong:
     def __init__(self):
-        self.title = SongTitle('', '')
+        self.artist = ''
+        self.title = ''
         self.lyrics = EmptyLyrics()
     
     def __eq__(self, other):
         return (self.title == other.title) and (self.lyrics == other.lyrics)
-
-
-class InstrumentalSong(Song):
-    def __init__(self, artist, title):
-        self.title = SongTitle(artist, title)
-        self.lyrics = EmptyLyrics()
-
-    def __eq__(self, other):
-        return type(self) == type(other) and (self.title == other.title)
 
 
 class SongTitle:

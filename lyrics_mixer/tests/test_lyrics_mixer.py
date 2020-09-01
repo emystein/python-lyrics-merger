@@ -23,11 +23,9 @@ def test_two_random_songs_mixer(lyrics_library_mock, song1, song2):
 def test_two_random_songs_by_artists_mixer(lyrics_library_mock, song1, song2):
     mixer = LyricsMixer(lyrics_library_mock, lyrics_mix_strategy)
 
-    lyrics_library_mock.get_random_songs_by_artists.return_value = [
-        song1, song2]
+    lyrics_library_mock.get_random_songs_by_artists.return_value = [song1, song2]
 
-    mixed_lyrics = mixer.mix_random_lyrics_by_artists(
-        song1.title.artist, song2.title.artist)
+    mixed_lyrics = mixer.mix_random_lyrics_by_artists(song1.artist, song2.artist)
 
     assert mixed_lyrics == lyrics_mix_strategy.mix(song1, song2)
 
@@ -73,5 +71,5 @@ def test_mixed_lyrics(song1, song2):
 
     mixed_lyrics = MixedLyrics(song1, song2, [], expected.paragraphs)
 
-    assert mixed_lyrics.title == str(song1.title) + ', ' + str(song2.title)
+    assert mixed_lyrics.title == str(song1.full_title()) + ', ' + str(song2.full_title())
     assert mixed_lyrics.text == '\n\n'.join(expected.paragraphs)
