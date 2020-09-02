@@ -1,4 +1,17 @@
+import random
+
 class Song:
+    @staticmethod
+    def random_from(list):
+        if len(list) > 0:
+            return Song.copy(random.choice(list))
+        else:
+            return NullSong()
+
+    @staticmethod
+    def copy(another):
+        return Song(another.artist, another.title, another.lyrics)
+
     def __init__(self, artist, title, lyrics_text):
         self.artist = artist
         self.title = title

@@ -1,3 +1,5 @@
+from wikia.artist import Artist
+
 class RandomLyricsPicker:
     def pick_two(self, lyrics_library):
         return lyrics_library.get_random_songs(2)
