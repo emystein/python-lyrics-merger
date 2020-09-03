@@ -1,21 +1,13 @@
 import logging
 import lyricwikia
-from songs.model import Song
 from wikia.artist import Artist
+from wikia.song import Song
 from wikia.song_title import SongTitle
-
-
-logger = logging.getLogger()
-
 
 # TODO convert to module
 class WikiaLyricsApiClient:
     def get_song(self, title):
-        logger.info(f'Retrieving song: {str(title)}')
-
-        remote_song = lyricwikia.Song(title.artist, title.title)
-
-        return Song(remote_song.artist, remote_song.title, remote_song.lyrics)
+        return Song.entitled(title)
 
     def get_random_song(self):
         return self.get_song(SongTitle.random())
