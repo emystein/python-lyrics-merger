@@ -2,7 +2,7 @@ import logging
 import lyricwikia
 from songs.model import Song
 from wikia.artist import Artist
-from wikia.song_title import random_song_title
+from wikia.song_title import SongTitle
 
 
 logger = logging.getLogger()
@@ -18,7 +18,7 @@ class WikiaLyricsApiClient:
         return Song(remote_song.artist, remote_song.title, remote_song.lyrics)
 
     def get_random_song(self):
-        return self.get_song(random_song_title())
+        return self.get_song(SongTitle.random())
 
     def get_random_songs(self, count):
         return [self.get_random_song() for _ in range(count)]

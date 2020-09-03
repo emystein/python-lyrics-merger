@@ -1,10 +1,9 @@
 import pytest
-from songs.model import SongTitle
-import wikia.song_title
+from wikia.song_title import SongTitle
 
 
-def test_parse_random_song_url():
-	title = wikia.song_title.random_song_title()
+def test_random():
+	title = SongTitle.random()
 
 	assert title.artist != ''
 	assert title.title != ''
@@ -17,6 +16,7 @@ def test_parse_random_song_url():
 	("https://lyrics.fandom.com/wiki/Michael_W._Smith:The_Tribute/Agnus_Dei", 'Michael W. Smith', 'The Tribute/Agnus Dei')
 ])
 def test_parse_url(song_url, expected_artist, expected_song):
-	title = wikia.song_title.parse_url(song_url)
+	title = SongTitle.parse_url(song_url)
 
-	assert title == SongTitle(expected_artist, expected_song)
+	assert title.artist == expected_artist
+	assert title.title == expected_song
