@@ -1,7 +1,8 @@
 import pytest
 import lyricwikia
 from wikia.lyrics_api_client import WikiaLyricsApiClient
-from songs.model import SongTitle, NullSong, Song, Lyrics, EmptyLyrics
+from wikia.song import Song
+from songs.model import SongTitle, NullSong, Lyrics, EmptyLyrics
 from songs.tests.fixtures.song_titles import song_titles, song_title1, song_title2
 
 
@@ -12,7 +13,7 @@ def library():
 
 @pytest.mark.usefixtures('song_title1')
 def test_get_song(library, song_title1):
-    song = library.get_song(song_title1)
+    song = Song.entitled(song_title1)
 
     assert song.lyrics == Lyrics(lyricwikia.get_lyrics(song_title1.artist, song_title1.title))
 
@@ -48,4 +49,6 @@ def test_get_random_songs_by_artists(library):
 def test_instrumental_song(library):
     song = library.get_song(SongTitle('Deep Forest', 'Boheme'))
 
-    assert song == Song('Deep Forest', 'Boheme', 'Instrumental')
+    assert song.artist == 'Deep Forest'
+    assert song.title == 'Boheme'
+    assert song.lyrics == Lyrics('Instrumental')
