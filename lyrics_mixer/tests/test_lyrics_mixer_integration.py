@@ -2,28 +2,28 @@ import pytest
 from songs.model import SongTitle
 from lyrics_mixer.lyrics_mixer import LyricsMixer, ParagraphInterleaveLyricsMixStrategy, EmptyMixedLyrics
 from wikia.lyrics_api_client import WikiaLyricsApiClient
-from songs.tests.fixtures.song_titles import song_title1, song_title2
 
 
 @pytest.fixture
-def lyrics_mixer():
+def mixer():
     return LyricsMixer(WikiaLyricsApiClient(), ParagraphInterleaveLyricsMixStrategy())
 
 
-def test_mix_two_random_lyrics(lyrics_mixer):
-    mixed_lyrics = lyrics_mixer.mix_two_random_lyrics()
+def test_mix_two_random_lyrics(mixer):
+    mixed_lyrics = mixer.mix_two_random_lyrics()
     assert mixed_lyrics != EmptyMixedLyrics()
 
 
-def test_mix_random_lyrics_by_artists(lyrics_mixer):
-    mixed_lyrics = lyrics_mixer.mix_random_lyrics_by_artists(
-        'Led Zeppelin', 'Steppenwolf')
+def test_mix_random_lyrics_by_artists(mixer):
+    mixed_lyrics = mixer.mix_random_lyrics_by_artists('U2', 'A-ha')
     assert mixed_lyrics != EmptyMixedLyrics()
 
 
-@pytest.mark.usefixtures('song_title1', 'song_title2')
-def test_mix_two_specific_lyrics(lyrics_mixer, song_title1, song_title2):
-    mixed_lyrics = lyrics_mixer.mix_two_specific_lyrics(
-        song_title1, song_title2)
-    assert mixed_lyrics.title == str(song_title1) + ', ' + str(song_title2)
+def test_mix_two_specific_lyrics(mixer):
+    title1 = SongTitle('U2', 'One')
+    title2 = SongTitle('A-ha', 'Take on me')
+
+    mixed_lyrics = mixer.mix_two_specific_lyrics(title1, title2)
+
+    assert mixed_lyrics.title == str(title1) + ', ' + str(title2)
     assert mixed_lyrics.text != ''

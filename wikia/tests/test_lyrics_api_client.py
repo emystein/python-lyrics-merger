@@ -17,16 +17,6 @@ def test_get_song(library, song_title1):
     assert song.lyrics == Lyrics(lyricwikia.get_lyrics(song_title1.artist, song_title1.title))
 
 
-@pytest.mark.usefixtures('song_titles')
-def test_get_songs(library, song_titles):
-    songs = library.get_songs(song_titles)
-
-    assert len(songs) == len(song_titles)
-
-    for song in songs:
-        assert song.lyrics == Lyrics(lyricwikia.get_lyrics(song.artist, song.title))
-
-
 def test_get_random_song(library):
     song = library.get_random_song()
 

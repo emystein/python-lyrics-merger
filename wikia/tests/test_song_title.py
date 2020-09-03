@@ -4,10 +4,10 @@ import wikia.song_title
 
 
 def test_parse_random_song_url():
-	song = wikia.song_title.random_song_title()
+	title = wikia.song_title.random_song_title()
 
-	assert song.artist != ''
-	assert song.title != ''
+	assert title.artist != ''
+	assert title.title != ''
 
 
 @pytest.mark.parametrize("song_url,expected_artist,expected_song", 
@@ -17,6 +17,6 @@ def test_parse_random_song_url():
 	("https://lyrics.fandom.com/wiki/Michael_W._Smith:The_Tribute/Agnus_Dei", 'Michael W. Smith', 'The Tribute/Agnus Dei')
 ])
 def test_parse_url(song_url, expected_artist, expected_song):
-	song_title = wikia.song_title.parse_url(song_url)
+	title = wikia.song_title.parse_url(song_url)
 
-	assert song_title == SongTitle(expected_artist, expected_song)
+	assert title == SongTitle(expected_artist, expected_song)
