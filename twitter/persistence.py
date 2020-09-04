@@ -1,7 +1,12 @@
-from streams.persistence import StreamCursor
+from peewee import *
 
 
-class MentionsReplyCursor(object):
+class StreamCursor(Model):
+    key = CharField(primary_key=True)
+    position = BigIntegerField(default=1)
+
+
+class MentionsReplyCursor:
     def __init__(self):
         self.cursor, self.created = StreamCursor.get_or_create(key = 'twitter')
 

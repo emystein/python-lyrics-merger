@@ -6,10 +6,10 @@ import os
 from urllib.parse import urlparse, uses_netloc
 from peewee import *
 import psycopg2
-from streams.persistence import StreamCursor
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy
 from wikia.lyrics_api_client import WikiaLyricsApiClient
+from twitter.persistence import StreamCursor
 from twitter.twitter import TwitterApi, TweetReplyFactory
 from composer import MixLyricsComposer
 
