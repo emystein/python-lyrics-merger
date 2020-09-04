@@ -16,15 +16,18 @@ def create_tweepy_api():
 
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-    api = tweepy.API(auth, wait_on_rate_limit=True,
-                     wait_on_rate_limit_notify=True)
 
+    api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+
+    # TODO: remove try/except
     try:
         api.verify_credentials()
     except Exception as e:
         logger.error("Error creating API", exc_info=True)
         raise e
+
     logger.info("API created")
+
     return api
 
 
@@ -49,18 +52,18 @@ class TwitterApi(object):
             status=reply_text[:MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
 
 
-class Tweet(object):
+class Tweet:
     def __init__(self, twitter_api, tweet):
         self.twitter_api = twitter_api
         self.tweet = tweet
-        self.user = tweet.user
+        self.author = tweet.user
         self.text = tweet.text
 
     def reply_with(self, reply_text):
         self.twitter_api.reply_tweet_with(self.tweet, reply_text)
 
     def __str__(self):
-        return f"Author: @{self.user.name}, Text: {self.text}"
+        return f"Author: @{self.author.name}, Text: {self.text}"
 
 
 class TweetReplyFactory:

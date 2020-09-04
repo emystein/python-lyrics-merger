@@ -16,7 +16,7 @@ def test_random():
 	("https://lyrics.fandom.com/wiki/Michael_W._Smith:The_Tribute/Agnus_Dei", 'Michael W. Smith', 'The Tribute/Agnus Dei')
 ])
 def test_parse_url(song_url, expected_artist, expected_song):
-	title = SongTitle.parse_url(song_url)
+	title = SongTitle.from_url(song_url)
 
 	assert title.artist == expected_artist
 	assert title.title == expected_song
