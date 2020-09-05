@@ -66,7 +66,6 @@ class Tweet:
         return f"Author: @{self.author.name}, Text: {self.text}"
 
 
-# TODO: replace with ComposedReply
 class TweetReply:
     def __init__(self, tweet):
         self.tweet = tweet
