@@ -29,10 +29,6 @@ class LyricsMixer:
             logger.error('Returning empty lyrics.', exc_info=True)
             return EmptyMixedLyrics()
 
-    # TODO: remove 'parsed' from name
-    def mix_parsed_song_titles(self, parsed_song_titles):
-        return parsed_song_titles.mix_using(self)
-
 
 class LineInterleaveLyricsMixStrategy:
     def mix(self, song1, song2):

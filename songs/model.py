@@ -50,7 +50,8 @@ class SongTitle:
 
 class EmptySongTitle(SongTitle):
     def __init__(self):
-        return
+        self.artist = ''
+        self.title = ''
 
     def __eq__(self, other):
         return self.__class__ == other.__class__

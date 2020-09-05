@@ -12,8 +12,8 @@ def test_compose_reply():
 
     composer = MixLyricsComposer(lyrics_mixer)
 
-    lyrics_mixer.mix_parsed_song_titles.return_value = 'Blah'
+    lyrics_mixer.mix_random_lyrics_by_artists.return_value = 'Blah'
 
-    reply = composer.reply(FakeTweet(1, 'emenendez', 'text'), ParsedArtists(['U2', 'A-ha']))
+    reply = composer.reply(FakeTweet(1, 'emenendez', '@lyricsmixer mix U2 and A-ha'), ParsedArtists(['U2', 'A-ha']))
 
     assert reply.text == '@emenendez Blah'

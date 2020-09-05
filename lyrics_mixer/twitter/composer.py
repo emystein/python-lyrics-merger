@@ -5,5 +5,5 @@ class MixLyricsComposer:
         self.lyrics_mixer = lyrics_mixer
 
     def reply(self, tweet, parsed_song_titles):
-        lyrics = self.lyrics_mixer.mix_parsed_song_titles(parsed_song_titles)
+        lyrics = parsed_song_titles.mix_using(self.lyrics_mixer)
         return ComposedReply(tweet, lyrics)
