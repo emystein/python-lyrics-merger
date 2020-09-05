@@ -6,7 +6,7 @@ class Song:
         if len(list) > 0:
             return Song.copy(random.choice(list))
         else:
-            return NullSong()
+            return NoneSong()
 
     @staticmethod
     def copy(another):
@@ -26,7 +26,7 @@ class Song:
     def __eq__(self, other):
         return (self.artist == other.artist) and (self.title == other.title)
 
-class NullSong:
+class NoneSong:
     def __init__(self):
         self.artist = ''
         self.title = ''
