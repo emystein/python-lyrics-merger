@@ -4,19 +4,16 @@ from songs.tests.fixtures.songs import song1, song2
 from lyrics_mixer.twitter.composer import MixLyricsComposer
 from lyrics_mixer.song_titles_parser import ParsedArtists
 from lyrics_mixer.lyrics_mixer import MixedLyrics
-from twitter.tests.model import Tweet
+from twitter.tests.model import FakeTweet
 
 
-def test_reply(song1, song2):
+def test_compose_reply():
     lyrics_mixer = Mock()
-
-    expected_mixed_lyrics = MixedLyrics(song1, song2, [], [])
-
-    lyrics_mixer.mix_parsed_song_titles.return_value = expected_mixed_lyrics
 
     composer = MixLyricsComposer(lyrics_mixer)
 
-    result = composer.write_reply(Tweet('emenendez', 'text'),
-                                  ParsedArtists(['Led Zeppelin', 'Steppenwolf']))
+    lyrics_mixer.mix_parsed_song_titles.return_value = 'Blah'
 
-    assert result == f"@emenendez {expected_mixed_lyrics}"
+    reply = composer.reply(FakeTweet(1, 'emenendez', 'text'), ParsedArtists(['U2', 'A-ha']))
+
+    assert reply.text == '@emenendez Blah'

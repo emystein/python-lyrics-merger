@@ -10,7 +10,7 @@ from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 from twitter.persistence import StreamCursor
-from twitter.twitter import TwitterApi, TweetReplyFactory
+from twitter.twitter import TwitterApi
 from composer import MixLyricsComposer
 
 logging.basicConfig(level=logging.INFO)
@@ -30,7 +30,9 @@ twitter_api = TwitterApi()
 lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMixStrategy())
 
 schedule.every().minute.do(jobs.reply_to_mentions, twitter_api=twitter_api,
-                           tweet_reply_factory=TweetReplyFactory(SongTitlesParser(SongTitlesSplitter()), MixLyricsComposer(lyrics_mixer)))
+                           tweet_parser=SongTitlesParser(SongTitlesSplitter()),
+                           reply_composer=MixLyricsComposer(lyrics_mixer))
+
 schedule.every(4).hours.do(jobs.tweet_random_lyrics,
                            twitter_api=twitter_api, lyrics_mixer=lyrics_mixer).run()
 

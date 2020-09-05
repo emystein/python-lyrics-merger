@@ -66,31 +66,34 @@ class Tweet:
         return f"Author: @{self.author.name}, Text: {self.text}"
 
 
-class TweetReplyFactory:
-    def __init__(self, input_parser, composer):
-        self.input_parser = input_parser
-        self.composer = composer
-
-    def create_from_many(self, tweets):
-        return map(lambda tweet: self.create_from(tweet), tweets)
-
-    def create_from(self, tweet):
-        return TweetReply(tweet).parse_with(self.input_parser).write_with(self.composer)
-
-
+# TODO: replace with ComposedReply
 class TweetReply:
     def __init__(self, tweet):
         self.tweet = tweet
         self.id = tweet.id
 
     def parse_with(self, tweet_parser):
-        self.parsed_data_from_tweet = tweet_parser.parse(self.tweet.text)
-        return self
+        return ParsedTweet(self.tweet, tweet_parser.parse(self.tweet.text))
 
-    def write_with(self, composer):
-        self.text = composer.write_reply(self.tweet, self.parsed_data_from_tweet)
-        return self
+
+class ParsedTweet:
+    def __init__(self, tweet, parsed_data_from_tweet):
+        self.tweet = tweet
+        self.parsed_data_from_tweet = parsed_data_from_tweet
+
+    def compose_reply(self, composer):
+        return composer.reply(self.tweet, self.parsed_data_from_tweet)
+
+
+class ComposedReply:
+    def __init__(self, origin_tweet, reply_text):
+        self.origin_tweet = origin_tweet
+        self.id = origin_tweet.id
+        self.text = f"@{origin_tweet.author.name} {reply_text}"
 
     def send(self):
-        logger.info(f"Replying to tweet: {self.tweet}")
-        self.tweet.reply_with(self.text)
+        logger.info(f"Replying to tweet: {self.origin_tweet}")
+        self.origin_tweet.reply_with(self.text)
+
+    def __eq__(self, other):
+        return self.origin_tweet == other.origin_tweet and self.text == other.text
