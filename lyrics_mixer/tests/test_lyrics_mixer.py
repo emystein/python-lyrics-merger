@@ -1,28 +1,26 @@
 import pytest
 from unittest.mock import Mock
-from lyrics_mixer.tests.fixtures.mocks import lyrics_library_mock
 from songs.tests.fixtures.songs import song1, song2
-from lyrics_mixer.song_titles_parser import ParsedArtists
-from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy, ParagraphInterleaveLyricsMixStrategy, MixedLyrics
+from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy, MixedLyrics
 
 
-lyrics_mix_strategy = LineInterleaveLyricsMixStrategy()
+lyrics_mix = LineInterleaveLyricsMixStrategy()
 
 
-def test_exception_on_mix_lyrics(lyrics_library_mock):
-    mixer = LyricsMixer(lyrics_library_mock, lyrics_mix_strategy)
+def test_exception_on_mix_lyrics():
+    lyrics_library_mock = Mock()
 
-    lyrics_picker = Mock()
+    mixer = LyricsMixer(lyrics_library_mock, lyrics_mix)
 
-    lyrics_picker.pick_two.side_effect = RuntimeError('Download error')
+    lyrics_picker_mock = Mock()
 
-    assert mixer.mix_lyrics(lyrics_picker) == MixedLyrics.empty()
+    lyrics_picker_mock.pick_two.side_effect = RuntimeError('Download error')
+
+    assert mixer.mix_lyrics(lyrics_picker_mock) == MixedLyrics.empty()
 
 
 def test_mixed_lyrics(song1, song2):
-    lyrics_editor = ParagraphInterleaveLyricsMixStrategy()
-
-    expected = lyrics_editor.mix(song1, song2)
+    expected = lyrics_mix.mix(song1, song2)
 
     mixed_lyrics = MixedLyrics(song1, song2, [], expected.paragraphs)
 

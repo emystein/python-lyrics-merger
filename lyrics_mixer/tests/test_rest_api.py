@@ -9,14 +9,17 @@ def app():
 
 def test_mix_two_random_lyrics(client):
     response = client.get("/mix/random")
+
     assert response.status_code == 200
 
 
 def test_mix_two_random_lyrics_by_artists(client):
     response = client.get("/mix/artists/Led_Zeppelin/Steppenwolf")
+
     assert response.status_code == 200
 
 
 def test_mix_two_specific_lyrics(client):
     response = client.get("/mix/songs/Led_Zeppelin/Stairway_to_Heaven/Steppenwolf/Born_to_be_wild")
+
     assert response.status_code == 200
