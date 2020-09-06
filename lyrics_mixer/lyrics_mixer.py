@@ -55,7 +55,7 @@ class ParagraphInterleaveLyricsMixStrategy:
 class MixedLyrics:
     def __init__(self, song1, song2, lines, paragraphs):
         self.song1, self.song2, self.lines, self.paragraphs = song1, song2, lines, paragraphs
-        self.title = str(song1.full_title()) + ', ' + str(song2.full_title())
+        self.title = str(song1.title) + ', ' + str(song2.title)
         self.text = '\n\n'.join(paragraphs)
 
     def __eq__(self, other):

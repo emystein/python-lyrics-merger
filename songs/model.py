@@ -18,11 +18,8 @@ class Song:
 
     def __init__(self, artist, title, lyrics_text):
         self.artist = artist
-        self.title = title
+        self.title = SongTitle(artist, title)
         self.lyrics = Lyrics(lyrics_text)
-
-    def full_title(self):
-        return self.artist + ' - ' + self.title
 
     def has_lyrics(self):
         return self.lyrics != Lyrics.empty()
@@ -31,8 +28,7 @@ class Song:
         return (self.artist == other.artist) and (self.title == other.title)
     
     def is_empty(self):
-        return self.artist == '' and self.title == ''
-
+        return self.artist == '' and self.title == SongTitle.empty()
 
 class SongTitle:
     @staticmethod

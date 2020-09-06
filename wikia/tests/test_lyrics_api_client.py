@@ -42,7 +42,7 @@ def test_get_random_songs_by_artists(library):
 
     for song in songs:
         assert song.artist in artists 
-        assert song.title != ''
+        assert song.title != SongTitle.empty()
         assert song.has_lyrics()
 
 
@@ -50,5 +50,5 @@ def test_instrumental_song(library):
     song = library.get_song(SongTitle('Deep Forest', 'Boheme'))
 
     assert song.artist == 'Deep Forest'
-    assert song.title == 'Boheme'
+    assert song.title == SongTitle('Deep Forest', 'Boheme')
     assert song.lyrics == Lyrics('Instrumental')

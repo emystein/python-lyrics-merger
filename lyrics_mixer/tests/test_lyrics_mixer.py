@@ -26,5 +26,5 @@ def test_mixed_lyrics(song1, song2):
 
     mixed_lyrics = MixedLyrics(song1, song2, [], expected.paragraphs)
 
-    assert mixed_lyrics.title == str(song1.full_title()) + ', ' + str(song2.full_title())
+    assert mixed_lyrics.title == str(song1.title) + ', ' + str(song2.title)
     assert mixed_lyrics.text == '\n\n'.join(expected.paragraphs)

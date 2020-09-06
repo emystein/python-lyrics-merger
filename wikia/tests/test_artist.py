@@ -12,7 +12,7 @@ def test_get_random_song_by_artist():
     song = Artist.named('Led Zeppelin').random_song()
 
     assert song.artist == 'Led Zeppelin'
-    assert song.title != ''
+    assert song.title != SongTitle.empty()
     assert song.has_lyrics()
 
 
