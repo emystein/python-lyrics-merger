@@ -19,6 +19,7 @@ def test_mix_random_lyrics_by_artists(mixer):
     assert mixed_lyrics != MixedLyrics.empty()
 
 
+@pytest.mark.vcr()
 def test_mix_two_specific_lyrics(mixer):
     title1 = SongTitle('U2', 'One')
     title2 = SongTitle('A-ha', 'Take on me')

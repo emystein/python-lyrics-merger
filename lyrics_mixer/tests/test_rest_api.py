@@ -6,10 +6,6 @@ import lyrics_mixer.rest_api_context
 def app():
     return lyrics_mixer.rest_api_context.app
 
-def test_root(client):
-    response = client.get("/")
-    assert response.status_code == 200
-
 
 def test_mix_two_random_lyrics(client):
     response = client.get("/mix/random")
