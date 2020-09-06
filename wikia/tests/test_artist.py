@@ -1,7 +1,7 @@
 import pytest
 import lyricwikia
 from wikia.lyrics_api_client import Artist
-from songs.model import SongTitle, NoneSong, Song, Lyrics, EmptyLyrics
+from songs.model import SongTitle, Song, Lyrics
 from songs.tests.fixtures.song_titles import song_titles, song_title1, song_title2
 
 def test_get_all_songs_by_artist():
@@ -17,4 +17,4 @@ def test_get_random_song_by_artist():
 
 
 def test_lyrics_not_found():
-    assert Artist.named('Menéndez').random_song() == NoneSong()
+    assert Artist.named('Menéndez').random_song().is_empty()

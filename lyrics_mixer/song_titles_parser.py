@@ -1,6 +1,6 @@
 from abc import abstractmethod
 import re
-from songs.model import SongTitle, EmptySongTitle, ArtistOnlySongTitle
+from songs.model import SongTitle
 
 class SongTitlesSplitter:
     @staticmethod
@@ -56,7 +56,7 @@ class SongTitleFactory:
         if can_create_from(text):
             return create_from(text)
         else:
-            return EmptySongTitle()
+            return SongTitle.empty()
 
     def parse_song_title(self, text):
         return self.create(self.can_create_from, self.create_from, text)
@@ -86,7 +86,7 @@ class ParsedArtists(SongTitleFactory):
         return '-' not in text
 
     def create_from(self, text):
-        return ArtistOnlySongTitle(text)
+        return SongTitle.artist_only(text)
 
     def accepts(self, split_text):
         return '-' not in split_text[0]

@@ -10,11 +10,11 @@ def test_create_song():
 	assert song.lyrics == Lyrics(lyrics_text)
 
 
-def test_null_song():
-	null_song = NoneSong()
-	assert null_song.artist == ''
-	assert null_song.title == ''
-	assert null_song.lyrics == EmptyLyrics()
+def test_none_song():
+	none_song = Song.none()
+	assert none_song.artist == ''
+	assert none_song.title == ''
+	assert none_song.lyrics == Lyrics.empty()
 
 
 def read_file(filename):

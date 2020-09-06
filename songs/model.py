@@ -6,7 +6,11 @@ class Song:
         if len(list) > 0:
             return Song.copy(random.choice(list))
         else:
-            return NoneSong()
+            return Song.none()
+
+    @staticmethod
+    def none():
+        return Song('', '', '')
 
     @staticmethod
     def copy(another):
@@ -21,22 +25,24 @@ class Song:
         return self.artist + ' - ' + self.title
 
     def has_lyrics(self):
-        return self.lyrics != EmptyLyrics()
+        return self.lyrics != Lyrics.empty()
 
     def __eq__(self, other):
         return (self.artist == other.artist) and (self.title == other.title)
-
-class NoneSong:
-    def __init__(self):
-        self.artist = ''
-        self.title = ''
-        self.lyrics = EmptyLyrics()
     
-    def __eq__(self, other):
-        return (self.title == other.title) and (self.lyrics == other.lyrics)
+    def is_empty(self):
+        return self.artist == '' and self.title == ''
 
 
 class SongTitle:
+    @staticmethod
+    def empty():
+        return SongTitle('', '')
+
+    @staticmethod
+    def artist_only(artist):
+        return SongTitle(artist, '')
+
     def __init__(self, artist, title):
         self.artist = artist.strip()
         self.title = title.strip()
@@ -48,28 +54,11 @@ class SongTitle:
         return self.artist + ' - ' + self.title
 
 
-class EmptySongTitle(SongTitle):
-    def __init__(self):
-        self.artist = ''
-        self.title = ''
-
-    def __eq__(self, other):
-        return self.__class__ == other.__class__
-
-    def __str__(self):
-        return 'Empty Song Title'
-
-
-class ArtistOnlySongTitle(SongTitle):
-    def __init__(self, artist):
-        self.artist = artist.strip()
-        self.title = None
-
-    def __eq__(self, other):
-        return other.__class__ == self.__class__ and (other.artist == self.artist) 
-
-
 class Lyrics:
+    @staticmethod
+    def empty():
+        return Lyrics('')
+
     def __init__(self, text):
         self.text = text
 
@@ -84,9 +73,3 @@ class Lyrics:
 
     def __eq__(self, other):
         return (self.text == other.text)
-
-
-class EmptyLyrics(Lyrics):
-    def __init__(self):
-        super().__init__('')
-
