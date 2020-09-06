@@ -2,6 +2,7 @@ import pytest
 from wikia.song_title import SongTitle
 
 
+@pytest.mark.vcr()
 def test_random():
 	title = SongTitle.random()
 

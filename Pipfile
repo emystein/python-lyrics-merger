@@ -21,6 +21,7 @@ peewee = "*"
 psycopg2-binary = "*"
 schedule = "*"
 flask-injector = "*"
+pytest-vcr = "*"
 
 [requires]
 python_version = "3"

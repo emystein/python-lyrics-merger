@@ -1,0 +1,159 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://lyrics.wikia.com/api.php?fmt=json&func=getArtist&artist=Led_Zeppelin
+  response:
+    body:
+      string: ''
+    headers:
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '57290'
+      Cache-Control:
+      - s-maxage=86400, must-revalidate, max-age=0
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html; charset=UTF-8
+      Date:
+      - Sun, 06 Sep 2020 19:02:43 GMT
+      Location:
+      - https://lyrics.fandom.com/api.php?fmt=json&func=getArtist&artist=Led_Zeppelin
+      Set-Cookie:
+      - wikia_beacon_id=eY3LwTt1sn; domain=.wikia.com; path=/; expires=Fri, 05 Mar
+        2021 19:02:43 GMT; SameSite=None; Secure;
+      - wikia_session_id=HQKWD9--40; domain=.wikia.com; path=/; expires=Sun, 06 Sep
+        2020 19:32:43 GMT; SameSite=None; Secure;
+      Vary:
+      - Accept-Encoding, Cookie
+      X-Cache:
+      - MISS, HIT
+      X-Cache-Hits:
+      - 0, 1
+      X-Cacheable:
+      - 'YES'
+      X-Content-Type-Options:
+      - nosniff
+      X-Datacenter:
+      - SJC
+      X-Redirected-By-Wf:
+      - NotPrimary
+      X-Served-By:
+      - cache-wk-sjc3163-WIKIA, cache-gru17145-GRU
+      X-Timer:
+      - S1599418964.607635,VS0,VE1
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://lyrics.fandom.com/api.php?fmt=json&func=getArtist&artist=Led_Zeppelin
+  response:
+    body:
+      string: !!binary |
+        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
+    headers:
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '57290'
+      Cache-Control:
+      - max-age=86400, s-maxage=86400, public
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '1854'
+      Content-Security-Policy:
+      - upgrade-insecure-requests
+      Content-Security-Policy-Report-Only:
+      - 'default-src https: ''self'' data: blob:; script-src https: ''self'' data:
+        ''unsafe-inline'' ''unsafe-eval'' blob:; style-src https: ''self'' ''unsafe-inline''
+        blob:; report-uri https://services.fandom.com/csp-logger/csp/app'
+      Content-Type:
+      - text/javascript; charset=UTF-8
+      Date:
+      - Sun, 06 Sep 2020 19:02:43 GMT
+      Set-Cookie:
+      - wikia_beacon_id=uCUs4FaJno; domain=.fandom.com; path=/; expires=Fri, 05 Mar
+        2021 19:02:43 GMT; SameSite=None; Secure;
+      - wikia_session_id=MLwstkT8-s; domain=.fandom.com; path=/; expires=Sun, 06 Sep
+        2020 19:32:43 GMT; SameSite=None; Secure;
+      - Geo={%22region%22:%22C%22%2C%22country%22:%22AR%22%2C%22continent%22:%22SA%22};
+        path=/; domain=.fandom.com; SameSite=None; Secure;
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, HIT
+      X-Cache-Hits:
+      - 0, 20
+      X-Cacheable:
+      - 'YES'
+      X-Content-Type-Options:
+      - nosniff
+      X-Datacenter:
+      - SJC
+      X-Served-By:
+      - mediawiki-prod-ucp-8649846c56-7n87w, cache-wk-sjc3163-WIKIA, cache-eze19325-EZE
+      X-Timer:
+      - S1599418964.817381,VS0,VE0
+    status:
+      code: 200
+      message: OK
+version: 1
