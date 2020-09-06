@@ -1,6 +1,7 @@
 import logging
 from wikia.lyrics_pickers import *
 from itertools import groupby
+from songs.model import Song
 from lyrics_mixer.song_titles_parser import ParsedSongTitles, ParsedArtists
 
 
@@ -27,7 +28,7 @@ class LyricsMixer:
             return self.lyrics_mix_strategy.mix(song1, song2)
         except Exception as e:
             logger.error('Returning empty lyrics.', exc_info=True)
-            return EmptyMixedLyrics()
+            return MixedLyrics.empty()
 
 
 class LineInterleaveLyricsMixStrategy:
@@ -53,6 +54,10 @@ class ParagraphInterleaveLyricsMixStrategy:
 
 
 class MixedLyrics:
+    @staticmethod
+    def empty():
+        return MixedLyrics(Song.none(), Song.none(), '', '')
+
     def __init__(self, song1, song2, lines, paragraphs):
         self.song1, self.song2, self.lines, self.paragraphs = song1, song2, lines, paragraphs
         self.title = str(song1.title) + ', ' + str(song2.title)
@@ -66,8 +71,3 @@ class MixedLyrics:
 
     def __str__(self):
         return self.title + '\n\n' + self.text
-
-
-class EmptyMixedLyrics(MixedLyrics):
-    def __init__(self):
-        self.title, self.text = '', ''
