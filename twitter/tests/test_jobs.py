@@ -12,11 +12,12 @@ def test_reply_to_mentions():
     lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMixStrategy())
 
     twitter_api = Mock()
-    lyrics_mixer = Mock()
 
     mentions = [FakeTweet(1, 'emenendez', '@lyricsmixer mix U2 and A-ha')]
 
     twitter_api.mentions_since.return_value = mentions
+
+    lyrics_mixer = Mock()
 
     lyrics_mixer.mix_random_lyrics_by_artists.return_value = 'Blah'
 
