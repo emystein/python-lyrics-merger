@@ -11,7 +11,6 @@ from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrate
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 from twitter.persistence import StreamCursor
 from twitter.twitter import TwitterApi
-from composer import MixLyricsComposer
 
 logging.basicConfig(level=logging.INFO)
 
