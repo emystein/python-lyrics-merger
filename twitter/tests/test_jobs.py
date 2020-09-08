@@ -1,6 +1,6 @@
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
-import twitter.jobs
+import twitter
 import pytest
 from unittest.mock import Mock
 from twitter.tests.model import FakeTweet
