@@ -10,7 +10,7 @@ splitter = SongTitlesSplitter()
 
 @pytest.mark.parametrize('prefix', prefixes)
 @pytest.mark.parametrize('connector', SongTitlesSplitter.connectors())
-@pytest.mark.parametrize("title1, title2",
+@pytest.mark.parametrize('title1, title2',
                          [
                              ('Divididos', 'Las Pelotas'),
                              ('Patricio Rey y sus redonditos de ricotta', 'Sumo'),
