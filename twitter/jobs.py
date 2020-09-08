@@ -1,6 +1,6 @@
 import logging
-from twitter.persistence import MentionsReplyCursor
-from twitter.twitter import TweetReply, ComposedReply
+from persistence import MentionsReplyCursor
+from twitter import TweetReply, ComposedReply
 
 
 logger = logging.getLogger()
