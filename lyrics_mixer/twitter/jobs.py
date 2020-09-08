@@ -1,6 +1,6 @@
 import logging
 from twitter.persistence import MentionsReplyCursor
-from twitter.twitter import TweetReply
+from twitter.twitter import TweetReply, ComposedReply
 
 
 logger = logging.getLogger()
@@ -11,7 +11,7 @@ def tweet_random_lyrics(twitter_api, lyrics_mixer):
     twitter_api.update_status(str(mixed_lyrics)) 
 
 
-def reply_to_mentions(twitter_api, tweet_parser, reply_composer):
+def reply_to_mentions(twitter_api, tweet_parser, lyrics_mixer):
     reply_cursor = MentionsReplyCursor()
 
     logger.info(f"Mentions reply cursor at position: {reply_cursor.position}")
@@ -19,6 +19,6 @@ def reply_to_mentions(twitter_api, tweet_parser, reply_composer):
     mentions = twitter_api.mentions_since(reply_cursor.position)
 
     for mention in mentions:
-        reply = TweetReply(mention).parse_with(tweet_parser).compose_reply(reply_composer)
+        reply = TweetReply(mention).parse_with(tweet_parser).compose_reply(lyrics_mixer)
         reply.send()
         reply_cursor.point_to(reply)

@@ -3,6 +3,7 @@ import logging
 from os import environ
 
 
+
 MAX_TWEET_LENGTH = 280
 
 logger = logging.getLogger()
@@ -80,8 +81,9 @@ class ParsedTweet:
         self.tweet = tweet
         self.parsed_data_from_tweet = parsed_data_from_tweet
 
-    def compose_reply(self, composer):
-        return composer.reply(self.tweet, self.parsed_data_from_tweet)
+    def compose_reply(self, lyrics_mixer):
+        lyrics = self.parsed_data_from_tweet.mix_using(lyrics_mixer)
+        return ComposedReply(self.tweet, lyrics)
 
 
 class ComposedReply:

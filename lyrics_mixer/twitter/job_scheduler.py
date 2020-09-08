@@ -31,7 +31,7 @@ lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMixStrate
 
 schedule.every().minute.do(jobs.reply_to_mentions, twitter_api=twitter_api,
                            tweet_parser=SongTitlesParser(SongTitlesSplitter()),
-                           reply_composer=MixLyricsComposer(lyrics_mixer))
+                           lyrics_mixer=lyrics_mixer)
 
 schedule.every(4).hours.do(jobs.tweet_random_lyrics,
                            twitter_api=twitter_api, lyrics_mixer=lyrics_mixer).run()
