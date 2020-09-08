@@ -3,7 +3,7 @@ from lyrics_mixer.song_titles_parser import SongTitlesSplitter
 from songs.model import SongTitle
 
 
-prefixes = SongTitlesSplitter.prefixes() + ['@lyricsmixer mezclá ', 'Homer Simpson mezclá ']
+prefixes = SongTitlesSplitter.prefixes() + ['@lyricsmixer mezclá ', 'Fulano mezclá ']
 
 splitter = SongTitlesSplitter()
 
@@ -27,3 +27,16 @@ def test_split_artists_second_artist_name_contains_connector():
         "mezclá Sumo y 'Patricio Rey y sus redonditos de ricotta'")
 
     assert results == ['Sumo', 'Patricio Rey y sus redonditos de ricotta']
+
+
+@pytest.mark.parametrize("full_title", [
+    ("'Divididos y Las Pelotas'"),
+    ("'Divididos' y \"Las Pelotas\""),
+    ("\"Divididos\" y 'Las Pelotas'"),
+    ("\"Divididos' y 'Las Pelotas\""),
+    ("\"Divididos\" y \"Las Pelotas\""),
+])
+def test_split_artists_quoted(full_title):
+    results = splitter.split(f"mezcla {full_title}")
+
+    assert results == ['Divididos', 'Las Pelotas']
