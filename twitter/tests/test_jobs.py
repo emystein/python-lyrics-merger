@@ -1,6 +1,6 @@
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
-import lyrics_mixer.twitter.jobs
+import twitter.jobs
 import pytest
 from unittest.mock import Mock
 from wikia.lyrics_api_client import WikiaLyricsApiClient

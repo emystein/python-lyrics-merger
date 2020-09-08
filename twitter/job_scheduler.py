@@ -1,16 +1,16 @@
 import logging
 import schedule
 import time
-import jobs
 import os
 from urllib.parse import urlparse, uses_netloc
 from peewee import *
 import psycopg2
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy
-from wikia.lyrics_api_client import WikiaLyricsApiClient
+import twitter.jobs
 from twitter.persistence import StreamCursor
 from twitter.twitter import TwitterApi
+from wikia.lyrics_api_client import WikiaLyricsApiClient
 
 logging.basicConfig(level=logging.INFO)
 
