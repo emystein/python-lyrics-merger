@@ -6,7 +6,6 @@ from urllib.parse import urlparse, uses_netloc
 from peewee import *
 import psycopg2
 from song_titles_parser import SongTitlesSplitter, SongTitlesParser
-from lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy
 import twitter_jobs
 from twitter import StreamCursor, TwitterApi
 from wikia.lyrics_api_client import WikiaLyricsApiClient
