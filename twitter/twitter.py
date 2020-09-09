@@ -4,9 +4,6 @@ from os import environ
 from peewee import *
 
 
-
-MAX_TWEET_LENGTH = 280
-
 logger = logging.getLogger()
 
 
@@ -19,14 +16,9 @@ def create_tweepy_api():
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
-    api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
-
-    # TODO: remove try/except
-    try:
-        api.verify_credentials()
-    except Exception as e:
-        logger.error("Error creating API", exc_info=True)
-        raise e
+    api = tweepy.API(auth, wait_on_rate_limit=True,
+                     wait_on_rate_limit_notify=True)
+    api.verify_credentials()
 
     logger.info("API created")
 
@@ -35,7 +27,7 @@ def create_tweepy_api():
 
 def tweet_random_lyrics(twitter_api, lyrics_mixer):
     mixed_lyrics = lyrics_mixer.mix_two_random_lyrics()
-    twitter_api.update_status(str(mixed_lyrics)) 
+    twitter_api.update_status(str(mixed_lyrics))
 
 
 def reply_to_mentions(twitter_api, tweet_parser, lyrics_mixer):
@@ -52,35 +44,36 @@ def reply_to_mentions(twitter_api, tweet_parser, lyrics_mixer):
 
 
 class TwitterApi(object):
+    MAX_TWEET_LENGTH = 280
+
     def __init__(self):
-        self.twitter_api = create_tweepy_api()
+        self.api = create_tweepy_api()
 
     def mentions_since(self, since_id):
-        tweets = tweepy.Cursor(
-            self.twitter_api.mentions_timeline, since_id).items()
-        mentions = filter(self.is_not_reply, tweets)
+        tweets = tweepy.Cursor(self.api.mentions_timeline, since_id).items()
+        return self.mentions(tweets)
+
+    def mentions(self, tweets):
+        mentions = filter(lambda tweet: tweet.in_reply_to_status_id is None, tweets)
         return map(lambda mention: Tweet(self, mention), mentions)
 
-    def is_not_reply(self, tweet):
-        return tweet.in_reply_to_status_id is None
-
     def update_status(self, tweet):
-        self.twitter_api.update_status(tweet[:MAX_TWEET_LENGTH])
+        self.api.update_status(tweet[self.MAX_TWEET_LENGTH])
 
     def reply_tweet_with(self, tweet, reply_text):
-        self.twitter_api.update_status(
-            status=reply_text[:MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
+        self.api.update_status(status=reply_text[self.MAX_TWEET_LENGTH],
+                               in_reply_to_status_id=tweet.id)
 
 
 class Tweet:
     def __init__(self, twitter_api, tweet):
-        self.twitter_api = twitter_api
+        self.api = twitter_api
         self.tweet = tweet
         self.author = tweet.user
         self.text = tweet.text
 
     def reply_with(self, reply_text):
-        self.twitter_api.reply_tweet_with(self.tweet, reply_text)
+        self.api.reply_tweet_with(self.tweet, reply_text)
 
     def __str__(self):
         return f"Author: @{self.author.name}, Text: {self.text}"
@@ -126,7 +119,7 @@ class StreamCursor(Model):
 
 class MentionsReplyCursor:
     def __init__(self):
-        self.cursor, self.created = StreamCursor.get_or_create(key = 'twitter')
+        self.cursor, self.created = StreamCursor.get_or_create(key='twitter')
 
     @property
     def position(self):
