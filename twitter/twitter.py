@@ -16,8 +16,7 @@ def create_tweepy_api():
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
-    api = tweepy.API(auth, wait_on_rate_limit=True,
-                     wait_on_rate_limit_notify=True)
+    api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
     api.verify_credentials()
 
     logger.info("API created")
@@ -40,11 +39,10 @@ class TwitterApi(object):
         return map(lambda mention: Tweet(self, mention), mentions)
 
     def update_status(self, tweet):
-        self.api.update_status(tweet[self.MAX_TWEET_LENGTH])
+        self.api.update_status(status=tweet[self.MAX_TWEET_LENGTH])
 
     def reply_tweet_with(self, tweet, reply_text):
-        self.api.update_status(status=reply_text[self.MAX_TWEET_LENGTH],
-                               in_reply_to_status_id=tweet.id)
+        self.api.update_status(status=reply_text[self.MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
 
 
 class Tweet:
