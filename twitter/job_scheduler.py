@@ -7,8 +7,9 @@ from peewee import *
 import psycopg2
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy
+from twitter.persistence import StreamCursor
+from twitter import TwitterApi
 import twitter
-from twitter import StreamCursor, TwitterApi
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 
 logging.basicConfig(level=logging.INFO)
