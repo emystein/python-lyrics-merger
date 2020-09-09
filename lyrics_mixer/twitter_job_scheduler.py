@@ -7,7 +7,7 @@ from peewee import *
 import psycopg2
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy
-import twitter
+import twitter_jobs
 from twitter import StreamCursor, TwitterApi
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 
@@ -27,11 +27,11 @@ twitter_api = TwitterApi()
 
 lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMixStrategy())
 
-schedule.every().minute.do(twitter.reply_to_mentions, twitter_api=twitter_api,
+schedule.every().minute.do(twitter_jobs.reply_to_mentions, twitter_api=twitter_api,
                            tweet_parser=SongTitlesParser(SongTitlesSplitter()),
                            lyrics_mixer=lyrics_mixer)
 
-schedule.every(4).hours.do(twitter.tweet_random_lyrics,
+schedule.every(4).hours.do(twitter_jobs.tweet_random_lyrics,
                            twitter_api=twitter_api, lyrics_mixer=lyrics_mixer).run()
 
 

@@ -1,6 +1,6 @@
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
-import twitter
+import lyrics_mixer.twitter_jobs
 import pytest
 from unittest.mock import Mock
 from twitter.tests.model import FakeTweet
@@ -21,4 +21,4 @@ def test_reply_to_mentions():
 
     lyrics_mixer.mix_random_lyrics_by_artists.return_value = 'Blah'
 
-    lyrics_mixer.twitter.jobs.reply_to_mentions(twitter_api, song_titles_parser, lyrics_mixer)
+    lyrics_mixer.twitter_jobs.reply_to_mentions(twitter_api, song_titles_parser, lyrics_mixer)

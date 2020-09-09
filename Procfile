@@ -1,2 +1,2 @@
 web: gunicorn lyrics_mixer.rest_api_context:app
-worker: python twitter/job_scheduler.py
+worker: python lyrics_mixer/twitter_job_scheduler.py
