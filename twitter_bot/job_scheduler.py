@@ -8,7 +8,8 @@ import psycopg2
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
 import jobs
-from twitter.twitter import StreamCursor, TwitterApi
+from twitter.persistence import StreamCursor
+from twitter.twitter import TwitterApi
 from wikia.lyrics_api_client import WikiaLyricsApiClient
 
 logging.basicConfig(level=logging.INFO)

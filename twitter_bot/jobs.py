@@ -1,5 +1,6 @@
 import logging
-from twitter.twitter import TweetReply, MentionsReplyCursor
+from twitter.persistence import MentionsReplyCursor
+from twitter.twitter import TweetReply
 
 
 logger = logging.getLogger()
