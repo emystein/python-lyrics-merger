@@ -1,10 +1,11 @@
 import random
 
+
 class Song:
     @staticmethod
-    def random_from(list):
-        if len(list) > 0:
-            return Song.copy(random.choice(list))
+    def random_from(songs):
+        if len(songs) > 0:
+            return Song.copy(random.choice(songs))
         else:
             return Song.none()
 
@@ -21,14 +22,15 @@ class Song:
         self.title = SongTitle(artist, title)
         self.lyrics = Lyrics(lyrics_text)
 
+    def is_empty(self):
+        return self.artist == '' and self.title == SongTitle.empty()
+
     def has_lyrics(self):
         return self.lyrics != Lyrics.empty()
 
     def __eq__(self, other):
         return (self.artist == other.artist) and (self.title == other.title)
-    
-    def is_empty(self):
-        return self.artist == '' and self.title == SongTitle.empty()
+
 
 class SongTitle:
     @staticmethod
@@ -64,9 +66,8 @@ class Lyrics:
     def paragraphs(self):
         return self.text.split('\n\n')
 
-    def __str__(self):
-        return self.text
-
     def __eq__(self, other):
         return (self.text == other.text)
 
+    def __str__(self):
+        return self.text

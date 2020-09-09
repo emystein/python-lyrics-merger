@@ -1,5 +1,5 @@
 import pytest
-from songs.model import *
+from songs.model import Song, SongTitle, Lyrics
 
 
 def test_create_song():
