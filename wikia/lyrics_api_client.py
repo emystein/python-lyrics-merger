@@ -1,8 +1,7 @@
 import logging
 import lyricwikia
-from wikia.artist import Artist
-from wikia.song import Song
-from wikia.song_title import SongTitle
+from wikia.model import Artist, SongTitle, Song
+
 
 # TODO convert to module
 class WikiaLyricsApiClient:

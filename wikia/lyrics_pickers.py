@@ -1,4 +1,4 @@
-from wikia.artist import Artist
+from wikia.model import Artist
 
 class RandomLyricsPicker:
     def pick_two(self, library):

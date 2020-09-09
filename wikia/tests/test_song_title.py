@@ -1,5 +1,5 @@
 import pytest
-from wikia.song_title import SongTitle
+from wikia.model import SongTitle
 
 
 @pytest.mark.vcr()
