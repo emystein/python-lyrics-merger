@@ -36,21 +36,9 @@ class SongTitlesParser:
 
 
 class SongTitleFactory:
-    @abstractmethod
-    def accepts(self, split_text):
-        pass
-
     def __init__(self, split_text):
         self.song_title1 = self.parse_song_title(split_text[0])
         self.song_title2 = self.parse_song_title(split_text[1])
-
-    @abstractmethod
-    def can_create_from(self, text):
-        pass
-    
-    @abstractmethod
-    def create_from(self, text):
-        pass
 
     def create(self, can_create_from, create_from, text):
         if can_create_from(text):
@@ -60,10 +48,6 @@ class SongTitleFactory:
 
     def parse_song_title(self, text):
         return self.create(self.can_create_from, self.create_from, text)
-
-    @abstractmethod
-    def mix_using(self, lyrics_mixer):
-        pass
 
 
 class ParsedSongTitles(SongTitleFactory):

@@ -10,6 +10,12 @@ def test_create_song():
 	assert song.lyrics == Lyrics(lyrics_text)
 
 
+def test_song_equals_by_artist_and_title():
+	song1 = Song('Led Zeppelin', 'Stairway to Heaven', 'some lyrics')
+	song2 = Song('Led Zeppelin', 'Stairway to Heaven', 'other lyrics')
+	assert song1 == song2
+
+
 def test_none_song():
 	none_song = Song.none()
 	assert none_song.artist == ''

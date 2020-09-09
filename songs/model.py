@@ -69,3 +69,4 @@ class Lyrics:
 
     def __eq__(self, other):
         return (self.text == other.text)
+

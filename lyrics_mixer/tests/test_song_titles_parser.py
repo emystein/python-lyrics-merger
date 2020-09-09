@@ -2,7 +2,7 @@ import pytest
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser, ParsedSongTitles, ParsedArtists
 from songs.model import SongTitle
 from songs.tests.fixtures.song_titles import song_title1, song_title2
-
+from lyrics_mixer.tests.fixtures.mixer import mixer
 
 @pytest.mark.parametrize('prefix', ['', '@lyricsmixer mezcla '])
 @pytest.mark.parametrize('connector', [', ', ' y ', ' and '])
@@ -39,3 +39,19 @@ def test_parsed_artists_only():
 
     assert parsed.song_title1 == SongTitle.artist_only('Led Zeppelin')
     assert parsed.song_title2 == SongTitle.artist_only('Steppenwolf')
+
+
+def test_mix_titles(mixer):
+    parsed = ParsedSongTitles(['U2 - One', 'The Police - Roxanne'])
+
+    mixed_lyrics = parsed.mix_using(mixer)
+
+    assert mixed_lyrics.has_content()
+
+
+def test_mix_artists(mixer):
+    parsed = ParsedArtists(['U2', 'The Police'])
+
+    mixed_lyrics = parsed.mix_using(mixer)
+
+    assert mixed_lyrics.has_content()

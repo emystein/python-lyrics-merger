@@ -6,5 +6,5 @@ class User:
 class FakeTweet:
     def __init__(self, id, username, text):
         self.id = id
-        self.author = User(username)
+        self.user = User(username)
         self.text = text

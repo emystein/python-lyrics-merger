@@ -47,15 +47,16 @@ class TwitterApi(object):
 class Tweet:
     def __init__(self, twitter_api, tweet):
         self.api = twitter_api
+        self.id = tweet.id
         self.tweet = tweet
-        self.author = tweet.user
+        self.user = tweet.user
         self.text = tweet.text
 
     def reply_with(self, reply_text):
         self.api.reply_tweet_with(self.tweet, reply_text)
 
     def __str__(self):
-        return f"Author: @{self.author.name}, Text: {self.text}"
+        return f"Author: @{self.user.name}, Text: {self.text}"
 
 
 class TweetReply:
@@ -81,7 +82,7 @@ class ComposedReply:
     def __init__(self, origin_tweet, reply_text):
         self.origin_tweet = origin_tweet
         self.id = origin_tweet.id
-        self.text = f"@{origin_tweet.author.name} {reply_text}"
+        self.text = f"@{origin_tweet.user.name} {reply_text}"
 
     def send(self):
         logger.info(f"Replying to tweet: {self.origin_tweet}")

@@ -38,7 +38,9 @@ gunicorn lyrics_mixer.rest_api_context:app
 
 
 ## Implementation
-Implemented using [Flask](https://palletsprojects.com/p/flask/), in directory `lyrics_mixer/rest_api` 
+Implemented using [Flask](https://palletsprojects.com/p/flask/)
+
+See: `lyrics_mixer/rest_api.py` and `lyrics_mixer/rest_api_context.py`.
 
 
 # Twitter Bot

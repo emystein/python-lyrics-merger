@@ -1,24 +1,43 @@
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy
-from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
-import twitter_bot.jobs
+from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser, ParsedArtists
+from peewee import *
 import pytest
 from unittest.mock import Mock
 from twitter.tests.model import FakeTweet
+from twitter.persistence import StreamCursor
+from twitter.twitter import Tweet
+import twitter_bot.jobs
 from wikia.lyrics_api_client import WikiaLyricsApiClient
+
+
+database = SqliteDatabase(':memory:')
+database.bind([StreamCursor])
+database.create_tables([StreamCursor])
+
+
+@pytest.fixture(autouse=True)
+def with_database_txn():
+    with database.atomic() as txn:
+        yield
+        txn.rollback()
+
+
+lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMixStrategy())
+
+
+def test_random_lyrics():
+    twitter_api = Mock()
+
+    twitter_bot.jobs.tweet_random_lyrics(twitter_api, lyrics_mixer)
 
 
 def test_reply_to_mentions():
     song_titles_parser = SongTitlesParser(SongTitlesSplitter())
-    lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMixStrategy())
 
     twitter_api = Mock()
 
-    mentions = [FakeTweet(1, 'emenendez', '@lyricsmixer mix U2 and A-ha')]
+    mentions = [Tweet(twitter_api, FakeTweet(1, 'emenendez', '@lyricsmixer mix U2 and A-ha'))]
 
     twitter_api.mentions_since.return_value = mentions
 
-    lyrics_mixer = Mock()
-
-    lyrics_mixer.mix_random_lyrics_by_artists.return_value = 'Blah'
-
-    lyrics_mixer.twitter_jobs.reply_to_mentions(twitter_api, song_titles_parser, lyrics_mixer)
+    twitter_bot.jobs.reply_to_mentions(twitter_api, song_titles_parser, lyrics_mixer)

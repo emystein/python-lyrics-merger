@@ -2,7 +2,7 @@ import pytest
 import lyricwikia
 from wikia.model import Artist
 from songs.model import SongTitle, Song, Lyrics
-from songs.tests.fixtures.song_titles import song_titles, song_title1, song_title2
+from songs.tests.fixtures.song_titles import song_title1, song_title2
 
 @pytest.mark.vcr()
 def test_get_all_songs_by_artist():
