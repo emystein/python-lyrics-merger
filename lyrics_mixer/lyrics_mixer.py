@@ -1,5 +1,5 @@
 import logging
-from wikia.lyrics_pickers import *
+from wikia.lyrics_api_client import RandomLyricsPicker, RandomByArtistsLyricsPicker, SpecificLyricsPicker
 from itertools import groupby
 from songs.model import Song
 from lyrics_mixer.song_titles_parser import ParsedSongTitles, ParsedArtists
