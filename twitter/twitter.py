@@ -23,11 +23,11 @@ def create_tweepy_api():
     return api
 
 
-class TwitterApi(object):
+class TwitterApi:
     MAX_TWEET_LENGTH = 280
 
-    def __init__(self):
-        self.api = create_tweepy_api()
+    def __init__(self, api):
+        self.api = api
 
     def mentions_since(self, since_id):
         tweets = tweepy.Cursor(self.api.mentions_timeline, since_id).items()

@@ -8,6 +8,7 @@ import psycopg2
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
 import jobs
+import twitter.twitter
 from twitter.persistence import StreamCursor
 from twitter.twitter import TwitterApi
 from wikia.lyrics_api_client import WikiaLyricsApiClient
@@ -24,7 +25,9 @@ else:
 
 database.bind([StreamCursor])
 
-twitter_api = TwitterApi()
+api = twitter.twitter.create_tweepy_api()
+
+twitter_api = TwitterApi(api)
 
 lyrics_mixer = LyricsMixer(WikiaLyricsApiClient(), LineInterleaveLyricsMixStrategy())
 
