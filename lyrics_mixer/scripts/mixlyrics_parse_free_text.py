@@ -3,7 +3,7 @@ from argparse import ArgumentParser
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
 from lyrics_mixer.lyrics_mixer import LyricsMixer
 from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMixStrategy, ParagraphInterleaveLyricsMixStrategy
-from wikia.lyrics import WikiaLyrics
+from lyrics_mixer.lyrics_data_source import LyricsDataSource
 
 
 def main():
@@ -16,7 +16,7 @@ def main():
         titles_parser = SongTitlesParser(SongTitlesSplitter())
         mix_command = titles_parser.parse(args.text)
         lyrics_mixer = LyricsMixer(
-            WikiaLyrics(), LineInterleaveLyricsMixStrategy())
+            LyricsDataSource(), LineInterleaveLyricsMixStrategy())
         mixed = mix_command.mix(lyrics_mixer)
         print(str(mixed))
     except Exception as e:

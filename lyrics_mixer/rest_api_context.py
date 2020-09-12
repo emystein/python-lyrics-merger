@@ -2,7 +2,7 @@ from flask import Flask
 from injector import Module, Injector, singleton
 from flask_injector import FlaskInjector
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy
-from wikia.lyrics import WikiaLyrics
+from lyrics_mixer.lyrics_data_source import LyricsDataSource
 from lyrics_mixer.rest_api import configure_views
 
 
@@ -11,7 +11,7 @@ class AppModule(Module):
         self.app = app
 
     def configure(self, binder):
-        lyrics_mixer = LyricsMixer(WikiaLyrics(), LineInterleaveLyricsMixStrategy())
+        lyrics_mixer = LyricsMixer(LyricsDataSource(), LineInterleaveLyricsMixStrategy())
         binder.bind(LyricsMixer, to=lyrics_mixer, scope=singleton)
 
 

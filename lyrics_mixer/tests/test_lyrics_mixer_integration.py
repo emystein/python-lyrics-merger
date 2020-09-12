@@ -1,7 +1,7 @@
 import pytest
 from songs.model import SongTitle
 from lyrics_mixer.lyrics_mixer import LyricsMixer, ParagraphInterleaveLyricsMixStrategy, MixedLyrics
-from wikia.lyrics import WikiaLyrics
+from lyrics_mixer.lyrics_data_source import LyricsDataSource
 from lyrics_mixer.tests.fixtures.mixer import mixer
 
 

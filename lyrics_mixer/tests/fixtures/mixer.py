@@ -1,8 +1,8 @@
 import pytest
 from lyrics_mixer.lyrics_mixer import LyricsMixer, ParagraphInterleaveLyricsMixStrategy, MixedLyrics
-from wikia.lyrics import WikiaLyrics
+from lyrics_mixer.lyrics_data_source import LyricsDataSource
 
 
 @pytest.fixture
 def mixer():
-    return LyricsMixer(WikiaLyrics(), ParagraphInterleaveLyricsMixStrategy())
+    return LyricsMixer(LyricsDataSource(), ParagraphInterleaveLyricsMixStrategy())

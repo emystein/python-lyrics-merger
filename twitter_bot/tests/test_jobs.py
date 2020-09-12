@@ -7,7 +7,7 @@ from twitter.tests.model import FakeTweet
 from twitter.persistence import StreamCursor
 from twitter.twitter import Tweet
 import twitter_bot.jobs
-from wikia.lyrics import WikiaLyrics
+from lyrics_mixer.lyrics_data_source import LyricsDataSource
 
 
 database = SqliteDatabase(':memory:')
@@ -22,7 +22,7 @@ def with_database_txn():
         txn.rollback()
 
 
-lyrics_mixer = LyricsMixer(WikiaLyrics(), LineInterleaveLyricsMixStrategy())
+lyrics_mixer = LyricsMixer(LyricsDataSource(), LineInterleaveLyricsMixStrategy())
 
 
 def test_random_lyrics():

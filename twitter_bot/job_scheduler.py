@@ -11,7 +11,7 @@ import jobs
 import twitter.twitter
 from twitter.persistence import StreamCursor
 from twitter.twitter import TwitterApi
-from wikia.lyrics import WikiaLyrics
+from lyrics_mixer.lyrics_data_source import LyricsDataSource
 
 logging.basicConfig(level=logging.INFO)
 
@@ -29,7 +29,7 @@ api = twitter.twitter.create_tweepy_api()
 
 twitter_api = TwitterApi(api)
 
-lyrics_mixer = LyricsMixer(WikiaLyrics(), LineInterleaveLyricsMixStrategy())
+lyrics_mixer = LyricsMixer(LyricsDataSource(), LineInterleaveLyricsMixStrategy())
 
 schedule.every().minute.do(jobs.reply_to_mentions, twitter_api=twitter_api,
                            tweet_parser=SongTitlesParser(SongTitlesSplitter()),
