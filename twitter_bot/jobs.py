@@ -1,11 +1,17 @@
+import logging
 from twitter.persistence import MentionsReplyCursor
 from twitter.twitter import TweetReply
 
 
+logger = logging.getLogger()
+
+
 def tweet_random_lyrics(twitter_api, lyrics_mixer):
     mixed_lyrics = lyrics_mixer.mix_two_random_lyrics()
-    twitter_api.update_status(str(mixed_lyrics))
-
+    try:
+        twitter_api.update_status(str(mixed_lyrics))
+    except:
+        logger.error('Skipping tweet.', exc_info=True)
 
 def reply_to_mentions(twitter_api, tweet_parser, lyrics_mixer):
     reply_cursor = MentionsReplyCursor()
