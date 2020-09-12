@@ -4,14 +4,15 @@ from songs.model import SongTitle
 from songs.tests.fixtures.song_titles import song_title1, song_title2
 from lyrics_mixer.tests.fixtures.mixer import mixer
 
-@pytest.mark.parametrize('prefix', ['', '@lyricsmixer mezcla '])
+@pytest.mark.parametrize('prefix', ['', '@lyricsmixer mezclá '])
 @pytest.mark.parametrize('connector', [', ', ' y ', ' and '])
 @pytest.mark.parametrize(
     'text1, text2, artist1, title1, artist2, title2',
     [
         ('Led Zeppelin - Stairway to Heaven', 'Steppenwolf - Born to be wild',
          'Led Zeppelin', 'Stairway to Heaven', 'Steppenwolf', 'Born to be wild'),
-        ('Led Zeppelin', 'Steppenwolf', 'Led Zeppelin', '', 'Steppenwolf', '')
+        ('Led Zeppelin', 'Steppenwolf', 'Led Zeppelin', '', 'Steppenwolf', ''),
+        ('U2 - One', 'INXS - Doctor', 'U2', 'One', 'INXS', 'Doctor')
     ]
 )
 def test_parse_song_titles(prefix, connector, text1, text2, artist1, title1, artist2, title2):
@@ -21,6 +22,15 @@ def test_parse_song_titles(prefix, connector, text1, text2, artist1, title1, art
 
     assert parsed.song_title1 == SongTitle(artist1, title1)
     assert parsed.song_title2 == SongTitle(artist2, title2)
+
+
+def test_parse_tweet():
+    song_titles_parser = SongTitlesParser(SongTitlesSplitter())
+
+    parsed = song_titles_parser.parse('@lyricsmixer mezclá U2 - One y INXS - Doctor')
+
+    assert parsed.song_title1 == SongTitle('U2', 'One')
+    assert parsed.song_title2 == SongTitle('INXS', 'Doctor')
 
 
 def test_parsed_song_titles(song_title1, song_title2):

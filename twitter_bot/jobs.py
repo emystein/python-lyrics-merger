@@ -19,6 +19,7 @@ def reply_to_mentions(twitter_api, tweet_parser, lyrics_mixer):
     mentions = twitter_api.mentions_since(reply_cursor.position)
 
     for mention in mentions:
+        logger.info('Replying to mention: {str(mention)}')
         reply = TweetReply(mention).parse_with(tweet_parser).compose_reply(lyrics_mixer)
         reply.send()
         reply_cursor.point_to(reply)

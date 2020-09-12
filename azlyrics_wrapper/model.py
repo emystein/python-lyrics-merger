@@ -42,7 +42,7 @@ class Artist:
 
         api = AZlyrics()
         api.artist = self.name
-        all_songs = api.getSongs(sleep=5)
+        all_songs = api.getSongs()
 
         logger.info(f'Retrieved {len(all_songs)} songs')
 
