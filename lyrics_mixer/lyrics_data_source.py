@@ -1,4 +1,3 @@
-# from wikia.model import Artist, SongTitle, Song
 from azlyrics_wrapper.model import Artist, SongTitle, Song
 
 

@@ -15,7 +15,9 @@ class Artist:
         artist_initial = Artist.random_initial()
         artists_names = json.loads(azlyrics.azlyrics.artists(artist_initial))
         artist_name = random.choice(artists_names)
-        print(artist_name)
+
+        logger.info(f'Random Artist name: {artist_name}')
+
         return Artist.named(artist_name)
 
     @staticmethod
@@ -31,12 +33,18 @@ class Artist:
             return Artist(name)
 
     def __init__(self, name):
+        logger.info(f'Artist named: {name}')
+
         self.name = name
 
     def all_songs(self):
+        logger.info(f'Retrieving all songs of: {self.name}')
+
         api = AZlyrics()
         api.artist = self.name
         all_songs = api.getSongs()
+
+        logger.info(f'Retrieved {len(all_songs)} songs')
 
         return [songs.model.Song(self.name, songs.model.SongTitle(self.name, song), LazyLoadLyrics(self.name, song)) for song in all_songs.keys()]
 
@@ -53,8 +61,6 @@ class SongTitle:
 class Song:
     @staticmethod
     def entitled(title):
-        print(str(title))
-
         logger.info(f'Retrieving song: {str(title)}')
 
         api = AZlyrics()
