@@ -1,5 +1,5 @@
 import logging
-from wikia.lyrics_api_client import RandomLyricsPicker, RandomByArtistsLyricsPicker, SpecificLyricsPicker
+from wikia.lyrics import RandomSongsPicker, RandomByArtistsSongsPicker, SpecificSongsPicker
 from itertools import groupby
 from songs.model import Song
 from lyrics_mixer.song_titles_parser import ParsedSongTitles, ParsedArtists
@@ -14,13 +14,13 @@ class LyricsMixer:
         self.lyrics_mix_strategy = lyrics_mix_strategy
 
     def mix_two_random_lyrics(self):
-        return self.mix_lyrics(RandomLyricsPicker())
+        return self.mix_lyrics(RandomSongsPicker())
 
     def mix_random_lyrics_by_artists(self, artist1, artist2):
-        return self.mix_lyrics(RandomByArtistsLyricsPicker(artist1, artist2))
+        return self.mix_lyrics(RandomByArtistsSongsPicker(artist1, artist2))
 
     def mix_two_specific_lyrics(self, song_title1, song_title2):
-        return self.mix_lyrics(SpecificLyricsPicker(song_title1, song_title2))
+        return self.mix_lyrics(SpecificSongsPicker(song_title1, song_title2))
 
     def mix_lyrics(self, lyrics_picker):
         try:

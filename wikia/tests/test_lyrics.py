@@ -1,6 +1,6 @@
 import pytest
 import lyricwikia
-from wikia.lyrics_api_client import WikiaLyricsApiClient
+from wikia.lyrics import WikiaLyrics
 from wikia.model import Song
 from songs.model import SongTitle, Lyrics
 from songs.tests.fixtures.song_titles import song_title1, song_title2
@@ -8,7 +8,7 @@ from songs.tests.fixtures.song_titles import song_title1, song_title2
 
 @pytest.fixture
 def library():
-    return WikiaLyricsApiClient()
+    return WikiaLyrics()
 
 
 @pytest.mark.vcr()

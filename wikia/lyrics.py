@@ -3,7 +3,7 @@ import lyricwikia
 from wikia.model import Artist, SongTitle, Song
 
 
-class WikiaLyricsApiClient:
+class WikiaLyrics:
     def get_song(self, title):
         return Song.entitled(title)
 
@@ -13,17 +13,16 @@ class WikiaLyricsApiClient:
     def get_random_songs(self, count):
         return [self.get_random_song() for _ in range(count)]
 
-    # TODO: delete and use Artist directly ?
     def get_random_songs_by_artists(self, artists):
         return [Artist.named(artist).random_song() for artist in artists]
 
 
-class RandomLyricsPicker:
+class RandomSongsPicker:
     def pick_two(self, library):
         return library.get_random_songs(2)
 
 
-class RandomByArtistsLyricsPicker:
+class RandomByArtistsSongsPicker:
     def __init__(self, artist1, artist2):
         self.artists = [artist1, artist2]
 
@@ -31,7 +30,7 @@ class RandomByArtistsLyricsPicker:
         return library.get_random_songs_by_artists(self.artists)
 
 
-class SpecificLyricsPicker:
+class SpecificSongsPicker:
     def __init__(self, title1, title2):
         self.titles = [title1, title2]
 
