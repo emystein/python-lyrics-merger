@@ -83,8 +83,8 @@ class ComposedReply:
     def __init__(self, origin_tweet, reply_text):
         self.origin_tweet = origin_tweet
         self.id = origin_tweet.id
-        # self.text = f"@{origin_tweet.user.name} {reply_text}"
-        self.text = reply_text
+        # self.text = f"@{origin_tweet.username} {reply_text}"
+        self.text = str(reply_text)
 
     def send(self):
         logger.info(f"Replying to tweet: {self.origin_tweet}")
