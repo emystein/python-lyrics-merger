@@ -50,13 +50,14 @@ class Tweet:
         self.id = tweet.id
         self.tweet = tweet
         self.user = tweet.user
+        self.username = tweet.user.screen_name
         self.text = tweet.text
 
     def reply_with(self, reply_text):
         self.api.reply_tweet_with(self.tweet, reply_text)
 
     def __str__(self):
-        return f"Author: @{self.user.username}, Text: {self.text}"
+        return f"Author: @{self.username}, Text: {self.text}"
 
 
 class TweetReply:
