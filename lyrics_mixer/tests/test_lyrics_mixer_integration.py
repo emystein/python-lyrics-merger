@@ -13,7 +13,7 @@ def test_mix_two_random_lyrics(mixer):
 
 
 def test_mix_random_lyrics_by_artists(mixer):
-    mixed_lyrics = mixer.mix_random_lyrics_by_artists('U2', 'A-ha')
+    mixed_lyrics = mixer.mix_random_lyrics_by_artists('U2', 'INXS')
 
     assert mixed_lyrics.has_content()
 
@@ -21,7 +21,7 @@ def test_mix_random_lyrics_by_artists(mixer):
 @pytest.mark.vcr()
 def test_mix_two_specific_lyrics(mixer):
     title1 = SongTitle('U2', 'One')
-    title2 = SongTitle('A-ha', 'Take on me')
+    title2 = SongTitle('INXS', 'Doctor')
 
     mixed_lyrics = mixer.mix_two_specific_lyrics(title1, title2)
 

@@ -1,8 +1,8 @@
-import logging
-from wikia.lyrics import RandomSongsPicker, RandomByArtistsSongsPicker, SpecificSongsPicker
 from itertools import groupby
-from songs.model import Song
+import logging
+from lyrics_mixer.lyrics_data_source import RandomSongsPicker, RandomByArtistsSongsPicker, SpecificSongsPicker
 from lyrics_mixer.song_titles_parser import ParsedSongTitles, ParsedArtists
+from songs.model import Song
 
 
 logger = logging.getLogger()

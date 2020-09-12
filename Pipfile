@@ -22,6 +22,8 @@ psycopg2-binary = "*"
 schedule = "*"
 flask-injector = "*"
 pytest-vcr = "*"
+azapi = "*"
+azlyrics = "*"
 
 [requires]
 python_version = "3.8"

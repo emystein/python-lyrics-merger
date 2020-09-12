@@ -11,16 +11,16 @@ class Song:
 
     @staticmethod
     def none():
-        return Song('', '', '')
+        return Song('', SongTitle.empty(), Lyrics.empty())
 
     @staticmethod
     def copy(another):
         return Song(another.artist, another.title, another.lyrics)
 
-    def __init__(self, artist, title, lyrics_text):
+    def __init__(self, artist, title, lyrics):
         self.artist = artist
-        self.title = SongTitle(artist, title)
-        self.lyrics = Lyrics(lyrics_text)
+        self.title = title
+        self.lyrics = lyrics
 
     def is_empty(self):
         return self.artist == '' and self.title == SongTitle.empty()

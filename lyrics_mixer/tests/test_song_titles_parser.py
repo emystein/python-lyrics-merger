@@ -42,7 +42,7 @@ def test_parsed_artists_only():
 
 
 def test_mix_titles(mixer):
-    parsed = ParsedSongTitles(['U2 - One', 'The Police - Roxanne'])
+    parsed = ParsedSongTitles(['U2 - One', 'INXS - Doctor'])
 
     mixed_lyrics = parsed.mix_using(mixer)
 
@@ -50,7 +50,7 @@ def test_mix_titles(mixer):
 
 
 def test_mix_artists(mixer):
-    parsed = ParsedArtists(['U2', 'The Police'])
+    parsed = ParsedArtists(['U2', 'INXS'])
 
     mixed_lyrics = parsed.mix_using(mixer)
 

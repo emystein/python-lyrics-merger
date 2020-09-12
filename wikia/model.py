@@ -1,5 +1,6 @@
 import logging
 import lyricwikia
+import random
 import songs.model 
 from wikia.urls import random_song_url, song_title_from
 
@@ -26,7 +27,12 @@ class Artist:
         return songs
 
     def random_song(self):
-        return songs.model.Song.random_from(self.all_songs())
+        all_songs = self.all_songs()
+        if len(all_songs) > 0:
+            s = random.choice(all_songs)
+            return songs.model.Song(s.artist, songs.model.SongTitle(s.artist, s.title), songs.model.Lyrics(s.lyrics))
+        else:
+            return songs.model.Song.none()
 
 
 class SongTitle:
@@ -47,4 +53,4 @@ class Song:
 
         remote_song = lyricwikia.Song(title.artist, title.title)
 
-        return songs.model.Song(remote_song.artist, remote_song.title, remote_song.lyrics)
+        return songs.model.Song(remote_song.artist, songs.model.SongTitle(remote_song.artist, remote_song.title), songs.model.Lyrics(remote_song.lyrics))
