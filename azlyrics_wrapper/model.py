@@ -61,7 +61,6 @@ class SongTitle:
 class Song:
     @staticmethod
     def entitled(title):
-        print(f'Retrieving song: {title.artist} - {title.title}')
         logger.info(f'Retrieving song: {str(title)}')
 
         api = AZlyrics()
