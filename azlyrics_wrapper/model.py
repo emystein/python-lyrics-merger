@@ -73,19 +73,15 @@ class Song:
 
 class LazyLoadLyrics(songs.model.Lyrics):
     def __init__(self, artist, title):
-        self.artist = artist
-        self.title = title
         self.loaded_text = None
+        self.api = AZlyrics()
+        self.api.artist = artist
+        self.api.title = title
     
     @property
     def text(self):
         if self.loaded_text is None:
-            api = AZlyrics()
-            api.artist = self.artist
-            api.title = self.title
-            api.getLyrics()
-            self.loaded_text = api.lyrics
+            self.api.getLyrics()
+            self.loaded_text = self.api.lyrics
         
         return self.loaded_text
-
-        
