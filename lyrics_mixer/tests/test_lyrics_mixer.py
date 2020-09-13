@@ -7,6 +7,36 @@ from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrate
 lyrics_mix = LineInterleaveLyricsMixStrategy()
 
 
+def test_mix_two_random_lyrics(song1, song2):
+    lyrics_library_mock = Mock()
+
+    mixer = LyricsMixer(lyrics_library_mock, lyrics_mix)
+
+    lyrics_library_mock.get_random_songs.return_value = [song1, song2]
+
+    assert mixer.mix_two_random_lyrics() == lyrics_mix.mix(song1, song2)
+
+
+def test_mix_random_lyrics_by_artists(song1, song2):
+    lyrics_library_mock = Mock()
+
+    mixer = LyricsMixer(lyrics_library_mock, lyrics_mix)
+
+    lyrics_library_mock.get_random_songs_by_artists.return_value = [song1, song2]
+
+    assert mixer.mix_random_lyrics_by_artists(song1.artist, song2.artist) == lyrics_mix.mix(song1, song2)
+
+
+def test_mix_two_specific_lyrics(song1, song2):
+    lyrics_library_mock = Mock()
+
+    mixer = LyricsMixer(lyrics_library_mock, lyrics_mix)
+
+    lyrics_library_mock.get_song.side_effect = [song1, song2]
+
+    assert mixer.mix_two_specific_lyrics(song1.title, song2.title) == lyrics_mix.mix(song1, song2)
+
+
 def test_exception_on_mix_lyrics():
     lyrics_library_mock = Mock()
 
