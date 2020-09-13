@@ -13,7 +13,7 @@ Code coverage: `pipenv run pytest -v --cov=. --cov-report html`. Then access the
 ## Mix lyrics parsing artists from free text
 
 ```bash
-pipenv run python scripts/mixlyrics_parse_free_text.py 'Madonna, Slayer'
+pipenv run python mixlyrics_parse_free_text.py 'Madonna, Slayer'
 ```
 
 
@@ -69,10 +69,10 @@ Every 30 minutes except between 2 am and 8 am, since Heroku force sleep free ins
 `0/30 0-2,8-23 * * * /usr/bin/curl https://lyricsmixer.herokuapp.com > /tmp/lyricsmixer-ping.log`
 
 ### Systemd Timer
-Install unit provided in the `lyrics_mixer/setup` directory: `heroku_lyricsmixer_ping.timer`, `heroku_lyricsmixer_ping.service`
+Install unit provided in the `setup` directory: `heroku_lyricsmixer_ping.timer`, `heroku_lyricsmixer_ping.service`
 
 ```bash
-cd lyrics_mixer/setup
+cd setup
 sudo cp heroku_lyricsmixer_ping.* /etc/systemd/system
 sudo systemctl enable heroku_lyricsmixer_ping.timer
 sudo systemctl start heroku_lyricsmixer_ping.service
@@ -91,7 +91,7 @@ Run provisioning script:
 
 ```bash
 heroku run bash
-python lyrics_mixer/setup/database_provision.py
+python setup/database_provision.py
 ```
 
 Verify:

@@ -2,18 +2,18 @@ version: '3'
 services:
   db:
     image: postgres
-    # environment:
-    #   - POSTGRES_DB: "postgres"
-    #   - POSTGRES_USER: "postgres"
-    #   - POSTGRES_PASSWORD: "postgres"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
   jobs:
     build: .
-    command: python /app/twitter_bot/job_scheduler.py
+    command: python twitter_bot.py
     environment:
-      - TWITTER_ACCESS_TOKEN="${TWITTER_ACCESS_TOKEN}"
-      - TWITTER_ACCESS_TOKEN_SECRET="${TWITTER_ACCESS_TOKEN_SECRET}"
-      - TWITTER_CONSUMER_KEY="${TWITTER_ACCESS_TOKEN_SECRET}"
-      - TWITTER_CONSUMER_SECRET="${TWITTER_CONSUMER_SECRET}"
-      - DATABASE_URL="${DATABASE_URL}"
+      - TWITTER_ACCESS_TOKEN=${TWITTER_ACCESS_TOKEN}
+      - TWITTER_ACCESS_TOKEN_SECRET=${TWITTER_ACCESS_TOKEN_SECRET}
+      - TWITTER_CONSUMER_KEY=${TWITTER_ACCESS_TOKEN_SECRET}
+      - TWITTER_CONSUMER_SECRET=${TWITTER_CONSUMER_SECRET}
+      - DATABASE_URL=${DATABASE_URL}
     depends_on:
       - db
