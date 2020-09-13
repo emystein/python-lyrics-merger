@@ -56,6 +56,12 @@ Environment variables for storing auth tokens:
 
 `TWITTER_ACCESS_TOKEN_SECRET`
 
+# Docker
+A `docker-compose.yml` is available for running the PostgreSQL and Twitter Bot Docker containers.
+
+```bash
+docker-compose up
+```
 
 # Deployment in Heroku
 The file `Procfile` describes both the REST API app and the Twitter bot (as a worker).
