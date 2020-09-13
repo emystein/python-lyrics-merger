@@ -1,6 +1,6 @@
 import pytest
 from peewee import *
-from twitter.twitter import StreamCursor, MentionsReplyCursor
+from twitter.persistence import StreamCursor, MentionsReplyCursor
 
 
 database = SqliteDatabase(':memory:')
@@ -12,11 +12,11 @@ def current_twitter_cursor_position():
     return StreamCursor.get(StreamCursor.key == 'twitter').position
 
 
-@pytest.fixture(autouse=True)
-def with_database_txn():
-    with database.atomic() as txn:
-        yield
-        txn.rollback()
+# @pytest.fixture(autouse=True)
+# def with_database_txn():
+#     with database.atomic() as txn:
+#         yield
+#         txn.rollback()
 
 
 def test_get_or_create_mentions_reply_cursor():

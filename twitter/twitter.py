@@ -44,12 +44,14 @@ class Tweet:
         self.api = twitter_api
         self.id = tweet.id
         self.tweet = tweet
-        self.user = tweet.user
         self.username = tweet.user.screen_name
         self.text = tweet.text
 
     def reply_with(self, reply_text):
-        self.api.reply_tweet_with(self.tweet, reply_text)
+        try:
+            self.api.reply_tweet_with(self.tweet, reply_text)
+        except Exception as e:
+            logger.error(e)
 
     def __str__(self):
         return f"Author: @{self.username}, Text: {self.text}"
@@ -58,7 +60,6 @@ class Tweet:
 class TweetReply:
     def __init__(self, tweet):
         self.tweet = tweet
-        self.id = tweet.id
 
     def parse_with(self, tweet_parser):
         return ParsedTweet(self.tweet, tweet_parser.parse(self.tweet.text))
@@ -78,7 +79,6 @@ class ComposedReply:
     def __init__(self, origin_tweet, reply_text):
         self.origin_tweet = origin_tweet
         self.id = origin_tweet.id
-        # self.text = f"@{origin_tweet.username} {reply_text}"
         self.text = str(reply_text)
 
     def send(self):

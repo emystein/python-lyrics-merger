@@ -29,17 +29,16 @@ while database.is_closed():
         database.connect()
     except:
         pass
-
     time.sleep(1)
 
-twitter.persistence.database_proxy.initialize(database)
-twitter.persistence.database_proxy.create_tables([StreamCursor], safe=True)
-
 database.bind([StreamCursor])
+database.create_tables([StreamCursor])
 
-cursor = MentionsReplyCursor()
-cursor.position = 1304977022310113283
-cursor.save()
+# point to a known-past mention already replied
+# cursor = MentionsReplyCursor()
+# if cursor.position < 1304977022310113283:
+    # cursor.position = 1304977022310113283
+    # cursor.save()
 
 api = twitter.twitter.create_tweepy_api()
 
