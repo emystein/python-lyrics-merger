@@ -19,8 +19,6 @@ class MentionsReplyCursor:
     def __init__(self):
         self.cursor, self.created = StreamCursor.get_or_create(key='twitter')
 
-        logger.info(f"Mentions reply cursor at position: {self.position}")
-
     @property
     def position(self):
         return self.cursor.position

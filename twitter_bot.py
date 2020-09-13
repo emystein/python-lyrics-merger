@@ -10,7 +10,7 @@ from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrate
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
 import twitter_bot.jobs
 import twitter.persistence
-from twitter.persistence import StreamCursor
+from twitter.persistence import StreamCursor, MentionsReplyCursor
 import twitter.twitter
 from twitter.twitter import TwitterApi
 
@@ -20,20 +20,33 @@ if 'DATABASE_URL' in os.environ:
     uses_netloc.append('postgres')
     url = urlparse(os.environ["DATABASE_URL"])
     database = PostgresqlDatabase(
-        database=url.path[1:], user=url.username, password=url.password, host=url.hostname, port=url.port)
+        database=url.path[1:], user=url.username, password=url.password, host=url.hostname, port=url.port, autoconnect=False)
 else:
     database = SqliteDatabase(':memory:')
+
+while database.is_closed():
+    try:
+        database.connect()
+    except:
+        pass
+
+    time.sleep(1)
 
 twitter.persistence.database_proxy.initialize(database)
 twitter.persistence.database_proxy.create_tables([StreamCursor], safe=True)
 
 database.bind([StreamCursor])
 
+cursor = MentionsReplyCursor()
+cursor.position = 1304977022310113283
+cursor.save()
+
 api = twitter.twitter.create_tweepy_api()
 
 twitter_api = TwitterApi(api)
 
-lyrics_mixer = LyricsMixer(LyricsDataSource(), LineInterleaveLyricsMixStrategy())
+lyrics_mixer = LyricsMixer(
+    LyricsDataSource(), LineInterleaveLyricsMixStrategy())
 
 schedule.every().minute.do(twitter_bot.jobs.reply_to_mentions, twitter_api=twitter_api,
                            tweet_parser=SongTitlesParser(SongTitlesSplitter()),

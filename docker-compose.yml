@@ -8,7 +8,6 @@ services:
       - POSTGRES_PASSWORD=postgres
   jobs:
     build: .
-    command: python twitter_bot.py
     environment:
       - TWITTER_ACCESS_TOKEN=${TWITTER_ACCESS_TOKEN}
       - TWITTER_ACCESS_TOKEN_SECRET=${TWITTER_ACCESS_TOKEN_SECRET}

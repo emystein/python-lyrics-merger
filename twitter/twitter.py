@@ -1,7 +1,7 @@
 import tweepy
 import logging
 from os import environ
-from twitter.persistence import StreamCursor, MentionsReplyCursor
+
 
 logger = logging.getLogger()
 
@@ -15,12 +15,7 @@ def create_tweepy_api():
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
-    api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
-    api.verify_credentials()
-
-    logger.info("API created")
-
-    return api
+    return tweepy.API(auth)
 
 
 class TwitterApi:

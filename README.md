@@ -87,12 +87,7 @@ sudo systemctl list-timers --all
 ## Database setup
 Enable PostgreSQL add-on on Heroku dashboard.
 
-Run provisioning script:
-
-```bash
-heroku run bash
-python setup/database_provision.py
-```
+`twitter_bot.py` creates tables on startup.
 
 Verify:
 
