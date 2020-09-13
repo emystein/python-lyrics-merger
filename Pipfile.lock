@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d55ffd6b08a26ff0676624128a2ed34d0b102c36e3bfd1bb8987e0a4b6144583"
+            "sha256": "62ebcd527807be82876bf7ed7a6753b3f342c7ab926dd45f1a629a9a3cb6f444"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -137,13 +137,6 @@
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'",
             "version": "==2.11.2"
-        },
-        "lyricwikia": {
-            "hashes": [
-                "sha256:886d7904d6def5897f68fa02a04757efe763ee7bb14d7d623a3d2531f29eb450"
-            ],
-            "index": "pypi",
-            "version": "==0.1.11"
         },
         "markupsafe": {
             "hashes": [

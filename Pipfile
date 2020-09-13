@@ -12,7 +12,6 @@ pytest-cov = "*"
 pytest-flask = "*"
 
 [packages]
-lyricwikia = "*"
 requests = "*"
 flask = "*"
 gunicorn = "*"

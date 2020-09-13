@@ -1,5 +1,5 @@
 # LyricsMixer
-Mix pairs of song lyrics into a new text. It uses [lyricwikia](https://github.com/enricobacis/lyricwikia) to retrieve lyrics from Wikia.
+Mix pairs of song lyrics into a new text. It uses [azlyrics](https://github.com/adhorrig/azlyrics) and [azapi](https://github.com/elmoiv/azapi) to retrieve lyrics from [AZLyrics](https://www.azlyrics.com/).
 
 Run tests with `pipenv run pytest -v`.
 
