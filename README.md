@@ -13,7 +13,7 @@ Code coverage: `pipenv run pytest -v --cov=. --cov-report html`. Then access the
 ## Mix lyrics parsing artists from free text
 
 ```bash
-pipenv run python lyrics_mixer/scripts/mixlyrics_parse_free_text.py 'Madonna, Slayer'
+pipenv run python scripts/mixlyrics_parse_free_text.py 'Madonna, Slayer'
 ```
 
 

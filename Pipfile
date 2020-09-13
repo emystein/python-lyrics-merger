@@ -29,5 +29,4 @@ azlyrics = "*"
 python_version = "3.8"
 
 [scripts]
-mixlyrics_two_artists = "python scripts/mixlyrics_two_artists.py"
 mixlyrics_parse_free_text = "python scripts/mixlyrics_parse_free_text.py"

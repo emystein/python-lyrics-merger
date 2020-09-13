@@ -64,6 +64,9 @@ class ParsedSongTitles(SongTitleFactory):
     def mix_using(self, lyrics_mixer):
         return lyrics_mixer.mix_two_specific_lyrics(self.song_title1, self.song_title2)
 
+    def __str__(self):
+        return f"{self.song_title1}, {self.song_title2}"
+
 
 class ParsedArtists(SongTitleFactory):
     def can_create_from(self, text):
@@ -77,3 +80,6 @@ class ParsedArtists(SongTitleFactory):
 
     def mix_using(self, lyrics_mixer):
         return lyrics_mixer.mix_random_lyrics_by_artists(self.song_title1.artist, self.song_title2.artist)
+
+    def __str__(self):
+        return f"{self.song_title1.artist}, {self.song_title2.artist}"
