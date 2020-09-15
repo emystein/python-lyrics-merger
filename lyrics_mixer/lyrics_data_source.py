@@ -1,4 +1,4 @@
-from azlyrics_wrapper.model import Artist, SongTitle, Song
+from azlyrics_integration.model import Artist, SongTitle, Song
 
 class LyricsDataSource:
     """Bridge to external lyrics provider, like AZLyrics"""

@@ -1,5 +1,5 @@
 import pytest
-from azlyrics_wrapper.model import Artist
+from azlyrics_integration.model import Artist
 from songs.model import SongTitle, Song, Lyrics
 from songs.tests.fixtures.song_titles import song_title1, song_title2
 
