@@ -1,6 +1,9 @@
-from flask import Flask, escape
 from datetime import datetime
-from lyrics_mixer.lyrics_mixer import LyricsMixer
+from flask import Flask, escape
+from flask_injector import FlaskInjector
+from injector import Module, Injector, singleton
+from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy
+from lyrics_mixer.lyrics_data_source import LyricsDataSource
 from songs.model import SongTitle
 
 
@@ -28,3 +31,17 @@ def configure_views(app):
 			SongTitle(artist1, title1), SongTitle(artist2, title2))
 		return f'{escape(str(mixed))}'
 
+
+class AppModule(Module):
+    def __init__(self, app):
+        self.app = app
+
+    def configure(self, binder):
+        lyrics_mixer = LyricsMixer(LyricsDataSource(), LineInterleaveLyricsMixStrategy())
+        binder.bind(LyricsMixer, to=lyrics_mixer, scope=singleton)
+
+
+app = Flask(__name__)
+injector = Injector([AppModule(app)])
+configure_views(app=app)
+FlaskInjector(app=app, injector=injector)

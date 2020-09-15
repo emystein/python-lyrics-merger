@@ -1,10 +1,10 @@
 import pytest
-import lyrics_mixer.rest_api_context
+import lyrics_mixer.rest_api
 
 
 @pytest.fixture
 def app():
-    return lyrics_mixer.rest_api_context.app
+    return lyrics_mixer.rest_api.app
 
 @pytest.mark.slow_integration_test
 def test_root(client):

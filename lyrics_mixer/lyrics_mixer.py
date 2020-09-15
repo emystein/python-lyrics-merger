@@ -1,6 +1,5 @@
 from itertools import groupby
 import logging
-from lyrics_mixer.lyrics_data_source import RandomSongsPicker, RandomByArtistsSongsPicker, SpecificSongsPicker
 from lyrics_mixer.song_titles_parser import ParsedSongTitles, ParsedArtists
 from songs.model import Song
 
@@ -29,6 +28,27 @@ class LyricsMixer:
         except Exception as e:
             logger.error('Returning empty lyrics.', exc_info=True)
             return MixedLyrics.empty()
+
+
+class RandomSongsPicker:
+    def pick_two(self, library):
+        return library.get_random_songs(2)
+
+
+class RandomByArtistsSongsPicker:
+    def __init__(self, artist1, artist2):
+        self.artists = [artist1, artist2]
+
+    def pick_two(self, library):
+        return library.get_random_songs_by_artists(self.artists)
+
+
+class SpecificSongsPicker:
+    def __init__(self, title1, title2):
+        self.titles = [title1, title2]
+
+    def pick_two(self, library):
+        return [library.get_song(title) for title in self.titles]
 
 
 class LineInterleaveLyricsMixStrategy:

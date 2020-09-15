@@ -10,6 +10,8 @@ autopep8 = "*"
 pylint = "*"
 pytest-cov = "*"
 pytest-flask = "*"
+pytest-integration = "*"
+pytest-vcr = "*"
 
 [packages]
 requests = "*"
@@ -20,10 +22,8 @@ peewee = "*"
 psycopg2-binary = "*"
 schedule = "*"
 flask-injector = "*"
-pytest-vcr = "*"
 azapi = "*"
 azlyrics = "*"
-pytest-integration = "*"
 
 [requires]
 python_version = "3.8"
