@@ -34,19 +34,24 @@ class Artist:
 
     def __init__(self, name):
         logger.info(f'Artist named: {name}')
-
         self.name = name
+        self.cached_all_songs = None
 
     def all_songs(self):
-        logger.info(f'Retrieving all songs by: {self.name}')
+        if self.cached_all_songs is None:
+            logger.info(f'Retrieving all songs by: {self.name}')
 
-        api = AZlyrics()
-        api.artist = self.name
-        all_songs = api.getSongs()
+            api = AZlyrics()
+            api.artist = self.name
+            all_songs = api.getSongs()
 
-        logger.info(f'Retrieved {len(all_songs)} songs')
+            logger.info(f'Retrieved {len(all_songs)} songs')
 
-        return [songs.model.Song(self.name, songs.model.SongTitle(self.name, song), LazyLoadLyrics(self.name, song)) for song in all_songs.keys()]
+            self.cached_all_songs = [
+                Song.entitled(songs.model.SongTitle(self.name, song)) for song in all_songs.keys()
+            ]
+
+        return self.cached_all_songs
 
     def random_song(self):
         return songs.model.Song.random_from(self.all_songs())
@@ -61,27 +66,22 @@ class SongTitle:
 class Song:
     @staticmethod
     def entitled(title):
-        logger.info(f'Retrieving song: {str(title)}')
-
-        api = AZlyrics()
-        api.artist = title.artist
-        api.title = title.title
-        api.getLyrics()
-
-        return songs.model.Song(title.artist, title, songs.model.Lyrics(api.lyrics))
+        return songs.model.Song(title.artist, title, LazyLoadLyrics(title))
 
 
 class LazyLoadLyrics(songs.model.Lyrics):
-    def __init__(self, artist, title):
+    def __init__(self, title):
+        self.title = title
         self.loaded_text = None
-        self.api = AZlyrics()
-        self.api.artist = artist
-        self.api.title = title
-    
+
     @property
     def text(self):
         if self.loaded_text is None:
-            self.api.getLyrics()
-            self.loaded_text = self.api.lyrics
-        
+            logger.info(f'Retrieving lyrics: {self.title}')
+            api = AZlyrics()
+            api.artist = self.title.artist
+            api.title = self.title.title
+            api.getLyrics()
+            self.loaded_text = api.lyrics
+
         return self.loaded_text

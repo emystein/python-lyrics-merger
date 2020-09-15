@@ -23,6 +23,7 @@ flask-injector = "*"
 pytest-vcr = "*"
 azapi = "*"
 azlyrics = "*"
+pytest-integration = "*"
 
 [requires]
 python_version = "3.8"

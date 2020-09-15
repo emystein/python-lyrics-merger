@@ -7,16 +7,15 @@ database = SqliteDatabase(':memory:')
 database.bind([StreamCursor])
 database.create_tables([StreamCursor])
 
-
-def current_twitter_cursor_position():
-    return StreamCursor.get(StreamCursor.key == 'twitter').position
-
-
 # @pytest.fixture(autouse=True)
 # def with_database_txn():
 #     with database.atomic() as txn:
 #         yield
 #         txn.rollback()
+
+
+def current_twitter_cursor_position():
+    return StreamCursor.get(StreamCursor.key == 'twitter').position
 
 
 def test_get_or_create_mentions_reply_cursor():

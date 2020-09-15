@@ -4,6 +4,7 @@ from songs.model import SongTitle
 from songs.tests.fixtures.song_titles import song_title1, song_title2
 from lyrics_mixer.tests.fixtures.mixer import mixer
 
+
 @pytest.mark.parametrize('prefix', ['', '@lyricsmixer mezclá '])
 @pytest.mark.parametrize('connector', [', ', ' y ', ' and '])
 @pytest.mark.parametrize(
@@ -11,8 +12,7 @@ from lyrics_mixer.tests.fixtures.mixer import mixer
     [
         ('Led Zeppelin - Stairway to Heaven', 'Steppenwolf - Born to be wild',
          'Led Zeppelin', 'Stairway to Heaven', 'Steppenwolf', 'Born to be wild'),
-        ('Led Zeppelin', 'Steppenwolf', 'Led Zeppelin', '', 'Steppenwolf', ''),
-        ('U2 - One', 'INXS - Doctor', 'U2', 'One', 'INXS', 'Doctor')
+        ('U2', 'INXS', 'U2', '', 'INXS', '')
     ]
 )
 def test_parse_song_titles(prefix, connector, text1, text2, artist1, title1, artist2, title2):
@@ -22,15 +22,6 @@ def test_parse_song_titles(prefix, connector, text1, text2, artist1, title1, art
 
     assert parsed.song_title1 == SongTitle(artist1, title1)
     assert parsed.song_title2 == SongTitle(artist2, title2)
-
-
-def test_parse_tweet():
-    song_titles_parser = SongTitlesParser(SongTitlesSplitter())
-
-    parsed = song_titles_parser.parse('@lyricsmixer mezclá U2 - One y INXS - Doctor')
-
-    assert parsed.song_title1 == SongTitle('U2', 'One')
-    assert parsed.song_title2 == SongTitle('INXS', 'Doctor')
 
 
 def test_parsed_song_titles(song_title1, song_title2):
@@ -43,25 +34,8 @@ def test_parsed_song_titles(song_title1, song_title2):
 
 
 def test_parsed_artists_only():
-    split_text = ['Led Zeppelin', 'Steppenwolf']
-
-    parsed = ParsedArtists(split_text)
+    parsed = ParsedArtists(['Led Zeppelin', 'Steppenwolf'])
 
     assert parsed.song_title1 == SongTitle.artist_only('Led Zeppelin')
     assert parsed.song_title2 == SongTitle.artist_only('Steppenwolf')
 
-
-def test_mix_titles(mixer):
-    parsed = ParsedSongTitles(['U2 - One', 'INXS - Doctor'])
-
-    mixed_lyrics = parsed.mix_using(mixer)
-
-    assert mixed_lyrics.has_content()
-
-
-def test_mix_artists(mixer):
-    parsed = ParsedArtists(['U2', 'INXS'])
-
-    mixed_lyrics = parsed.mix_using(mixer)
-
-    assert mixed_lyrics.has_content()

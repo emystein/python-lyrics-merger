@@ -2,7 +2,7 @@ import pytest
 from azlyrics_wrapper.model import SongTitle
 
 
-# @pytest.mark.vcr()
+@pytest.mark.slow_integration_test
 def test_random():
 	title = SongTitle.random()
 

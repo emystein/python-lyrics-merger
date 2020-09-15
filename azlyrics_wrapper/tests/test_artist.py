@@ -12,6 +12,13 @@ def test_random_initial():
     assert initial in allowed_letters
 
 
+def test_named_last_name_then_first_name():
+    artist = Artist.named('Villere, Zack')
+
+    assert artist.name == 'Zack Villere'
+
+
+@pytest.mark.slow_integration_test
 def test_random():
     artist = Artist.random()
 
@@ -19,25 +26,19 @@ def test_random():
     assert len(artist.all_songs()) > 0
 
 
-def test_named_last_name_then_first_name():
-    artist = Artist.named('Villere, Zack')
+@pytest.mark.slow_integration_test
+def test_get_songs_by_artist():
+    artist = Artist.named('Led Zeppelin')
 
-    assert artist.name == 'Zack Villere'
+    assert len(artist.all_songs()) > 80
 
-
-# @pytest.mark.vcr()
-def test_get_all_songs_by_artist():
-    assert len(Artist.named('Led Zeppelin').all_songs()) == 86
-
-
-def test_get_random_song_by_artist():
-    song = Artist.named('Led Zeppelin').random_song()
+    song = artist.random_song()
 
     assert song.artist == 'Led Zeppelin'
     assert song.title != SongTitle.empty()
     assert song.has_lyrics()
 
 
-# @pytest.mark.vcr()
+@pytest.mark.slow_integration_test
 def test_lyrics_not_found():
     assert Artist.named('Menéndez').random_song().is_empty()

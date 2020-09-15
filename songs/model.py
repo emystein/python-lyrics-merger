@@ -26,7 +26,7 @@ class Song:
         return self.artist == '' and self.title == SongTitle.empty()
 
     def has_lyrics(self):
-        return self.lyrics != Lyrics.empty()
+        return self.lyrics.has_content()
 
     def __eq__(self, other):
         return (self.artist == other.artist) and (self.title == other.title)
@@ -59,6 +59,9 @@ class Lyrics:
 
     def __init__(self, text):
         self.text = text
+
+    def has_content(self):
+        return self.text != ''
 
     def lines(self):
         return self.text.split('\n')
