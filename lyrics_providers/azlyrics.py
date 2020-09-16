@@ -12,8 +12,7 @@ logger = logging.getLogger()
 class Artist:
     @staticmethod
     def random():
-        artist_initial = Artist.random_initial()
-        artists_names = json.loads(azlyrics.azlyrics.artists(artist_initial))
+        artists_names = json.loads(azlyrics.azlyrics.artists(Artist.random_initial()))
         artist_name = random.choice(artists_names)
 
         logger.info(f'Random Artist name: {artist_name}')
@@ -27,10 +26,13 @@ class Artist:
     @staticmethod
     def named(name):
         if ', ' in name:
-            last_name_first_name_swapped = ' '.join(reversed(name.split(', ')))
-            return Artist(last_name_first_name_swapped)
-        else:
-            return Artist(name)
+            name = Artist.swap_first_and_last_name(name)
+
+        return Artist(name)
+
+    @staticmethod
+    def swap_first_and_last_name(name):
+        return ' '.join(reversed(name.split(', ')))
 
     def __init__(self, name):
         logger.info(f'Artist named: {name}')

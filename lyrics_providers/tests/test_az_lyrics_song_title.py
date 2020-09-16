@@ -1,5 +1,5 @@
 import pytest
-from azlyrics_integration.model import SongTitle
+from lyrics_providers.azlyrics import SongTitle
 
 
 @pytest.mark.slow_integration_test
