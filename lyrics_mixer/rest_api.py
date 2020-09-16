@@ -2,7 +2,7 @@ from datetime import datetime
 from flask import Flask, escape
 from flask_injector import FlaskInjector
 from injector import Module, Injector, singleton
-from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy
+from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
 from lyrics_mixer.lyrics_data_source import LyricsDataSource
 from songs.model import SongTitle
 
@@ -37,7 +37,7 @@ class AppModule(Module):
         self.app = app
 
     def configure(self, binder):
-        lyrics_mixer = LyricsMixer(LyricsDataSource(), LineInterleaveLyricsMixStrategy())
+        lyrics_mixer = LyricsMixer(LyricsDataSource(), LineInterleaveLyricsMix())
         binder.bind(LyricsMixer, to=lyrics_mixer, scope=singleton)
 
 

@@ -1,10 +1,10 @@
 import pytest
 from unittest.mock import Mock
 from songs.tests.fixtures.songs import song1, song2
-from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy, MixedLyrics
+from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix, MixedLyrics
 
 
-lyrics_mix = LineInterleaveLyricsMixStrategy()
+lyrics_mix = LineInterleaveLyricsMix()
 
 
 def test_mix_two_random_lyrics(song1, song2):

@@ -51,7 +51,7 @@ class SpecificSongsPicker:
         return [library.get_song(title) for title in self.titles]
 
 
-class LineInterleaveLyricsMixStrategy:
+class LineInterleaveLyricsMix:
     def mix(self, song1, song2):
         # see: https://stackoverflow.com/questions/7946798/interleave-multiple-lists-of-the-same-length-in-python
         lines = [val for pair in zip(
@@ -62,7 +62,7 @@ class LineInterleaveLyricsMixStrategy:
         return MixedLyrics(song1, song2, lines, paragraphs)
 
 
-class ParagraphInterleaveLyricsMixStrategy:
+class ParagraphInterleaveLyricsMix:
     def mix(self, song1, song2):
         # see: https://stackoverflow.com/questions/7946798/interleave-multiple-lists-of-the-same-length-in-python
         paragraphs = [val for pair in zip(

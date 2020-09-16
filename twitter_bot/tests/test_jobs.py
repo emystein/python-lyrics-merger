@@ -1,4 +1,4 @@
-from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrategy
+from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser, ParsedArtists
 from peewee import *
 import pytest
@@ -16,7 +16,7 @@ database.create_tables([StreamCursor])
 song_titles_parser = SongTitlesParser(SongTitlesSplitter())
 
 lyrics_mixer = LyricsMixer(
-    LyricsDataSource(), LineInterleaveLyricsMixStrategy())
+    LyricsDataSource(), LineInterleaveLyricsMix())
 
 
 @pytest.mark.slow_integration_test
