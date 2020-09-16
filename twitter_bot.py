@@ -9,7 +9,7 @@ from lyrics_mixer.lyrics_data_source import LyricsDataSource
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
 import twitter_bot.jobs
-import twitter.persistence
+import twitter_bot.persistence
 from twitter_bot.persistence import StreamCursor, MentionsReplyCursor
 import twitter_bot.twitter
 from twitter_bot.twitter import TwitterApi
