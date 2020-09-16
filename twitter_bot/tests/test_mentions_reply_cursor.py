@@ -1,6 +1,6 @@
 import pytest
 from peewee import *
-from twitter.persistence import StreamCursor, MentionsReplyCursor
+from twitter_bot.persistence import StreamCursor, MentionsReplyCursor
 
 
 database = SqliteDatabase(':memory:')

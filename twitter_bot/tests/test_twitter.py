@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import Mock
-from twitter.twitter import TweetReply, ComposedReply
-from twitter.tests.model import FakeTweet
+from twitter_bot.twitter import TweetReply, ComposedReply
+from twitter_bot.tests.model import FakeTweet
 from lyrics_mixer.song_titles_parser import ParsedArtists
 
 def test_create_reply():

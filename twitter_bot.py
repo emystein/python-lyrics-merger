@@ -10,9 +10,9 @@ from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMixStrate
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
 import twitter_bot.jobs
 import twitter.persistence
-from twitter.persistence import StreamCursor, MentionsReplyCursor
-import twitter.twitter
-from twitter.twitter import TwitterApi
+from twitter_bot.persistence import StreamCursor, MentionsReplyCursor
+import twitter_bot.twitter
+from twitter_bot.twitter import TwitterApi
 
 logging.basicConfig(level=logging.INFO)
 
@@ -40,7 +40,7 @@ database.create_tables([StreamCursor])
     # cursor.position = 1304977022310113283
     # cursor.save()
 
-api = twitter.twitter.create_tweepy_api()
+api = twitter_bot.twitter.create_tweepy_api()
 
 twitter_api = TwitterApi(api)
 

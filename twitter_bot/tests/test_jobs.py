@@ -3,9 +3,9 @@ from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
 from peewee import *
 import pytest
 from unittest.mock import Mock
-from twitter.tests.model import FakeTweet
-from twitter.persistence import StreamCursor
-from twitter.twitter import Tweet
+from twitter_bot.tests.model import FakeTweet
+from twitter_bot.persistence import StreamCursor
+from twitter_bot.twitter import Tweet
 import twitter_bot.jobs
 from lyrics_mixer.lyrics_data_source import LyricsDataSource
 

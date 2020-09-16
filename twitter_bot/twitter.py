@@ -7,13 +7,10 @@ logger = logging.getLogger()
 
 
 def create_tweepy_api():
-    CONSUMER_KEY = environ['TWITTER_CONSUMER_KEY']
-    CONSUMER_SECRET = environ['TWITTER_CONSUMER_SECRET']
-    ACCESS_TOKEN = environ['TWITTER_ACCESS_TOKEN']
-    ACCESS_TOKEN_SECRET = environ['TWITTER_ACCESS_TOKEN_SECRET']
-
-    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-    auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+    auth = tweepy.OAuthHandler(
+        environ['TWITTER_CONSUMER_KEY'], environ['TWITTER_CONSUMER_SECRET'])
+    auth.set_access_token(
+        environ['TWITTER_ACCESS_TOKEN'], environ['TWITTER_ACCESS_TOKEN_SECRET'])
 
     return tweepy.API(auth)
 
@@ -29,14 +26,16 @@ class TwitterApi:
         return self.mentions(tweets)
 
     def mentions(self, tweets):
-        mentions = filter(lambda tweet: tweet.in_reply_to_status_id is None, tweets)
+        mentions = filter(
+            lambda tweet: tweet.in_reply_to_status_id is None, tweets)
         return map(lambda mention: Tweet(self, mention), mentions)
 
-    def update_status(self, tweet):
-        self.api.update_status(tweet[:self.MAX_TWEET_LENGTH])
+    def update_status(self, text):
+        self.api.update_status(text[:self.MAX_TWEET_LENGTH])
 
-    def reply_tweet_with(self, tweet, reply_text):
-        self.api.update_status(status=reply_text[:self.MAX_TWEET_LENGTH], in_reply_to_status_id=tweet.id)
+    def reply_tweet_with(self, origin_tweet, reply_text):
+        self.api.update_status(
+            status=reply_text[:self.MAX_TWEET_LENGTH], in_reply_to_status_id=origin_tweet.id)
 
 
 class Tweet:
