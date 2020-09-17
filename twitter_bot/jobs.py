@@ -13,6 +13,7 @@ def tweet_random_lyrics(twitter_api, lyrics_mixer):
     except:
         logger.error('Skipping tweet.', exc_info=True)
 
+
 def reply_to_mentions(twitter_api, tweet_parser, lyrics_mixer):
     reply_cursor = MentionsReplyCursor()
 

@@ -32,13 +32,13 @@ while database.is_closed():
     time.sleep(1)
 
 database.bind([StreamCursor])
-database.create_tables([StreamCursor])
+database.create_tables([StreamCursor], safe=True)
 
-# point to a known-past mention already replied
-# cursor = MentionsReplyCursor()
-# if cursor.position < 1304977022310113283:
-    # cursor.position = 1304977022310113283
-    # cursor.save()
+# advance reply cursor to a mention already replied
+cursor = MentionsReplyCursor()
+if cursor.position < 1305235263355052032:
+    cursor.position = 1305235263355052032
+    cursor.save()
 
 api = twitter_bot.twitter.create_tweepy_api()
 
