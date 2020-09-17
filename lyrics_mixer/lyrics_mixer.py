@@ -1,6 +1,5 @@
 from itertools import groupby
 import logging
-from lyrics_mixer.song_titles_parser import ParsedSongTitles, ParsedArtists
 from songs.model import Song
 
 
@@ -25,7 +24,7 @@ class LyricsMixer:
         try:
             song1, song2 = lyrics_picker.pick_two(self.lyrics_library)
             return self.lyrics_mix_strategy.mix(song1, song2)
-        except Exception as e:
+        except Exception:
             logger.error('Returning empty lyrics.', exc_info=True)
             return MixedLyrics.empty()
 

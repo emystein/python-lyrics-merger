@@ -32,7 +32,7 @@ class SongTitlesParser:
 
         parse_structures = [ParsedSongTitles(split_text), ParsedArtists(split_text)]
 
-        return next(parsed for parsed in parse_structures if parsed.accepts(split_text))
+        return next(parsed for parsed in parse_structures if parsed.can_create_from(split_text[0]))
 
 
 class SongTitleFactory:
@@ -40,14 +40,23 @@ class SongTitleFactory:
         self.song_title1 = self.parse_song_title(split_text[0])
         self.song_title2 = self.parse_song_title(split_text[1])
 
-    def create(self, can_create_from, create_from, text):
-        if can_create_from(text):
-            return create_from(text)
+    def parse_song_title(self, text):
+        if self.can_create_from(text):
+            return self.create_from(text)
         else:
             return SongTitle.empty()
 
-    def parse_song_title(self, text):
-        return self.create(self.can_create_from, self.create_from, text)
+    @abstractmethod
+    def can_create_from(self, text):
+        pass
+
+    @abstractmethod
+    def create_from(self, text):
+        pass
+
+    @abstractmethod
+    def mix_using(self, lyrics_mixer):
+        pass
 
 
 class ParsedSongTitles(SongTitleFactory):
@@ -57,9 +66,6 @@ class ParsedSongTitles(SongTitleFactory):
     def create_from(self, text):
         artist, title = text.split('-')
         return SongTitle(artist, title)
-
-    def accepts(self, split_text):
-        return '-' in split_text[0]
 
     def mix_using(self, lyrics_mixer):
         return lyrics_mixer.mix_two_specific_lyrics(self.song_title1, self.song_title2)
@@ -74,9 +80,6 @@ class ParsedArtists(SongTitleFactory):
 
     def create_from(self, text):
         return SongTitle.artist_only(text)
-
-    def accepts(self, split_text):
-        return '-' not in split_text[0]
 
     def mix_using(self, lyrics_mixer):
         return lyrics_mixer.mix_random_lyrics_by_artists(self.song_title1.artist, self.song_title2.artist)
