@@ -1,10 +1,10 @@
 import pytest
 from unittest.mock import Mock
-from twitter_bot.twitter import TweetReply, ComposedReply
+from twitter_bot.twitter import Composer, ComposedReply
 from twitter_bot.tests.model import FakeTweet
 from lyrics_mixer.song_titles_parser import ArtistsParser
 
-def test_create_reply():
+def test_compose_reply():
     tweet_parser = Mock()
     lyrics_mixer = Mock()
 
@@ -17,6 +17,6 @@ def test_create_reply():
 
     lyrics_mixer.mix_random_lyrics_by_artists.return_value = 'Blah'
 
-    tweet_reply = TweetReply(tweet).parse_with(tweet_parser).compose_reply(lyrics_mixer)
-
-    assert tweet_reply == ComposedReply(tweet, 'Blah')
+    composer = Composer(tweet_parser, lyrics_mixer)
+    
+    assert composer.compose_reply(tweet) == ComposedReply(tweet, 'Blah')

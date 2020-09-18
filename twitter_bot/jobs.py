@@ -1,6 +1,6 @@
 import logging
 from twitter_bot.persistence import MentionsReplyCursor
-from twitter_bot.twitter import TweetReply
+from twitter_bot.twitter import Composer
 
 
 logger = logging.getLogger()
@@ -23,6 +23,6 @@ def reply_to_mentions(twitter_api, tweet_parser, lyrics_mixer):
 
     for mention in mentions:
         logger.info(f"Replying to mention: {mention}")
-        reply = TweetReply(mention).parse_with(tweet_parser).compose_reply(lyrics_mixer)
+        reply = Composer(tweet_parser, lyrics_mixer).compose_reply(mention)
         reply.send()
         reply_cursor.point_to(reply)

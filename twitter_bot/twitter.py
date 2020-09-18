@@ -56,22 +56,15 @@ class Tweet:
         return f"Author: @{self.username}, Text: {self.text}"
 
 
-class TweetReply:
-    def __init__(self, tweet):
-        self.tweet = tweet
-
-    def parse_with(self, tweet_parser):
-        return ParsedTweet(self.tweet, tweet_parser.parse(self.tweet.text))
-
-
-class ParsedTweet:
-    def __init__(self, tweet, parsed_data_from_tweet):
-        self.tweet = tweet
-        self.parsed_data_from_tweet = parsed_data_from_tweet
-
-    def compose_reply(self, lyrics_mixer):
-        lyrics = self.parsed_data_from_tweet.mix_using(lyrics_mixer)
-        return ComposedReply(self.tweet, lyrics)
+class Composer:
+    def __init__(self, tweet_parser, lyrics_mixer):
+        self.tweet_parser = tweet_parser
+        self.lyrics_mixer = lyrics_mixer
+    
+    def compose_reply(self, tweet):
+        parsed = self.tweet_parser.parse(tweet.text)
+        lyrics = parsed.mix_using(self.lyrics_mixer)
+        return ComposedReply(tweet, lyrics)
 
 
 class ComposedReply:
