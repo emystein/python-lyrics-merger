@@ -1,5 +1,4 @@
 import logging
-from twitter_bot.persistence import MentionsReplyCursor
 from twitter_bot.twitter import Composer
 
 
