@@ -61,21 +61,9 @@ class Composer:
         self.tweet_parser = tweet_parser
         self.lyrics_mixer = lyrics_mixer
     
-    def compose_reply(self, tweet):
+    def reply(self, tweet):
+        logger.info(f"Replying to : {tweet}")
         parsed = self.tweet_parser.parse(tweet.text)
         lyrics = parsed.mix_using(self.lyrics_mixer)
-        return ComposedReply(tweet, lyrics)
-
-
-class ComposedReply:
-    def __init__(self, origin_tweet, reply_text):
-        self.origin_tweet = origin_tweet
-        self.id = origin_tweet.id
-        self.text = str(reply_text)
-
-    def send(self):
-        logger.info(f"Replying to tweet: {self.origin_tweet}")
-        self.origin_tweet.reply_with(self.text)
-
-    def __eq__(self, other):
-        return self.origin_tweet == other.origin_tweet and self.text == other.text
+        if lyrics.has_content():
+            tweet.reply_with(str(lyrics))

@@ -41,3 +41,7 @@ def test_parsed_artists_only():
     assert parsed.song_title1 == SongTitle.artist_only('Led Zeppelin')
     assert parsed.song_title2 == SongTitle.artist_only('Steppenwolf')
 
+
+def test_artist_only_str():
+    assert str(SongTitle.artist_only('Led Zeppelin')) == 'Led Zeppelin'
+

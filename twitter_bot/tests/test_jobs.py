@@ -1,5 +1,5 @@
 from lyrics_mixer.lyrics_data_source import LyricsDataSource
-from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
+from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix, MixedLyrics
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
 from lyrics_mixer.tests.fixtures.mixer import mixed_song1_song2
 import pytest
@@ -35,3 +35,4 @@ def test_reply_to_mentions(mixed_song1_song2):
 
     twitter_api.reply_tweet_with.assert_called_with(
         tweet, str(mixed_song1_song2))
+

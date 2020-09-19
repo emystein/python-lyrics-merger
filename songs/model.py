@@ -39,7 +39,7 @@ class SongTitle:
 
     @staticmethod
     def artist_only(artist):
-        return SongTitle(artist, '')
+        return ArtistTitle(artist)
 
     def __init__(self, artist, title):
         self.artist = artist.strip()
@@ -50,6 +50,24 @@ class SongTitle:
 
     def __str__(self):
         return self.artist + ' - ' + self.title
+
+
+class ArtistTitle(SongTitle):
+    def __init__(self, artist):
+        self.artist = artist.strip()
+        self.title = ''
+
+    def __str__(self):
+        return self.artist 
+
+
+class SongTitlePair:
+    def __init__(self, song_title1, song_title2):
+        self.song_title1 = song_title1
+        self.song_title2 = song_title2
+
+    def __str__(self):
+        return f"{self.song_title1}, {self.song_title2}"
 
 
 class Lyrics:

@@ -1,6 +1,6 @@
 from abc import abstractmethod
 import re
-from songs.model import SongTitle
+from songs.model import SongTitle, SongTitlePair
 
 
 class SongTitlesSplitter:
@@ -27,12 +27,13 @@ class SongTitlesSplitter:
 class SongTitlesParser:
     def __init__(self, titles_splitter):
         self.titles_splitter = titles_splitter
+        self.parsers = [FullTitlesParser(), ArtistsParser()]
 
     def parse(self, text):
         split_text = self.titles_splitter.split(text)
 
         return next(parser.parse_song_titles(split_text)
-                    for parser in [FullTitlesParser(), ArtistsParser()]
+                    for parser in self.parsers
                     if parser.can_create_from(split_text[0]))
 
 
@@ -56,16 +57,9 @@ class FullTitlesParser:
         return SongTitle(artist, title)
 
 
-class ParsedFullTitles:
-    def __init__(self, song_title1, song_title2):
-        self.song_title1 = song_title1
-        self.song_title2 = song_title2
-    
+class ParsedFullTitles(SongTitlePair):
     def mix_using(self, lyrics_mixer):
         return lyrics_mixer.mix_two_specific_lyrics(self.song_title1, self.song_title2)
-
-    def __str__(self):
-        return f"{self.song_title1}, {self.song_title2}"
 
 
 class ArtistsParser:
@@ -87,13 +81,6 @@ class ArtistsParser:
         return SongTitle.artist_only(text)
 
 
-class ParsedArtists:
-    def __init__(self, song_title1, song_title2):
-        self.song_title1 = song_title1
-        self.song_title2 = song_title2
-
+class ParsedArtists(SongTitlePair):
     def mix_using(self, lyrics_mixer):
         return lyrics_mixer.mix_random_lyrics_by_artists(self.song_title1.artist, self.song_title2.artist)
-
-    def __str__(self):
-        return f"{self.song_title1.artist}, {self.song_title2.artist}"
