@@ -14,7 +14,7 @@ def tweet_random_lyrics(twitter_api, lyrics_mixer):
 
 
 def reply_to_mentions(twitter_api, tweet_parser, lyrics_mixer, reply_cursor):
-    composer = Composer(tweet_parser, lyrics_mixer)
+    composer = Composer(twitter_api, tweet_parser, lyrics_mixer)
 
     mentions = twitter_api.mentions_since(reply_cursor.position)
 

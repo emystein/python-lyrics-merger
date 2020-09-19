@@ -2,7 +2,6 @@ import tweepy
 import logging
 from os import environ
 
-
 logger = logging.getLogger()
 
 
@@ -26,9 +25,7 @@ class TwitterApi:
         return self.mentions(tweets)
 
     def mentions(self, tweets):
-        mentions = filter(
-            lambda tweet: tweet.in_reply_to_status_id is None, tweets)
-        return map(lambda mention: Tweet(self, mention), mentions)
+        return filter(lambda tweet: tweet.in_reply_to_status_id is None, tweets)
 
     def update_status(self, text):
         self.api.update_status(text[:self.MAX_TWEET_LENGTH])
@@ -38,32 +35,15 @@ class TwitterApi:
             status=reply_text[:self.MAX_TWEET_LENGTH], in_reply_to_status_id=origin_tweet.id)
 
 
-class Tweet:
-    def __init__(self, twitter_api, tweet):
-        self.api = twitter_api
-        self.id = tweet.id
-        self.tweet = tweet
-        self.username = tweet.user.screen_name
-        self.text = tweet.text
-
-    def reply_with(self, reply_text):
-        try:
-            self.api.reply_tweet_with(self.tweet, reply_text)
-        except Exception as e:
-            logger.error(e)
-
-    def __str__(self):
-        return f"Author: @{self.username}, Text: {self.text}"
-
-
 class Composer:
-    def __init__(self, tweet_parser, lyrics_mixer):
+    def __init__(self, twitter_api, tweet_parser, lyrics_mixer):
+        self.twitter_api = twitter_api
         self.tweet_parser = tweet_parser
         self.lyrics_mixer = lyrics_mixer
-    
+
     def reply(self, tweet):
         logger.info(f"Replying to : {tweet}")
         parsed = self.tweet_parser.parse(tweet.text)
         lyrics = parsed.mix_using(self.lyrics_mixer)
         if lyrics.has_content():
-            tweet.reply_with(str(lyrics))
+            self.twitter_api.reply_tweet_with(tweet, str(lyrics))

@@ -23,7 +23,8 @@ twitter_api = TwitterApi(twitter_bot.twitter.create_tweepy_api())
 lyrics_mixer = LyricsMixer(
     LyricsDataSource(), LineInterleaveLyricsMix())
 
-schedule.every().minute.do(twitter_bot.jobs.reply_to_mentions, twitter_api=twitter_api,
+schedule.every().minute.do(twitter_bot.jobs.reply_to_mentions,
+                           twitter_api=twitter_api,
                            tweet_parser=SongTitlesParser(SongTitlesSplitter()),
                            lyrics_mixer=lyrics_mixer,
                            reply_cursor=reply_cursor)
