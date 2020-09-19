@@ -35,10 +35,10 @@ database.bind([StreamCursor])
 database.create_tables([StreamCursor], safe=True)
 
 # advance reply cursor to a mention already replied
-cursor = MentionsReplyCursor()
-if cursor.position < 1305235263355052032:
-    cursor.position = 1305235263355052032
-    cursor.save()
+reply_cursor = MentionsReplyCursor()
+if reply_cursor.position < 1305235263355052032:
+    reply_cursor.position = 1305235263355052032
+    reply_cursor.save()
 
 api = twitter_bot.twitter.create_tweepy_api()
 
@@ -49,7 +49,8 @@ lyrics_mixer = LyricsMixer(
 
 schedule.every().minute.do(twitter_bot.jobs.reply_to_mentions, twitter_api=twitter_api,
                            tweet_parser=SongTitlesParser(SongTitlesSplitter()),
-                           lyrics_mixer=lyrics_mixer)
+                           lyrics_mixer=lyrics_mixer,
+                           reply_cursor=reply_cursor)
 
 schedule.every(4).hours.do(twitter_bot.jobs.tweet_random_lyrics,
                            twitter_api=twitter_api,

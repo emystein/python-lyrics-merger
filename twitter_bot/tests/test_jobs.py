@@ -11,7 +11,7 @@ import twitter_bot.jobs
 
 twitter_api = Mock()
 lyrics_mixer = Mock()
-
+reply_cursor = Mock()
 
 def test_random_lyrics(mixed_song1_song2):
     lyrics_mixer.mix_two_random_lyrics.return_value = mixed_song1_song2
@@ -22,17 +22,17 @@ def test_random_lyrics(mixed_song1_song2):
 
 
 def test_reply_to_mentions(mixed_song1_song2):
-    tweet = FakeTweet(1, 'emystein', '@lyricsmixer mix U2 and INXS')
+    tweet = Mock()
+    tweet.id = 1
+    tweet.text = '@lyricsmixer mezclá U2 y INXS'
 
-    mentions = [Tweet(twitter_api, tweet)]
-
-    twitter_api.mentions_since.return_value = mentions
+    twitter_api.mentions_since.return_value = [tweet]
 
     lyrics_mixer.mix_random_lyrics_by_artists.return_value = mixed_song1_song2
 
     twitter_bot.jobs.reply_to_mentions(
-        twitter_api, SongTitlesParser(SongTitlesSplitter()), lyrics_mixer)
+        twitter_api, SongTitlesParser(SongTitlesSplitter()), lyrics_mixer, reply_cursor)
 
-    twitter_api.reply_tweet_with.assert_called_with(
-        tweet, str(mixed_song1_song2))
+    tweet.reply_with.assert_called_with(str(mixed_song1_song2))
+    reply_cursor.point_to.assert_called_with(tweet)
 
