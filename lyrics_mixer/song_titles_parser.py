@@ -1,6 +1,6 @@
 from abc import abstractmethod
 import re
-from songs.model import SongTitle, SongTitlePair
+from songs.model import SongTitle, SongTitlePair, ArtistTitle
 
 
 class SongTitlesSplitter:
@@ -78,7 +78,7 @@ class ArtistsParser:
         return '-' not in text
 
     def create_from(self, text):
-        return SongTitle.artist_only(text)
+        return ArtistTitle(text)
 
 
 class ParsedArtists(SongTitlePair):

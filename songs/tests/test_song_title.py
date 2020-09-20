@@ -1,5 +1,5 @@
 import pytest
-from songs.model import SongTitle
+from songs.model import SongTitle, ArtistTitle
 from songs.tests.fixtures.song_titles import song_title1, song_title2
 
 
@@ -24,7 +24,7 @@ def test_song_title_to_string(song_title1):
 
 
 def test_artist_only_song_title():
-    song_title = SongTitle.artist_only('Led Zeppelin')
+    song_title = ArtistTitle('Led Zeppelin')
 
     assert song_title.artist == 'Led Zeppelin'
     assert song_title.title == ''

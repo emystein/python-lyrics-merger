@@ -1,6 +1,6 @@
 import pytest
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser, FullTitlesParser, ArtistsParser
-from songs.model import SongTitle
+from songs.model import SongTitle, ArtistTitle
 from songs.tests.fixtures.song_titles import song_title1, song_title2
 from lyrics_mixer.tests.fixtures.mixer import mixer
 
@@ -38,10 +38,10 @@ def test_parsed_artists_only():
     parser = ArtistsParser()
     parsed = parser.parse_song_titles(['Led Zeppelin', 'Steppenwolf'])
 
-    assert parsed.song_title1 == SongTitle.artist_only('Led Zeppelin')
-    assert parsed.song_title2 == SongTitle.artist_only('Steppenwolf')
+    assert parsed.song_title1 == ArtistTitle('Led Zeppelin')
+    assert parsed.song_title2 == ArtistTitle('Steppenwolf')
 
 
 def test_artist_only_str():
-    assert str(SongTitle.artist_only('Led Zeppelin')) == 'Led Zeppelin'
+    assert str(ArtistTitle('Led Zeppelin')) == 'Led Zeppelin'
 

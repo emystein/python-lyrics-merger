@@ -37,10 +37,6 @@ class SongTitle:
     def empty():
         return SongTitle('', '')
 
-    @staticmethod
-    def artist_only(artist):
-        return ArtistTitle(artist)
-
     def __init__(self, artist, title):
         self.artist = artist.strip()
         self.title = title.strip()
@@ -52,10 +48,13 @@ class SongTitle:
         return self.artist + ' - ' + self.title
 
 
-class ArtistTitle(SongTitle):
+class ArtistTitle:
     def __init__(self, artist):
         self.artist = artist.strip()
         self.title = ''
+
+    def __eq__(self, other):
+        return self.artist == other.artist
 
     def __str__(self):
         return self.artist 
@@ -88,7 +87,7 @@ class Lyrics:
         return self.text.split('\n\n')
 
     def __eq__(self, other):
-        return (self.text == other.text)
+        return self.text == other.text
 
     def __str__(self):
         return self.text
