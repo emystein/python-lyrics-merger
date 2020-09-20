@@ -1,12 +1,7 @@
 import pytest
-from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix, ParagraphInterleaveLyricsMix, MixedLyrics
-from lyrics_mixer.lyrics_data_source import LyricsDataSource
+
 import songs.tests.song_factory as song_factory
-
-
-@pytest.fixture
-def mixer():
-    return LyricsMixer(LyricsDataSource(), ParagraphInterleaveLyricsMix())
+from lyrics_mixer.lyrics_mixer import LineInterleaveLyricsMix
 
 
 @pytest.fixture

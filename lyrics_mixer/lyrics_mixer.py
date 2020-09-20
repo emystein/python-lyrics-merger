@@ -91,8 +91,5 @@ class MixedLyrics:
     def __eq__(self, other):
         return self.title == other.title and self.text == other.text
 
-    def __ne__(self, other):
-        return not self.__eq__(other)
-
     def __str__(self):
         return self.title + '\n\n' + self.text
