@@ -1,7 +1,7 @@
 import logging
 from itertools import groupby
 
-from songs.model import Song
+from songs.model import Song, Lyrics
 
 logger = logging.getLogger()
 
@@ -75,7 +75,7 @@ class ParagraphInterleaveLyricsMix:
         return MixedLyrics(song1, song2, flat_list, paragraphs)
 
 
-class MixedLyrics:
+class MixedLyrics(Lyrics):
     @staticmethod
     def empty():
         return MixedLyrics(Song.none(), Song.none(), '', '')
@@ -84,12 +84,6 @@ class MixedLyrics:
         self.song1, self.song2, self.lines, self.paragraphs = song1, song2, lines, paragraphs
         self.title = f"{song1.artist} - {song1.title}, {song2.artist} - {song2.title}"
         self.text = '\n\n'.join(paragraphs)
-
-    def has_content(self):
-        return self != MixedLyrics.empty()
-
-    def __eq__(self, other):
-        return self.title == other.title and self.text == other.text
 
     def __str__(self):
         return self.title + '\n\n' + self.text
