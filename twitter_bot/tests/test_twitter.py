@@ -8,6 +8,7 @@ from lyrics_mixer.lyrics_mixer import MixedLyrics
 from lyrics_mixer.tests.fixtures.mixer import mixed_song1_song2
 from twitter_bot.twitter import Composer
 from twitter_bot.tests.fixtures import tweet
+from songs.tests.fixtures.songs import song1, song2
 
 tweet_parser = SongTitlesParser(SongTitlesSplitter())
 lyrics_mixer = Mock()
@@ -53,7 +54,15 @@ def test_job_reply_to_mentions(tweet, mixed_song1_song2):
 
     lyrics_mixer.mix_random_lyrics_by_artists.return_value = mixed_song1_song2
 
-    twitter_bot.jobs.reply_to_mentions(twitter_api, tweet_parser, lyrics_mixer, reply_cursor)
+    composer = Composer(twitter_api, tweet_parser, lyrics_mixer)
+
+    twitter_bot.jobs.reply_to_mentions(twitter_api, composer, reply_cursor)
 
     twitter_api.reply_tweet_with.assert_called_with(tweet, str(mixed_song1_song2))
     reply_cursor.point_to.assert_called_with(tweet)
+
+
+def test_mixed_lyrics_title(song1, song2):
+    mixed_lyrics = MixedLyrics(song1, song2, [], [])
+
+    assert mixed_lyrics.title == f"{song1.artist} - {song1.title}, {song2.artist} - {song2.title}"

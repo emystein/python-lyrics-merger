@@ -6,7 +6,7 @@ from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
 import twitter_bot.jobs
 from twitter_bot.persistence import MentionsReplyCursor
-from twitter_bot.twitter import TwitterApi
+from twitter_bot.twitter import TwitterApi, Composer
 
 logging.basicConfig(level=logging.INFO)
 
@@ -20,13 +20,16 @@ if reply_cursor.position < 1305235263355052032:
 
 twitter_api = TwitterApi(twitter_bot.twitter.create_tweepy_api())
 
+tweet_parser = SongTitlesParser(SongTitlesSplitter())
+
 lyrics_mixer = LyricsMixer(
     LyricsDataSource(), LineInterleaveLyricsMix())
 
+composer = Composer(twitter_api, tweet_parser, lyrics_mixer)
+
 schedule.every().minute.do(twitter_bot.jobs.reply_to_mentions,
                            twitter_api=twitter_api,
-                           tweet_parser=SongTitlesParser(SongTitlesSplitter()),
-                           lyrics_mixer=lyrics_mixer,
+                           composer=composer,
                            reply_cursor=reply_cursor)
 
 schedule.every(4).hours.do(twitter_bot.jobs.tweet_random_lyrics,
