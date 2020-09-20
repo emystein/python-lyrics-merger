@@ -3,14 +3,11 @@ from flask_injector import FlaskInjector
 from injector import Injector
 
 import lyrics_mixer.rest_api
-from lyrics_mixer.lyrics_mixer import LyricsMixer, MixedLyrics
+from lyrics_mixer.lyrics_mixer import MixedLyrics
 from lyrics_mixer.rest_api import AppModule
 
 
-class LyricsMixerStub(LyricsMixer):
-    def __init__(self):
-        pass
-
+class LyricsMixerStub:
     def mix_two_random_lyrics(self):
         return MixedLyrics.empty()
 
@@ -24,7 +21,7 @@ class LyricsMixerStub(LyricsMixer):
 @pytest.fixture
 def app():
     app = lyrics_mixer.rest_api.app
-    injector = Injector([AppModule(app, LyricsMixerStub())])
+    injector = Injector(AppModule(app, LyricsMixerStub()))
     FlaskInjector(app=app, injector=injector)
     return app
 
