@@ -61,8 +61,3 @@ def test_job_reply_to_mentions(tweet, mixed_song1_song2):
     twitter_api.reply_tweet_with.assert_called_with(tweet, str(mixed_song1_song2))
     reply_cursor.point_to.assert_called_with(tweet)
 
-
-def test_mixed_lyrics_title(song1, song2):
-    mixed_lyrics = MixedLyrics(song1, song2, [], [])
-
-    assert mixed_lyrics.title == f"{song1.artist} - {song1.title}, {song2.artist} - {song2.title}"

@@ -42,7 +42,7 @@ class Composer:
         self.lyrics_mixer = lyrics_mixer
 
     def reply(self, tweet):
-        logger.info(f"Replying to : {tweet}")
+        logger.info(f"Replying to Tweet: {tweet.id}, {tweet.text}")
         parsed = self.tweet_parser.parse(tweet.text)
         lyrics = parsed.mix_using(self.lyrics_mixer)
         if lyrics.has_content():
