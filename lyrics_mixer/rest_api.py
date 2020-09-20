@@ -29,16 +29,19 @@ def configure_views(app):
         return f'{escape(str(mixed))}'
 
 
+lyrics_mixer = LyricsMixer(LyricsDataSource(), LineInterleaveLyricsMix())
+
+
 class AppModule(Module):
-    def __init__(self, app):
+    def __init__(self, app, lyrics_mixer):
         self.app = app
+        self.lyrics_mixer = lyrics_mixer
 
     def configure(self, binder):
-        lyrics_mixer = LyricsMixer(LyricsDataSource(), LineInterleaveLyricsMix())
-        binder.bind(LyricsMixer, to=lyrics_mixer, scope=singleton)
+        binder.bind(LyricsMixer, to=self.lyrics_mixer, scope=singleton)
 
 
 app = Flask(__name__)
-injector = Injector([AppModule(app)])
+injector = Injector([AppModule(app, lyrics_mixer)])
 configure_views(app=app)
 FlaskInjector(app=app, injector=injector)
