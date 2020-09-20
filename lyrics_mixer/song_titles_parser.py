@@ -1,6 +1,6 @@
 from abc import abstractmethod
 import re
-from songs.model import SongTitle, SongTitlePair, ArtistTitle
+from songs.model import SongTitlePair
 
 
 class SongTitlesSplitter:
@@ -39,48 +39,51 @@ class SongTitlesParser:
 
 class FullTitlesParser:
     def parse_song_titles(self, split_text):
-        song_title1 = self.parse_song_title(split_text[0])
-        song_title2 = self.parse_song_title(split_text[1])
-        return ParsedFullTitles(song_title1, song_title2)
+        artist1, title1 = self.parse_song_title(split_text[0])
+        artist2, title2 = self.parse_song_title(split_text[1])
+        return ParsedFullTitles(artist1, title1, artist2, title2)
 
     def parse_song_title(self, text):
+        # TODO: remove if
         if self.can_create_from(text):
             return self.create_from(text)
         else:
-            return SongTitle.empty()
+            return '', ''
 
     def can_create_from(self, text):
         return '-' in text
 
     def create_from(self, text):
-        artist, title = text.split('-')
-        return SongTitle(artist, title)
+        return text.split('-')
 
 
 class ParsedFullTitles(SongTitlePair):
     def mix_using(self, lyrics_mixer):
-        return lyrics_mixer.mix_two_specific_lyrics(self.song_title1, self.song_title2)
+        return lyrics_mixer.mix_two_specific_lyrics(self.artist1, self.title1, self.artist2, self.title2)
 
 
 class ArtistsParser:
     def parse_song_titles(self, split_text):
-        song_title1 = self.parse_song_title(split_text[0])
-        song_title2 = self.parse_song_title(split_text[1])
-        return ParsedArtists(song_title1, song_title2)
+        artist1, title1 = self.parse_song_title(split_text[0])
+        artist2, title2 = self.parse_song_title(split_text[1])
+        return ParsedArtists(artist1, artist2)
 
     def parse_song_title(self, text):
         if self.can_create_from(text):
             return self.create_from(text)
         else:
-            return SongTitle.empty()
+            return '', ''
 
     def can_create_from(self, text):
         return '-' not in text
 
     def create_from(self, text):
-        return ArtistTitle(text)
+        return text, ''
 
 
 class ParsedArtists(SongTitlePair):
+    def __init__(self, artist1, artist2):
+        super().__init__(artist1.strip(), '', artist2.strip(), '')
+
     def mix_using(self, lyrics_mixer):
-        return lyrics_mixer.mix_random_lyrics_by_artists(self.song_title1.artist, self.song_title2.artist)
+        return lyrics_mixer.mix_random_lyrics_by_artists(self.artist1, self.artist2)

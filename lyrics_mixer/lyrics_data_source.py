@@ -3,11 +3,12 @@ from lyrics_providers.azlyrics import Artist, SongTitle, Song
 class LyricsDataSource:
     """Bridge to external lyrics provider, like AZLyrics"""
 
-    def get_song(self, title):
-        return Song.entitled(title)
+    def get_song(self, artist, title):
+        return Song.entitled(artist, title)
 
     def get_random_song(self):
-        return self.get_song(SongTitle.random())
+        artist, title = SongTitle.random()
+        return self.get_song(artist, title)
 
     def get_random_songs(self, count):
         return [self.get_random_song() for _ in range(count)]

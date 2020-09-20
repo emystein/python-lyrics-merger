@@ -11,7 +11,7 @@ class Song:
 
     @staticmethod
     def none():
-        return Song('', SongTitle.empty(), Lyrics.empty())
+        return Song('', '', Lyrics.empty())
 
     @staticmethod
     def copy(another):
@@ -23,7 +23,7 @@ class Song:
         self.lyrics = lyrics
 
     def is_empty(self):
-        return self.artist == '' and self.title == SongTitle.empty()
+        return self.artist == '' and self.title == ''
 
     def has_lyrics(self):
         return self.lyrics.has_content()
@@ -32,41 +32,15 @@ class Song:
         return (self.artist == other.artist) and (self.title == other.title)
 
 
-class SongTitle:
-    @staticmethod
-    def empty():
-        return SongTitle('', '')
-
-    def __init__(self, artist, title):
-        self.artist = artist.strip()
-        self.title = title.strip()
-
-    def __eq__(self, other):
-        return (self.artist == other.artist) and (self.title == other.title)
-
-    def __str__(self):
-        return self.artist + ' - ' + self.title
-
-
-class ArtistTitle:
-    def __init__(self, artist):
-        self.artist = artist.strip()
-        self.title = ''
-
-    def __eq__(self, other):
-        return self.artist == other.artist
-
-    def __str__(self):
-        return self.artist 
-
-
 class SongTitlePair:
-    def __init__(self, song_title1, song_title2):
-        self.song_title1 = song_title1
-        self.song_title2 = song_title2
+    def __init__(self, artist1, title1, artist2, title2):
+        self.artist1 = artist1.strip()
+        self.title1 = title1.strip()
+        self.artist2 = artist2.strip()
+        self.title2 = title2.strip()
 
     def __str__(self):
-        return f"{self.song_title1}, {self.song_title2}"
+        return f"{self.artist1} - {self.title1}, {self.artist2} - {self.title2}"
 
 
 class Lyrics:

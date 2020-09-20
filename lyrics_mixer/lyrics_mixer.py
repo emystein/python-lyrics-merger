@@ -1,7 +1,7 @@
-from itertools import groupby
 import logging
-from songs.model import Song
+from itertools import groupby
 
+from songs.model import Song
 
 logger = logging.getLogger()
 
@@ -17,8 +17,8 @@ class LyricsMixer:
     def mix_random_lyrics_by_artists(self, artist1, artist2):
         return self.mix_lyrics(RandomByArtistsSongsPicker(artist1, artist2))
 
-    def mix_two_specific_lyrics(self, song_title1, song_title2):
-        return self.mix_lyrics(SpecificSongsPicker(song_title1, song_title2))
+    def mix_two_specific_lyrics(self, artist1, title1, artist2, title2):
+        return self.mix_lyrics(SpecificSongsPicker(artist1, title1, artist2, title2))
 
     def mix_lyrics(self, lyrics_picker):
         try:
@@ -43,11 +43,14 @@ class RandomByArtistsSongsPicker:
 
 
 class SpecificSongsPicker:
-    def __init__(self, title1, title2):
-        self.titles = [title1, title2]
+    def __init__(self, artist1, title1, artist2, title2):
+        self.artist1 = artist1
+        self.title1 = title1
+        self.artist2 = artist2
+        self.title2 = title2
 
     def pick_two(self, library):
-        return [library.get_song(title) for title in self.titles]
+        return [library.get_song(self.artist1, self.title1), library.get_song(self.artist2, self.title2)]
 
 
 class LineInterleaveLyricsMix:

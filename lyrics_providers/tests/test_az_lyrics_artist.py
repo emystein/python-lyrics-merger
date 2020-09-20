@@ -1,7 +1,6 @@
 import pytest
+
 from lyrics_providers.azlyrics import Artist
-from songs.model import SongTitle, Song, Lyrics
-from songs.tests.fixtures.song_titles import song_title1, song_title2
 
 
 def test_random_initial():
@@ -35,7 +34,7 @@ def test_get_songs_by_artist():
     song = artist.random_song()
 
     assert song.artist == 'Led Zeppelin'
-    assert song.title != SongTitle.empty()
+    assert song.title != ''
     assert song.has_lyrics()
 
 

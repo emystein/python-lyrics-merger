@@ -1,7 +1,5 @@
 import pytest
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter
-from songs.model import SongTitle
-
 
 prefixes = SongTitlesSplitter.prefixes() + ['@lyricsmixer mezclá ', 'Fulano mezclá ']
 
@@ -17,8 +15,8 @@ splitter = SongTitlesSplitter()
                              ('Led Zeppelin - Stairway to Heaven', 'Steppenwolf - Born to be wild')
                          ])
 def test_split_artists_by_connector(prefix, connector, title1, title2):
-    results = splitter.split(f"{prefix}{title1}{connector}{title2}") 
-    
+    results = splitter.split(f"{prefix}{title1}{connector}{title2}")
+
     assert results == [title1, title2]
 
 

@@ -50,7 +50,7 @@ class Artist:
             logger.info(f'Retrieved {len(all_songs)} songs')
 
             self.cached_all_songs = [
-                Song.entitled(songs.model.SongTitle(self.name, song)) for song in all_songs.keys()
+                Song.entitled(self.name, song) for song in all_songs.keys()
             ]
 
         return self.cached_all_songs
@@ -62,27 +62,29 @@ class Artist:
 class SongTitle:
     @staticmethod
     def random():
-        return Artist.random().random_song().title
+        song = Artist.random().random_song()
+        return song.artist, song.title
 
 
 class Song:
     @staticmethod
-    def entitled(title):
-        return songs.model.Song(title.artist, title, LazyLoadLyrics(title))
+    def entitled(artist, title):
+        return songs.model.Song(artist, title, LazyLoadLyrics(artist, title))
 
 
 class LazyLoadLyrics(songs.model.Lyrics):
-    def __init__(self, title):
+    def __init__(self, artist, title):
+        self.artist = artist
         self.title = title
         self.loaded_text = None
 
     @property
     def text(self):
         if self.loaded_text is None:
-            logger.info(f'Retrieving lyrics: {self.title}')
+            logger.info(f'Retrieving lyrics: {self.artist} - {self.title}')
             api = AZlyrics()
-            api.artist = self.title.artist
-            api.title = self.title.title
+            api.artist = self.artist
+            api.title = self.title
             api.getLyrics()
             self.loaded_text = api.lyrics
 
