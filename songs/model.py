@@ -32,17 +32,6 @@ class Song:
         return (self.artist == other.artist) and (self.title == other.title)
 
 
-class SongTitlePair:
-    def __init__(self, artist1, title1, artist2, title2):
-        self.artist1 = artist1.strip()
-        self.title1 = title1.strip()
-        self.artist2 = artist2.strip()
-        self.title2 = title2.strip()
-
-    def __str__(self):
-        return f"{self.artist1} - {self.title1}, {self.artist2} - {self.title2}"
-
-
 class Lyrics:
     @staticmethod
     def empty():
