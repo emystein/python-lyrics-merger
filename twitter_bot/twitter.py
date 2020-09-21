@@ -35,6 +35,18 @@ class TwitterApi:
             status=reply_text[:self.MAX_TWEET_LENGTH], in_reply_to_status_id=origin_tweet.id)
 
 
+class MentionHistory:
+    def __init__(self, twitter_api, reply_cursor):
+        self.twitter_api = twitter_api
+        self.reply_cursor = reply_cursor
+
+    def since_last_persisted(self):
+        return self.twitter_api.mentions_since(self.reply_cursor.position)
+
+    def add(self, mention):
+        self.reply_cursor.point_to(mention)
+
+
 class Composer:
     def __init__(self, twitter_api, tweet_parser, lyrics_mixer):
         self.twitter_api = twitter_api

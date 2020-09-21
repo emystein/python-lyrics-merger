@@ -11,9 +11,9 @@ def tweet_random_lyrics(twitter_api, lyrics_mixer):
         logger.error('Skipping tweet.', exc_info=True)
 
 
-def reply_to_mentions(twitter_api, composer, reply_cursor):
-    mentions = twitter_api.mentions_since(reply_cursor.position)
+def reply_to_mentions(mention_history, composer):
+    mentions = mention_history.since_last_persisted()
 
     for mention in mentions:
         composer.reply(mention)
-        reply_cursor.point_to(mention)
+        mention_history.add(mention)
