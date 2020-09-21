@@ -6,7 +6,7 @@ from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
 import twitter_bot.jobs
 from twitter_bot.persistence import MentionsReplyCursor
-from twitter_bot.twitter import TwitterApi, Composer
+from twitter_bot.twitter import TwitterApi, MentionHistory, Composer
 
 logging.basicConfig(level=logging.INFO)
 
@@ -25,12 +25,9 @@ tweet_parser = SongTitlesParser(SongTitlesSplitter())
 lyrics_mixer = LyricsMixer(
     LyricsDataSource(), LineInterleaveLyricsMix())
 
-composer = Composer(twitter_api, tweet_parser, lyrics_mixer)
-
 schedule.every().minute.do(twitter_bot.jobs.reply_to_mentions,
-                           twitter_api=twitter_api,
-                           composer=composer,
-                           reply_cursor=reply_cursor)
+                           mention_history=MentionHistory(twitter_api, reply_cursor),
+                           composer=Composer(twitter_api, tweet_parser, lyrics_mixer))
 
 schedule.every(4).hours.do(twitter_bot.jobs.tweet_random_lyrics,
                            twitter_api=twitter_api,
