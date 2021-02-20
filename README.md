@@ -48,13 +48,17 @@ Implemented using [Tweepy](https://www.tweepy.org/).
 
 Environment variables for storing auth tokens:
 
-`TWITTER_CONSUMER_KEY`
+`LYRICS_MIXER_TWITTER_CONSUMER_KEY`
 
-`TWITTER_CONSUMER_SECRET`
+`LYRICS_MIXER_TWITTER_CONSUMER_SECRET`
 
-`TWITTER_ACCESS_TOKEN`
+`LYRICS_MIXER_TWITTER_ACCESS_TOKEN`
 
-`TWITTER_ACCESS_TOKEN_SECRET`
+`LYRICS_MIXER_TWITTER_ACCESS_TOKEN_SECRET`
+
+Environment variable for the database URL:
+
+`LYRICS_MIXER_DATABASE_URL`
 
 # Docker
 A `docker-compose.yml` is available for running the PostgreSQL and Twitter Bot Docker containers.

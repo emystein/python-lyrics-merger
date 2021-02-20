@@ -1,6 +1,6 @@
 import logging
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 
 def tweet_random_lyrics(twitter_api, lyrics_mixer):

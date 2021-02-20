@@ -5,13 +5,13 @@ from urllib.parse import urlparse, uses_netloc
 
 from peewee import *
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 
 def connect_to_database():
-    if 'DATABASE_URL' in os.environ:
+    if 'LYRICS_MIXER_DATABASE_URL' in os.environ:
         uses_netloc.append('postgres')
-        url = urlparse(os.environ["DATABASE_URL"])
+        url = urlparse(os.environ["LYRICS_MIXER_DATABASE_URL"])
         database = PostgresqlDatabase(
             database=url.path[1:], user=url.username, password=url.password, host=url.hostname, port=url.port,
             autoconnect=False)
@@ -20,6 +20,7 @@ def connect_to_database():
 
     while database.is_closed():
         try:
+            logger.info('Connecting to Database')
             database.connect()
         except:
             pass

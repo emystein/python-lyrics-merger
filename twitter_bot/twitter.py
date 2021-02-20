@@ -7,9 +7,9 @@ logger = logging.getLogger()
 
 def create_tweepy_api():
     auth = tweepy.OAuthHandler(
-        environ['TWITTER_CONSUMER_KEY'], environ['TWITTER_CONSUMER_SECRET'])
+        environ['LYRICS_MIXER_TWITTER_CONSUMER_KEY'], environ['LYRICS_MIXER_TWITTER_CONSUMER_SECRET'])
     auth.set_access_token(
-        environ['TWITTER_ACCESS_TOKEN'], environ['TWITTER_ACCESS_TOKEN_SECRET'])
+        environ['LYRICS_MIXER_TWITTER_ACCESS_TOKEN'], environ['LYRICS_MIXER_TWITTER_ACCESS_TOKEN_SECRET'])
 
     return tweepy.API(auth)
 

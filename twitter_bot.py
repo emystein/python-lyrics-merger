@@ -1,5 +1,6 @@
 import logging
 import schedule
+import sys
 import time
 from lyrics_mixer.lyrics_data_source import LyricsDataSource
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
@@ -8,7 +9,9 @@ import twitter_bot.jobs
 from twitter_bot.persistence import MentionsReplyCursor
 from twitter_bot.twitter import TwitterApi, MentionHistory, Composer
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(stream=sys.stdout, level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
+
+logging.info('Starting up')
 
 twitter_bot.persistence.connect_to_database()
 
