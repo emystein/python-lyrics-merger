@@ -19,8 +19,8 @@ twitter_bot.persistence.connect_to_database()
 
 # advance reply cursor to a mention already replied
 reply_cursor = MentionsReplyCursor()
-if reply_cursor.position < 1308033356291092480:
-    reply_cursor.position = 1308033356291092480
+if reply_cursor.position < 1363510795649318917:
+    reply_cursor.position = 1363510795649318917
     reply_cursor.save()
 
 twitter_api = TwitterApi(twitter_bot.twitter.create_tweepy_api())
