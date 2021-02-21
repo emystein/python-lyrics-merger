@@ -46,6 +46,11 @@ See: `lyrics_mixer/rest_api.py` and `lyrics_mixer/rest_api.py`.
 # Twitter Bot
 Implemented using [Tweepy](https://www.tweepy.org/).
 
+
+## Deployment
+
+### Environment variables
+
 Environment variables for storing auth tokens:
 
 `LYRICS_MIXER_TWITTER_CONSUMER_KEY`
@@ -60,7 +65,7 @@ Environment variable for the database URL:
 
 `LYRICS_MIXER_DATABASE_URL`
 
-# Docker
+### Docker
 A `docker-compose.yml` file is available for running the PostgreSQL and Twitter Bot Docker containers.
 
 By default, docker-compose will look for an `.env` file in this directory with the definitions of the environment variables listed above.
@@ -71,18 +76,18 @@ To run the containers:
 docker-compose up
 ```
 
-# Deployment in Heroku
+### Heroku
 The file `Procfile` describes both the REST API app and the Twitter bot (as a worker).
 
-## Keep awake Heroku instance
+#### Keep awake Heroku instance
 Keep awake Heroku instance by running a schedule job.
 
-### Cron
+#### Cron
 Every 30 minutes except between 2 am and 8 am, since Heroku force sleep free instances 6 hours a day:
 
 `0/30 0-2,8-23 * * * /usr/bin/curl https://lyricsmixer.herokuapp.com > /tmp/lyricsmixer-ping.log`
 
-### Systemd Timer
+#### Systemd Timer
 Install unit provided in the `setup` directory: `heroku_lyricsmixer_ping.timer`, `heroku_lyricsmixer_ping.service`
 
 ```bash
@@ -98,7 +103,7 @@ Check timer is installed:
 sudo systemctl list-timers --all
 ```
 
-## Database setup
+#### Database setup
 Enable PostgreSQL add-on on Heroku dashboard.
 
 `twitter_bot.py` creates tables on startup.
