@@ -87,3 +87,6 @@ class MixedLyrics(Lyrics):
 
     def __str__(self):
         return self.title + '\n\n' + self.text
+
+    def has_content(self):
+        return self != MixedLyrics.empty()
