@@ -25,8 +25,5 @@ flask-injector = "*"
 azapi = "*"
 azlyrics = "*"
 
-[requires]
-python_version = "3.8"
-
 [scripts]
 mixlyrics_parse_free_text = "python scripts/mixlyrics_parse_free_text.py"
