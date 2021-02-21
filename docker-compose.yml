@@ -6,6 +6,7 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    restart: always
   jobs:
     build: .
     environment:
@@ -16,3 +17,4 @@ services:
       - LYRICS_MIXER_DATABASE_URL=${LYRICS_MIXER_DATABASE_URL}
     depends_on:
       - db
+    restart: always
