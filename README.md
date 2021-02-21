@@ -61,7 +61,11 @@ Environment variable for the database URL:
 `LYRICS_MIXER_DATABASE_URL`
 
 # Docker
-A `docker-compose.yml` is available for running the PostgreSQL and Twitter Bot Docker containers.
+A `docker-compose.yml` file is available for running the PostgreSQL and Twitter Bot Docker containers.
+
+By default, docker-compose will look for an `.env` file in this directory with the definitions of the environment variables listed above.
+
+To run the containers:
 
 ```bash
 docker-compose up

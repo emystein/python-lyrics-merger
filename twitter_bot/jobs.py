@@ -4,6 +4,8 @@ logger = logging.getLogger(__name__)
 
 
 def tweet_random_lyrics(twitter_api, lyrics_mixer):
+    logger.info('Tweeting random lyrics')
+
     mixed_lyrics = lyrics_mixer.mix_two_random_lyrics()
     try:
         twitter_api.update_status(str(mixed_lyrics))
@@ -12,6 +14,8 @@ def tweet_random_lyrics(twitter_api, lyrics_mixer):
 
 
 def reply_to_mentions(mention_history, composer):
+    logger.info('Replying to mentions')
+
     mentions = mention_history.since_last_persisted()
 
     for mention in mentions:

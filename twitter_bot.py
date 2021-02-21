@@ -10,6 +10,8 @@ from twitter_bot.persistence import MentionsReplyCursor
 from twitter_bot.twitter import TwitterApi, MentionHistory, Composer
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
+schedule_logger = logging.getLogger('schedule')
+schedule_logger.setLevel(level=logging.WARNING)
 
 logging.info('Starting up')
 
@@ -17,8 +19,8 @@ twitter_bot.persistence.connect_to_database()
 
 # advance reply cursor to a mention already replied
 reply_cursor = MentionsReplyCursor()
-if reply_cursor.position < 1305235263355052032:
-    reply_cursor.position = 1305235263355052032
+if reply_cursor.position < 1308033356291092480:
+    reply_cursor.position = 1308033356291092480
     reply_cursor.save()
 
 twitter_api = TwitterApi(twitter_bot.twitter.create_tweepy_api())
