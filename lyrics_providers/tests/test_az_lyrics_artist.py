@@ -26,7 +26,6 @@ def test_random():
 
 
 @pytest.mark.slow_integration_test
-@pytest.mark.vcr()
 def test_get_songs_by_artist():
     artist = Artist.named('Led Zeppelin')
 
@@ -41,4 +40,4 @@ def test_get_songs_by_artist():
 
 @pytest.mark.slow_integration_test
 def test_lyrics_not_found():
-    assert Artist.named('Menéndez').random_song().is_empty()
+    assert len(Artist.named('Menéndez').all_songs()) == 0
