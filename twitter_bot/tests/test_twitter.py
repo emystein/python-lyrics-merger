@@ -33,41 +33,4 @@ def test_reply_to_mentions_empty_reply(tweet):
     composer = Composer(twitter_api, tweet_parser, lyrics_mixer)
     composer.reply(tweet)
 
-    assert not twitter_api.update_status.called
-
-
-def test_job_tweet_random_lyrics(mixed_song1_song2):
-    twitter_api = Mock()
-
-    lyrics_mixer.mix_two_random_lyrics.return_value = mixed_song1_song2
-
-    twitter_bot.jobs.tweet_random_lyrics(twitter_api, lyrics_mixer)
-
-    twitter_api.update_status.assert_called_with(str(mixed_song1_song2))
-
-
-def test_job_tweet_random_lyrics_skip_empty_lyrics():
-    twitter_api = Mock()
-
-    lyrics_mixer.mix_two_random_lyrics.return_value = MixedLyrics.empty()
-
-    twitter_bot.jobs.tweet_random_lyrics(twitter_api, lyrics_mixer)
-
-    assert not twitter_api.update_status.called
-
-
-def test_job_reply_to_mentions(tweet, mixed_song1_song2):
-    twitter_api = Mock()
-
-    twitter_api.mentions_since.return_value = [tweet]
-
-    lyrics_mixer.mix_random_lyrics_by_artists.return_value = mixed_song1_song2
-
-    composer = Composer(twitter_api, tweet_parser, lyrics_mixer)
-
-    mention_history = MentionHistory(twitter_api, reply_cursor)
-
-    twitter_bot.jobs.reply_to_mentions(mention_history, composer)
-
-    twitter_api.reply_tweet_with.assert_called_with(tweet, str(mixed_song1_song2))
-    reply_cursor.point_to.assert_called_with(tweet)
+    assert not twitter_api.reply_tweet_with.called
