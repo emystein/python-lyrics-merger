@@ -34,3 +34,15 @@ def test_reply_to_mentions_empty_reply(tweet):
     composer.reply(tweet)
 
     assert not twitter_api.reply_tweet_with.called
+
+
+def test_tweet(mixed_song1_song2):
+    twitter_api = Mock()
+
+    composer = Composer(twitter_api, tweet_parser, lyrics_mixer)
+    composer.tweet(mixed_song1_song2)
+
+    twitter_api.update_status.assert_called_with(str(mixed_song1_song2))
+
+
+

@@ -30,13 +30,16 @@ tweet_parser = SongTitlesParser(SongTitlesSplitter())
 lyrics_mixer = LyricsMixer(
     LyricsDataSource(), LineInterleaveLyricsMix())
 
+composer=Composer(twitter_api, tweet_parser, lyrics_mixer))
+
 schedule.every().minute.do(twitter_bot.jobs.reply_to_mentions,
                            mention_history=MentionHistory(twitter_api, reply_cursor),
-                           composer=Composer(twitter_api, tweet_parser, lyrics_mixer))
+                           composer=composer)
 
 schedule.every(4).hours.do(twitter_bot.jobs.tweet_random_lyrics,
                            twitter_api=twitter_api,
-                           lyrics_mixer=lyrics_mixer).run()
+                           lyrics_mixer=lyrics_mixer,
+                           composer=composer).run()
 
 
 def main():

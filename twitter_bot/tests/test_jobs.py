@@ -16,22 +16,13 @@ reply_cursor = Mock()
 
 def test_job_tweet_random_lyrics(mixed_song1_song2):
     twitter_api = Mock()
+    composer = Mock()
 
     lyrics_mixer.mix_two_random_lyrics.return_value = mixed_song1_song2
 
-    twitter_bot.jobs.tweet_random_lyrics(twitter_api, lyrics_mixer)
+    twitter_bot.jobs.tweet_random_lyrics(twitter_api, lyrics_mixer, composer)
 
-    twitter_api.update_status.assert_called_with(str(mixed_song1_song2))
-
-
-def test_job_tweet_random_lyrics_skip_empty_lyrics():
-    twitter_api = Mock()
-
-    lyrics_mixer.mix_two_random_lyrics.return_value = MixedLyrics.empty()
-
-    twitter_bot.jobs.tweet_random_lyrics(twitter_api, lyrics_mixer)
-
-    assert not twitter_api.update_status.called
+    composer.tweet.assert_called_with(mixed_song1_song2)
 
 
 def test_job_reply_to_mentions(tweet, mixed_song1_song2):

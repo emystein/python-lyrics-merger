@@ -53,6 +53,15 @@ class Composer:
         self.tweet_parser = tweet_parser
         self.lyrics_mixer = lyrics_mixer
 
+    def tweet(self, mixed_lyrics):
+        logger.info(f"Tweeting Mixed Lyrics")
+
+        if mixed_lyrics.has_content():
+            try:
+                self.twitter_api.update_status(str(mixed_lyrics))
+            except:
+                logger.error('Skipping tweet.', exc_info=True)
+
     def reply(self, tweet):
         logger.info(f"Replying to Tweet with ID: {tweet.id} and Text: {tweet.text}")
         parsed = self.tweet_parser.parse(tweet.text)
