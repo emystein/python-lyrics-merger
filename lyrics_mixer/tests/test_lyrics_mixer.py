@@ -4,11 +4,9 @@ from unittest.mock import Mock
 from lyrics_mixer.lyrics_data_source import LyricsDataSource
 from songs.tests.fixtures.songs import song1, song2
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix, MixedLyrics
+from lyrics_mixer.tests.fixtures.mixer import lyrics_mix
 
-lyrics_mix = LineInterleaveLyricsMix()
-
-
-def test_mix_two_random_lyrics(song1, song2):
+def test_mix_two_random_lyrics(lyrics_mix, song1, song2):
     lyrics_library = Mock()
 
     mixer = LyricsMixer(lyrics_library, lyrics_mix)
@@ -18,7 +16,7 @@ def test_mix_two_random_lyrics(song1, song2):
     assert mixer.mix_two_random_lyrics() == lyrics_mix.mix(song1, song2)
 
 
-def test_mix_random_lyrics_by_artists(song1, song2):
+def test_mix_random_lyrics_by_artists(lyrics_mix, song1, song2):
     lyrics_library = Mock()
 
     mixer = LyricsMixer(lyrics_library, lyrics_mix)
@@ -29,7 +27,7 @@ def test_mix_random_lyrics_by_artists(song1, song2):
 
 
 @pytest.mark.slow_integration_test
-def test_mix_random_lyrics_by_artists_integration():
+def test_mix_random_lyrics_by_artists_integration(lyrics_mix):
     mixer = LyricsMixer(LyricsDataSource(), lyrics_mix)
 
     mixed_lyrics = mixer.mix_random_lyrics_by_artists('Led Zeppelin', 'Steppenwolf')
@@ -37,7 +35,7 @@ def test_mix_random_lyrics_by_artists_integration():
     assert mixed_lyrics.has_content()
 
 
-def test_mix_two_specific_lyrics(song1, song2):
+def test_mix_two_specific_lyrics(lyrics_mix, song1, song2):
     lyrics_library = Mock()
 
     mixer = LyricsMixer(lyrics_library, lyrics_mix)
@@ -50,7 +48,7 @@ def test_mix_two_specific_lyrics(song1, song2):
 
 @pytest.mark.slow_integration_test
 @pytest.mark.vcr()
-def test_mix_two_specific_lyrics_integration():
+def test_mix_two_specific_lyrics_integration(lyrics_mix):
     mixer = LyricsMixer(LyricsDataSource(), lyrics_mix)
 
     mixed_lyrics = mixer.mix_two_specific_lyrics('Led Zeppelin', 'Stairway to Heaven', 'Steppenwolf', 'Born to be wild')
@@ -58,7 +56,7 @@ def test_mix_two_specific_lyrics_integration():
     assert mixed_lyrics.has_content()
 
 
-def test_exception_on_mix_lyrics():
+def test_exception_on_mix_lyrics(lyrics_mix):
     lyrics_library = Mock()
 
     mixer = LyricsMixer(lyrics_library, lyrics_mix)
@@ -70,7 +68,7 @@ def test_exception_on_mix_lyrics():
     assert mixer.mix_lyrics(lyrics_picker_mock) == MixedLyrics.empty()
 
 
-def test_mixed_lyrics(song1, song2):
+def test_mixed_lyrics(lyrics_mix, song1, song2):
     expected = lyrics_mix.mix(song1, song2)
 
     mixed_lyrics = MixedLyrics(song1, song2, [], expected.paragraphs)
