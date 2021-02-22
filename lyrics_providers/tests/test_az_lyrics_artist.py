@@ -26,6 +26,7 @@ def test_random():
 
 
 @pytest.mark.slow_integration_test
+@pytest.mark.vcr()
 def test_get_songs_by_artist():
     artist = Artist.named('Led Zeppelin')
 

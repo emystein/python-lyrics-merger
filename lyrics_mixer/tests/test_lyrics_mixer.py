@@ -49,6 +49,7 @@ def test_mix_two_specific_lyrics(song1, song2):
 
 
 @pytest.mark.slow_integration_test
+@pytest.mark.vcr()
 def test_mix_two_specific_lyrics_integration():
     mixer = LyricsMixer(LyricsDataSource(), lyrics_mix)
 

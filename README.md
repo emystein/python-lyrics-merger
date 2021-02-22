@@ -7,6 +7,7 @@ You can enable console print by running `pipenv run pytest -s`.
 
 Code coverage: `pipenv run pytest -v --cov=. --cov-report html`. Then access the coverage report at `htmlcov/index.html`
 
+Skip slow tests: `pipenv run pytest --without-slow-integration` (see https://pypi.org/project/pytest-integration/).
 
 # Standalone scripts
 
