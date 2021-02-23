@@ -12,13 +12,13 @@ class LyricsMixer:
         self.lyrics_mix_strategy = lyrics_mix_strategy
 
     def mix_two_random_lyrics(self):
-        return self.mix_lyrics(RandomSongPairPicker())
+        return self.mix_lyrics(RandomLyricsPairPicker())
 
     def mix_random_lyrics_by_artists(self, artist1, artist2):
-        return self.mix_lyrics(RandomByArtistsSongPairPicker(artist1, artist2))
+        return self.mix_lyrics(RandomByArtistsLyricsPairPicker(artist1, artist2))
 
     def mix_two_specific_lyrics(self, artist1, title1, artist2, title2):
-        return self.mix_lyrics(SpecificSongPairPicker(artist1, title1, artist2, title2))
+        return self.mix_lyrics(SpecificLyricsPairPicker(artist1, title1, artist2, title2))
 
     def mix_lyrics(self, lyrics_picker):
         try:
@@ -29,20 +29,20 @@ class LyricsMixer:
             return MixedLyrics.empty()
 
 
-class RandomSongPairPicker:
+class RandomLyricsPairPicker:
     def pick(self, library):
-        return library.get_random_songs(2)
+        return library.get_random_lyrics(2)
 
 
-class RandomByArtistsSongPairPicker:
+class RandomByArtistsLyricsPairPicker:
     def __init__(self, artist1, artist2):
         self.artists = [artist1, artist2]
 
     def pick(self, library):
-        return library.get_random_songs_by_artists(self.artists)
+        return library.get_random_lyrics_by_artists(self.artists)
 
 
-class SpecificSongPairPicker:
+class SpecificLyricsPairPicker:
     def __init__(self, artist1, title1, artist2, title2):
         self.artist1 = artist1
         self.title1 = title1
@@ -50,7 +50,7 @@ class SpecificSongPairPicker:
         self.title2 = title2
 
     def pick(self, library):
-        return [library.get_song(self.artist1, self.title1), library.get_song(self.artist2, self.title2)]
+        return [library.get_lyrics(self.artist1, self.title1), library.get_lyrics(self.artist2, self.title2)]
 
 
 class LineInterleaveLyricsMix:
