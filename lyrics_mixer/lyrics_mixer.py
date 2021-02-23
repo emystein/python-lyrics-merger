@@ -12,44 +12,44 @@ class LyricsMixer:
         self.lyrics_mix_strategy = lyrics_mix_strategy
 
     def mix_two_random_lyrics(self):
-        return self.mix_lyrics(RandomSongsPicker())
+        return self.mix_lyrics(RandomSongPairPicker())
 
     def mix_random_lyrics_by_artists(self, artist1, artist2):
-        return self.mix_lyrics(RandomByArtistsSongsPicker(artist1, artist2))
+        return self.mix_lyrics(RandomByArtistsSongPairPicker(artist1, artist2))
 
     def mix_two_specific_lyrics(self, artist1, title1, artist2, title2):
-        return self.mix_lyrics(SpecificSongsPicker(artist1, title1, artist2, title2))
+        return self.mix_lyrics(SpecificSongPairPicker(artist1, title1, artist2, title2))
 
     def mix_lyrics(self, lyrics_picker):
         try:
-            song1, song2 = lyrics_picker.pick_two(self.lyrics_library)
+            song1, song2 = lyrics_picker.pick(self.lyrics_library)
             return self.lyrics_mix_strategy.mix(song1, song2)
         except Exception:
             logger.error('Returning empty lyrics.', exc_info=True)
             return MixedLyrics.empty()
 
 
-class RandomSongsPicker:
-    def pick_two(self, library):
+class RandomSongPairPicker:
+    def pick(self, library):
         return library.get_random_songs(2)
 
 
-class RandomByArtistsSongsPicker:
+class RandomByArtistsSongPairPicker:
     def __init__(self, artist1, artist2):
         self.artists = [artist1, artist2]
 
-    def pick_two(self, library):
+    def pick(self, library):
         return library.get_random_songs_by_artists(self.artists)
 
 
-class SpecificSongsPicker:
+class SpecificSongPairPicker:
     def __init__(self, artist1, title1, artist2, title2):
         self.artist1 = artist1
         self.title1 = title1
         self.artist2 = artist2
         self.title2 = title2
 
-    def pick_two(self, library):
+    def pick(self, library):
         return [library.get_song(self.artist1, self.title1), library.get_song(self.artist2, self.title2)]
 
 
