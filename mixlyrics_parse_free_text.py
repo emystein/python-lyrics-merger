@@ -3,7 +3,7 @@ from argparse import ArgumentParser
 import logging
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix, ParagraphInterleaveLyricsMix
-from lyrics_mixer.lyrics_data_source import LyricsDataSource
+from lyrics_mixer.lyrics_library import LyricsLibrary
 import sys
 
 logger = logging.getLogger()
@@ -23,7 +23,7 @@ def main():
         titles_parser = SongTitlesParser(SongTitlesSplitter())
         parsed_text = titles_parser.parse(args.text)
         print(str(parsed_text))
-        lyrics_mixer = LyricsMixer(LyricsDataSource(), LineInterleaveLyricsMix())
+        lyrics_mixer = LyricsMixer(LyricsLibrary(), LineInterleaveLyricsMix())
         mixed = parsed_text.mix_using(lyrics_mixer)
         print(str(mixed))
     except Exception as e:

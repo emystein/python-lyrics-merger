@@ -1,7 +1,7 @@
 from lyrics_providers.azlyrics import Artist, SongTitle, Song
 
 
-class LyricsDataSource:
+class LyricsLibrary:
     """Bridge to external lyrics provider, like AZLyrics"""
 
     def get_song(self, artist, title):

@@ -2,7 +2,7 @@ import logging
 import schedule
 import sys
 import time
-from lyrics_mixer.lyrics_data_source import LyricsDataSource
+from lyrics_mixer.lyrics_library import LyricsLibrary
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
 import twitter_bot.jobs
@@ -28,7 +28,7 @@ twitter_api = TwitterApi(twitter_bot.twitter.create_tweepy_api())
 tweet_parser = SongTitlesParser(SongTitlesSplitter())
 
 lyrics_mixer = LyricsMixer(
-    LyricsDataSource(), LineInterleaveLyricsMix())
+    LyricsLibrary(), LineInterleaveLyricsMix())
 
 composer=Composer(twitter_api, tweet_parser, lyrics_mixer)
 
