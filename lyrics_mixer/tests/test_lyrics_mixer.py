@@ -6,15 +6,15 @@ from lyrics_mixer.lyrics_mixer import MixedLyrics
 from lyrics_mixer.tests.fixtures.mixer import lyrics_mixer, mock_lyrics_library, lyrics_mix, mixed_song1_song2
 
 def test_mix_two_random_lyrics(lyrics_mixer, mock_lyrics_library, mixed_song1_song2):
-    mock_lyrics_library.get_random_songs.return_value = mixed_song1_song2.songs()
+    mock_lyrics_library.get_random_songs.return_value = mixed_song1_song2.songs
 
     assert lyrics_mixer.mix_two_random_lyrics() == mixed_song1_song2
 
 
 def test_mix_random_lyrics_by_artists(lyrics_mixer, mock_lyrics_library, mixed_song1_song2):
-    mock_lyrics_library.get_random_songs_by_artists.return_value = mixed_song1_song2.songs()
+    mock_lyrics_library.get_random_songs_by_artists.return_value = mixed_song1_song2.songs
 
-    assert lyrics_mixer.mix_random_lyrics_by_artists(mixed_song1_song2.song1.artist, mixed_song1_song2.song2.artist) == mixed_song1_song2
+    assert lyrics_mixer.mix_random_lyrics_by_artists(mixed_song1_song2.artist1, mixed_song1_song2.artist2) == mixed_song1_song2
 
 
 def test_mix_two_specific_lyrics(lyrics_mixer, mock_lyrics_library, song1, song2, mixed_song1_song2):

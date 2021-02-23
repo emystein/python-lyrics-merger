@@ -82,6 +82,9 @@ class MixedLyrics(Lyrics):
 
     def __init__(self, song1, song2, lines, paragraphs):
         self.song1, self.song2, self.lines, self.paragraphs = song1, song2, lines, paragraphs
+        self.songs = [self.song1, self.song2]
+        self.artist1 = self.song1.artist
+        self.artist2 = self.song2.artist
         self.title = f"{song1.artist} - {song1.title}, {song2.artist} - {song2.title}"
         self.text = '\n\n'.join(paragraphs)
 
@@ -90,6 +93,3 @@ class MixedLyrics(Lyrics):
 
     def has_content(self):
         return self != MixedLyrics.empty()
-    
-    def songs(self):
-        return [self.song1, self.song2]
