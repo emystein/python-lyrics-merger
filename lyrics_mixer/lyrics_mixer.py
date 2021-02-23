@@ -90,3 +90,6 @@ class MixedLyrics(Lyrics):
 
     def has_content(self):
         return self != MixedLyrics.empty()
+    
+    def songs(self):
+        return [self.song1, self.song2]
