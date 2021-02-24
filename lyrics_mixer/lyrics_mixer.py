@@ -13,15 +13,18 @@ class LyricsMixer:
 
     def mix_two_random_lyrics(self):
         return self.mix_lyrics(ManyLyricsPicker(
-            [RandomLyricsPicker(), RandomLyricsPicker()]))
+            RandomLyricsPicker(), 
+            RandomLyricsPicker()))
 
     def mix_random_lyrics_by_artists(self, artist1, artist2):
         return self.mix_lyrics(ManyLyricsPicker(
-            [RandomByArtistLyricsPicker(artist1), RandomByArtistLyricsPicker(artist2)]))
+            RandomByArtistLyricsPicker(artist1), 
+            RandomByArtistLyricsPicker(artist2)))
 
     def mix_two_specific_lyrics(self, artist1, title1, artist2, title2):
         return self.mix_lyrics(ManyLyricsPicker(
-            [SpecificLyricsPicker(artist1, title1), SpecificLyricsPicker(artist2, title2)]))
+            SpecificLyricsPicker(artist1, title1), 
+            SpecificLyricsPicker(artist2, title2)))
 
     def mix_lyrics(self, lyrics_picker):
         try:
@@ -33,7 +36,7 @@ class LyricsMixer:
 
 
 class ManyLyricsPicker:
-    def __init__(self, pickers):
+    def __init__(self, *pickers):
         self.pickers = pickers
 
     def pick(self, library):
