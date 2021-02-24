@@ -12,24 +12,21 @@ class LyricsMixer:
         self.lyrics_mix_strategy = lyrics_mix_strategy
 
     def mix_two_random_lyrics(self):
-        return self.mix_lyrics(RandomLyricsPicker(), RandomLyricsPicker())
+        return self.mix_lyrics(ManyRandomLyricsPickers(2))
 
     def mix_random_lyrics_by_artists(self, *artists):
-        lyrics_pickers = map(lambda artist: RandomByArtistLyricsPicker(artist), artists)
-        return self.mix_lyrics(*lyrics_pickers)
+        return self.mix_lyrics(ManyRandomByArtistLyricsPickers(artists))
 
     def mix_specific_lyrics(self, *titles):
-        lyrics_pickers = map(lambda title: SpecificLyricsPicker(title), titles)
-        return self.mix_lyrics(*lyrics_pickers)
+        return self.mix_lyrics(ManySpecificLyricsPickers(titles))
 
-    def mix_lyrics(self, *lyrics_pickers):
+    def mix_lyrics(self, lyrics_pickers):
         try:
-            lyrics = map(lambda picker: picker.pick(self.lyrics_library), lyrics_pickers)
+            lyrics = [picker.pick(self.lyrics_library) for picker in lyrics_pickers.pickers]
             return self.lyrics_mix_strategy.mix(*lyrics)
         except Exception:
             logger.error('Returning empty lyrics.', exc_info=True)
             return MixedLyrics.empty()
-
 
 class RandomLyricsPicker:
     def pick(self, library):
@@ -50,6 +47,21 @@ class SpecificLyricsPicker:
 
     def pick(self, library):
         return library.get_lyrics(self.title.artist, self.title.title)
+
+
+class ManyRandomLyricsPickers:
+    def __init__(self, count):
+        self.pickers = [RandomLyricsPicker() for number in range(count)]
+
+
+class ManyRandomByArtistLyricsPickers:
+    def __init__(self, artists):
+        self.pickers = [RandomByArtistLyricsPicker(artist) for artist in artists]
+
+
+class ManySpecificLyricsPickers:
+    def __init__(self, titles):
+        self.pickers = [SpecificLyricsPicker(title) for title in titles]
 
 
 class LineInterleaveLyricsMix:
