@@ -18,7 +18,7 @@ class LyricsMixer:
         lyrics_pickers = map(lambda artist: RandomByArtistLyricsPicker(artist), artists)
         return self.mix_lyrics(*lyrics_pickers)
 
-    def mix_two_specific_lyrics(self, title1, title2):
+    def mix_specific_lyrics(self, title1, title2):
         return self.mix_lyrics(SpecificLyricsPicker(title1),
                                SpecificLyricsPicker(title2))
 

@@ -20,12 +20,12 @@ def test_mix_random_lyrics_by_artists(lyrics_mixer, mock_lyrics_library, mixed_l
         mixed_lyrics.artist1, mixed_lyrics.artist2) == mixed_lyrics
 
 
-def test_mix_two_specific_lyrics(lyrics_mixer, mock_lyrics_library, mixed_lyrics):
+def test_mix_specific_lyrics(lyrics_mixer, mock_lyrics_library, mixed_lyrics):
     mock_lyrics_library.get_lyrics.side_effect = mixed_lyrics.songs
 
     song1, song2 = mixed_lyrics.songs
 
-    assert lyrics_mixer.mix_two_specific_lyrics(
+    assert lyrics_mixer.mix_specific_lyrics(
         SongTitle(song1.artist, song1.title), 
         SongTitle(song2.artist, song2.title)) == mixed_lyrics
 

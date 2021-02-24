@@ -14,7 +14,7 @@ class LyricsMixerStub:
     def mix_random_lyrics_by_artists(self, artist1, artist2):
         return MixedLyrics.empty()
 
-    def mix_two_specific_lyrics(self, title1, title2):
+    def mix_specific_lyrics(self, title1, title2):
         return MixedLyrics.empty()
 
 
@@ -44,7 +44,7 @@ def test_mix_two_random_lyrics_by_artists(client):
     assert response.status_code == 200
 
 
-def test_mix_two_specific_lyrics(client):
+def test_mix_specific_lyrics(client):
     response = client.get("/mix/songs/Led_Zeppelin/Stairway_to_Heaven/Steppenwolf/Born_to_be_wild")
 
     assert response.status_code == 200

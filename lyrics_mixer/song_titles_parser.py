@@ -58,7 +58,7 @@ class FullTitlesParser:
 
 class ParsedFullTitles(SongTitlePair):
     def mix_using(self, lyrics_mixer):
-        return lyrics_mixer.mix_two_specific_lyrics(SongTitle(self.artist1, self.title1), SongTitle(self.artist2, self.title2))
+        return lyrics_mixer.mix_specific_lyrics(SongTitle(self.artist1, self.title1), SongTitle(self.artist2, self.title2))
 
 
 class ArtistsParser:

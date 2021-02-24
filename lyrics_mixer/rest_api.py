@@ -25,8 +25,8 @@ def configure_views(app):
         return f'{escape(str(mixed))}'
 
     @app.route('/mix/songs/<artist1>/<title1>/<artist2>/<title2>')
-    def mix_two_specific_lyrics(lyrics_mixer: LyricsMixer, artist1, title1, artist2, title2):
-        mixed = lyrics_mixer.mix_two_specific_lyrics(SongTitle(artist1, title1), SongTitle(artist2, title2))
+    def mix_specific_lyrics(lyrics_mixer: LyricsMixer, artist1, title1, artist2, title2):
+        mixed = lyrics_mixer.mix_specific_lyrics(SongTitle(artist1, title1), SongTitle(artist2, title2))
         return f'{escape(str(mixed))}'
 
 
