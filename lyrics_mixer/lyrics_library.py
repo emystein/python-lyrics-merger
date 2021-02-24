@@ -7,12 +7,9 @@ class LyricsLibrary:
     def get_lyrics(self, artist, title):
         return Song.entitled(artist, title)
 
-    def get_random_lyrics(self, count):
-        return [self.get_single_random_lyrics() for _ in range(count)]
-
-    def get_random_lyrics_by_artists(self, artists):
-        return [Artist.named(artist).random_song() for artist in artists]
-
-    def __get_single_random_lyrics__(self):
+    def get_random_lyrics(self):
         artist, title = SongTitle.random()
         return self.get_lyrics(artist, title)
+        
+    def get_random_lyrics_by_artist(self, artist):
+        return Artist.named(artist).random_song()
