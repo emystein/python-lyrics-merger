@@ -12,13 +12,13 @@ class LyricsMixer:
         self.lyrics_mix_strategy = lyrics_mix_strategy
 
     def mix_two_random_lyrics(self):
-        return self.mix_lyrics(ManyRandomLyricsPickers(2))
+        return self.mix_lyrics(RandomLyricsPickers(2))
 
     def mix_random_lyrics_by_artists(self, *artists):
-        return self.mix_lyrics(ManyRandomByArtistLyricsPickers(artists))
+        return self.mix_lyrics(RandomByArtistLyricsPickers(artists))
 
     def mix_specific_lyrics(self, *titles):
-        return self.mix_lyrics(ManySpecificLyricsPickers(titles))
+        return self.mix_lyrics(SpecificLyricsPickers(titles))
 
     def mix_lyrics(self, lyrics_pickers):
         try:
@@ -49,24 +49,24 @@ class SpecificLyricsPicker:
         return library.get_lyrics(self.title.artist, self.title.title)
 
 
-class ManyRandomLyricsPickers:
+class RandomLyricsPickers:
     def __init__(self, count):
         self.pickers = [RandomLyricsPicker() for number in range(count)]
 
 
-class ManyRandomByArtistLyricsPickers:
+class RandomByArtistLyricsPickers:
     def __init__(self, artists):
         self.pickers = [RandomByArtistLyricsPicker(artist) for artist in artists]
 
 
-class ManySpecificLyricsPickers:
+class SpecificLyricsPickers:
     def __init__(self, titles):
         self.pickers = [SpecificLyricsPicker(title) for title in titles]
 
 
 class LineInterleaveLyricsMix:
     def mix(self, *songs):
-        all_lyrics_lines = map(lambda song: song.lyrics.lines(), songs)
+        all_lyrics_lines = [song.lyrics.lines() for song in songs]
 
         # see: https://stackoverflow.com/questions/7946798/interleave-multiple-lists-of-the-same-length-in-python
         lines = [val for pair in zip(*all_lyrics_lines) for val in pair]
@@ -79,7 +79,7 @@ class LineInterleaveLyricsMix:
 
 class ParagraphInterleaveLyricsMix:
     def mix(self, *songs):
-        all_lyrics_paragraphs = map(lambda song: song.lyrics.paragraphs(), songs)
+        all_lyrics_paragraphs = [song.lyrics.paragraphs() for song in songs]
 
         # see: https://stackoverflow.com/questions/7946798/interleave-multiple-lists-of-the-same-length-in-python
         paragraphs = [val for pair in zip(*all_lyrics_paragraphs) for val in pair]
