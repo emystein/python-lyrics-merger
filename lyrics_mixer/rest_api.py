@@ -6,6 +6,7 @@ from injector import Module, Injector, singleton
 
 from lyrics_mixer.lyrics_library import LyricsLibrary
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
+from songs.model import SongTitle
 
 
 def configure_views(app):
@@ -25,7 +26,7 @@ def configure_views(app):
 
     @app.route('/mix/songs/<artist1>/<title1>/<artist2>/<title2>')
     def mix_two_specific_lyrics(lyrics_mixer: LyricsMixer, artist1, title1, artist2, title2):
-        mixed = lyrics_mixer.mix_two_specific_lyrics(artist1, title1, artist2, title2)
+        mixed = lyrics_mixer.mix_two_specific_lyrics(SongTitle(artist1, title1), SongTitle(artist2, title2))
         return f'{escape(str(mixed))}'
 
 

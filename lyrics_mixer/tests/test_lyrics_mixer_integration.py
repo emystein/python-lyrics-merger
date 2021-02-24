@@ -1,5 +1,6 @@
 import pytest
 
+from songs.model import SongTitle
 from lyrics_mixer.lyrics_library import LyricsLibrary
 from lyrics_mixer.lyrics_mixer import LyricsMixer
 from lyrics_mixer.tests.fixtures.mixer import lyrics_mix
@@ -18,6 +19,6 @@ def test_mix_random_lyrics_by_artists_integration(lyrics_mix):
 def test_mix_two_specific_lyrics_integration(lyrics_mix):
     mixer = LyricsMixer(LyricsLibrary(), lyrics_mix)
 
-    mixed_lyrics = mixer.mix_two_specific_lyrics('Led Zeppelin', 'Stairway to Heaven', 'Steppenwolf', 'Born to be wild')
+    mixed_lyrics = mixer.mix_two_specific_lyrics(SongTitle('Led Zeppelin', 'Stairway to Heaven'), SongTitle('Steppenwolf', 'Born to be wild'))
 
     assert mixed_lyrics.has_content()

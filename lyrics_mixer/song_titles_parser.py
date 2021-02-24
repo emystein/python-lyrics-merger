@@ -1,5 +1,6 @@
 import re
 
+from songs.model import SongTitle
 
 class SongTitlePair:
     def __init__(self, artist1, title1, artist2, title2):
@@ -57,7 +58,7 @@ class FullTitlesParser:
 
 class ParsedFullTitles(SongTitlePair):
     def mix_using(self, lyrics_mixer):
-        return lyrics_mixer.mix_two_specific_lyrics(self.artist1, self.title1, self.artist2, self.title2)
+        return lyrics_mixer.mix_two_specific_lyrics(SongTitle(self.artist1, self.title1), SongTitle(self.artist2, self.title2))
 
 
 class ArtistsParser:

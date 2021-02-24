@@ -1,6 +1,7 @@
 import pytest
 from unittest.mock import Mock
 
+from songs.model import SongTitle
 from songs.tests.fixtures.songs import song1, song2
 from lyrics_mixer.lyrics_mixer import MixedLyrics
 from lyrics_mixer.tests.fixtures.mixer import lyrics_mixer, mock_lyrics_library, lyrics_mix, mixed_lyrics
@@ -19,11 +20,14 @@ def test_mix_random_lyrics_by_artists(lyrics_mixer, mock_lyrics_library, mixed_l
         mixed_lyrics.artist1, mixed_lyrics.artist2) == mixed_lyrics
 
 
-def test_mix_two_specific_lyrics(lyrics_mixer, mock_lyrics_library, song1, song2, mixed_lyrics):
-    mock_lyrics_library.get_lyrics.side_effect = [song1, song2]
+def test_mix_two_specific_lyrics(lyrics_mixer, mock_lyrics_library, mixed_lyrics):
+    mock_lyrics_library.get_lyrics.side_effect = mixed_lyrics.songs
+
+    song1, song2 = mixed_lyrics.songs
 
     assert lyrics_mixer.mix_two_specific_lyrics(
-        song1.artist, song1.title, song2.artist, song2.title) == mixed_lyrics
+        SongTitle(song1.artist, song1.title), 
+        SongTitle(song2.artist, song2.title)) == mixed_lyrics
 
 
 def test_exception_on_mix_lyrics(lyrics_mixer):

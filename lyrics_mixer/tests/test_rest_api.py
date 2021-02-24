@@ -14,7 +14,7 @@ class LyricsMixerStub:
     def mix_random_lyrics_by_artists(self, artist1, artist2):
         return MixedLyrics.empty()
 
-    def mix_two_specific_lyrics(self, artist1, title1, artist2, title2):
+    def mix_two_specific_lyrics(self, title1, title2):
         return MixedLyrics.empty()
 
 

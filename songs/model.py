@@ -1,6 +1,12 @@
 import random
 
 
+class SongTitle:
+    def __init__(self, artist, title):
+        self.artist = artist
+        self.title = title
+
+
 class Song:
     @staticmethod
     def random_from(songs):
