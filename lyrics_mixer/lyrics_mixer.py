@@ -22,7 +22,7 @@ class LyricsMixer:
 
     def mix_lyrics(self, lyrics_pickers):
         try:
-            lyrics = lyrics_pickers.pick_from(self.lyrics_library)
+            lyrics = self.lyrics_library.pick_using(lyrics_pickers)
             return self.lyrics_mix_strategy.mix(*lyrics)
         except Exception:
             logger.error('Returning empty lyrics.', exc_info=True)

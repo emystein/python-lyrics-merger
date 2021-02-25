@@ -13,3 +13,6 @@ class LyricsLibrary:
         
     def get_random_lyrics_by_artist(self, artist):
         return Artist.named(artist).random_song()
+
+    def pick_using(self, lyrics_pickers):
+        return lyrics_pickers.pick_from(self)

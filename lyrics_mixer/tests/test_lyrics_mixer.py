@@ -8,20 +8,20 @@ from lyrics_mixer.tests.fixtures.mixer import lyrics_mixer, mock_lyrics_library,
 
 
 def test_mix_two_random_lyrics(lyrics_mixer, mock_lyrics_library, mixed_lyrics):
-    mock_lyrics_library.get_random_lyrics.side_effect = mixed_lyrics.songs
+    mock_lyrics_library.pick_using.return_value = mixed_lyrics.songs
 
     assert lyrics_mixer.mix_two_random_lyrics() == mixed_lyrics
 
 
 def test_mix_random_lyrics_by_artists(lyrics_mixer, mock_lyrics_library, mixed_lyrics):
-    mock_lyrics_library.get_random_lyrics_by_artist.side_effect = mixed_lyrics.songs
+    mock_lyrics_library.pick_using.return_value = mixed_lyrics.songs
 
     assert lyrics_mixer.mix_random_lyrics_by_artists(
         mixed_lyrics.artist1, mixed_lyrics.artist2) == mixed_lyrics
 
 
 def test_mix_specific_lyrics(lyrics_mixer, mock_lyrics_library, mixed_lyrics):
-    mock_lyrics_library.get_lyrics.side_effect = mixed_lyrics.songs
+    mock_lyrics_library.pick_using.return_value = mixed_lyrics.songs
 
     song1, song2 = mixed_lyrics.songs
 
