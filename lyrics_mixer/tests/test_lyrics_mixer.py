@@ -25,9 +25,7 @@ def test_mix_specific_lyrics(lyrics_mixer, mock_lyrics_library, mixed_lyrics):
 
     song1, song2 = mixed_lyrics.songs
 
-    assert lyrics_mixer.mix_specific_lyrics(
-        SongTitle(song1.artist, song1.title), 
-        SongTitle(song2.artist, song2.title)) == mixed_lyrics
+    assert lyrics_mixer.mix_specific_lyrics(song1.title, song2.title) == mixed_lyrics
 
 
 def test_exception_on_mix_lyrics(lyrics_mixer):
@@ -43,5 +41,5 @@ def test_mixed_lyrics(lyrics_mix, song1, song2):
 
     mixed_lyrics = MixedLyrics(song1, song2, [], expected.paragraphs)
 
-    assert mixed_lyrics.title == f"{song1.artist} - {song1.title}, {song2.artist} - {song2.title}"
+    assert mixed_lyrics.title == f"{song1.title}, {song2.title}"
     assert mixed_lyrics.text == '\n\n'.join(expected.paragraphs)

@@ -47,7 +47,7 @@ class SpecificLyricsPicker:
         self.title = title
 
     def pick_from(self, library):
-        return library.get_lyrics(self.title.artist, self.title.title)
+        return library.get_lyrics(self.title)
 
 
 class LyricsPickers:
@@ -110,7 +110,7 @@ class MixedLyrics(Lyrics):
         self.songs = [self.song1, self.song2]
         self.artist1 = self.song1.artist
         self.artist2 = self.song2.artist
-        self.title = f"{song1.artist} - {song1.title}, {song2.artist} - {song2.title}"
+        self.title = f"{song1.title}, {song2.title}"
         self.text = '\n\n'.join(paragraphs)
 
     def __str__(self):

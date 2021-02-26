@@ -2,10 +2,22 @@ import random
 
 
 class SongTitle:
+    @staticmethod
+    def empty():
+        return SongTitle('', '')
+
     def __init__(self, artist, title):
         self.artist = artist
         self.title = title
 
+    def is_empty(self):
+        return self.artist == '' and self.title == ''
+
+    def __eq__(self, other):
+        return (self.artist == other.artist) and (self.title == other.title)
+
+    def __str__(self):
+        return self.artist + ' - ' + self.title
 
 class Song:
     @staticmethod
@@ -17,25 +29,26 @@ class Song:
 
     @staticmethod
     def none():
-        return Song('', '', Lyrics.empty())
+        return Song(SongTitle.empty(), Lyrics.empty())
 
     @staticmethod
     def copy(another):
-        return Song(another.artist, another.title, another.lyrics)
+        return Song(another.title, another.lyrics)
 
-    def __init__(self, artist, title, lyrics):
-        self.artist = artist
+    def __init__(self, title, lyrics):
+        # TODO: remove self.artist
+        self.artist = title.artist
         self.title = title
         self.lyrics = lyrics
 
     def is_empty(self):
-        return self.artist == '' and self.title == ''
+        return self.title.is_empty()
 
     def has_lyrics(self):
         return self.lyrics.has_content()
 
     def __eq__(self, other):
-        return (self.artist == other.artist) and (self.title == other.title)
+        return self.title == other.title
 
 
 class Lyrics:
