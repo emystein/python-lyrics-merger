@@ -1,10 +1,10 @@
 from azapi import AZlyrics
 import azlyrics.azlyrics
+from functools import cached_property
 import json
 import logging
 import random
 import songs.model
-
 
 logger = logging.getLogger()
 
@@ -12,7 +12,8 @@ logger = logging.getLogger()
 class Artist:
     @staticmethod
     def random():
-        artists_names = json.loads(azlyrics.azlyrics.artists(Artist.random_initial()))
+        artists_names = json.loads(
+            azlyrics.azlyrics.artists(Artist.random_initial()))
         artist_name = random.choice(artists_names)
 
         logger.info(f'Random Artist name: {artist_name}')
@@ -74,16 +75,12 @@ class Song:
 class LazyLoadLyrics(songs.model.Lyrics):
     def __init__(self, title):
         self.title = title
-        self.loaded_text = None
 
-    @property
+    @cached_property
     def text(self):
-        if self.loaded_text is None:
-            logger.info(f'Retrieving lyrics: {self.title}')
-            api = AZlyrics()
-            api.artist = self.title.artist
-            api.title = self.title.title
-            api.getLyrics()
-            self.loaded_text = api.lyrics
-
-        return self.loaded_text
+        logger.info(f'Retrieving lyrics: {self.title}')
+        api = AZlyrics()
+        api.artist = self.title.artist
+        api.title = self.title.title
+        api.getLyrics()
+        return api.lyrics
