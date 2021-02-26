@@ -19,6 +19,7 @@ class SongTitle:
     def __str__(self):
         return self.artist + ' - ' + self.title
 
+
 class Song:
     @staticmethod
     def random_from(songs):
@@ -36,13 +37,8 @@ class Song:
         return Song(another.title, another.lyrics)
 
     def __init__(self, title, lyrics):
-        # TODO: remove self.artist
-        self.artist = title.artist
         self.title = title
         self.lyrics = lyrics
-
-    def is_empty(self):
-        return self.title.is_empty()
 
     def has_lyrics(self):
         return self.lyrics.has_content()

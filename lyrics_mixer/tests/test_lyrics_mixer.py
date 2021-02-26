@@ -17,7 +17,7 @@ def test_mix_random_lyrics_by_artists(lyrics_mixer, mock_lyrics_library, mixed_l
     mock_lyrics_library.pick_using.return_value = mixed_lyrics.songs
 
     assert lyrics_mixer.mix_random_lyrics_by_artists(
-        mixed_lyrics.artist1, mixed_lyrics.artist2) == mixed_lyrics
+        mixed_lyrics.song1.title.artist, mixed_lyrics.song2.title.artist) == mixed_lyrics
 
 
 def test_mix_specific_lyrics(lyrics_mixer, mock_lyrics_library, mixed_lyrics):
