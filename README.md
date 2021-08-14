@@ -1,4 +1,6 @@
-Mix pairs of song lyrics to form new lyrics. 
+Mix pairs of song lyrics to form new lyrics.
+
+Songs can be picked either by the user or randomnly by the application.
 
 
 # Development
