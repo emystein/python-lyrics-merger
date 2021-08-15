@@ -39,11 +39,15 @@ class Artist:
     def random_song(self):
         return songs.model.Song.random_from(self.all_songs())
 
+    def random_song_title(self):
+        return self.random_song().title
+
 
 class SongTitle:
     @staticmethod
     def random():
-        return Artist.random().random_song().title
+        artist = Artist.random()
+        return artist.random_song_title()
 
 
 class Song:
