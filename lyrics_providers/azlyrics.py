@@ -1,6 +1,6 @@
 from azapi import AZlyrics
 import azlyrics.azlyrics
-from functools import cached_property
+from functools import cached_property, cache
 import json
 import random
 import songs.model
@@ -9,14 +9,10 @@ import songs.model
 class Artist:
     @staticmethod
     def random():
-        artists_names = json.loads(
-            azlyrics.azlyrics.artists(Artist.random_initial()))
+        random_initial = random.choice('abcdefghijklmnopqrstuvwxyz#')
+        artists_names = json.loads(azlyrics.azlyrics.artists(random_initial))
         artist_name = random.choice(artists_names)
         return Artist.named(artist_name)
-
-    @staticmethod
-    def random_initial():
-        return random.choice('abcdefghijklmnopqrstuvwxyz#')
 
     @staticmethod
     def named(name):
@@ -31,19 +27,14 @@ class Artist:
 
     def __init__(self, name):
         self.name = name
-        self.cached_all_songs = None
 
+    @cache
     def all_songs(self):
-        if self.cached_all_songs is None:
-            api = AZlyrics()
-            api.artist = self.name
-            all_songs = api.getSongs()
+        api = AZlyrics()
+        api.artist = self.name
+        all_songs = api.getSongs()
 
-            self.cached_all_songs = [
-                Song.entitled(songs.model.SongTitle(self.name, song)) for song in all_songs.keys()
-            ]
-
-        return self.cached_all_songs
+        return [Song.entitled(songs.model.SongTitle(self.name, song)) for song in all_songs.keys()]
 
     def random_song(self):
         return songs.model.Song.random_from(self.all_songs())

@@ -3,14 +3,6 @@ import pytest
 from lyrics_providers.azlyrics import Artist
 
 
-def test_random_initial():
-    allowed_letters = list('abcdefghijklmnopqrstuvwxyz#')
-
-    initial = Artist.random_initial()
-
-    assert initial in allowed_letters
-
-
 def test_named_last_name_then_first_name():
     artist = Artist.named('Villere, Zack')
 
