@@ -1,10 +1,13 @@
 from lyrics_providers.azlyrics import Artist, SongTitle, Song
+import logging
 
+logger = logging.getLogger()
 
 class LyricsLibrary:
     """Bridge to external lyrics provider, like AZLyrics"""
 
     def get_lyrics(self, title):
+        logger.info(f'Retrieving lyrics of: {title}')
         return Song.entitled(title)
 
     def get_random_lyrics(self):
