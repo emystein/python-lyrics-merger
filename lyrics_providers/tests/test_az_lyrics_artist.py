@@ -1,6 +1,6 @@
 import pytest
 
-from lyrics_providers.azlyrics import Artist
+from lyrics_providers.azlyrics import random_artist, Artist
 
 
 def test_named_last_name_then_first_name():
@@ -11,7 +11,7 @@ def test_named_last_name_then_first_name():
 
 @pytest.mark.slow_integration_test
 def test_random():
-    artist = Artist.random()
+    artist = random_artist()
 
     assert artist.name != ''
     assert len(artist.all_songs()) > 0
