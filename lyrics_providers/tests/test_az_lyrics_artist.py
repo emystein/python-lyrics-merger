@@ -3,12 +3,6 @@ import pytest
 from lyrics_providers.azlyrics import random_artist, Artist
 
 
-def test_named_last_name_then_first_name():
-    artist = Artist.named('Villere, Zack')
-
-    assert artist.name == 'Zack Villere'
-
-
 @pytest.mark.slow_integration_test
 def test_random():
     artist = random_artist()

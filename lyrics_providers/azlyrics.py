@@ -20,25 +20,31 @@ def artist_names_with_initial(initial):
     return json.loads(azlyrics.azlyrics.artists(initial))
 
 
-class ArtistName:
-    @staticmethod
-    def parse(name):
-        if ArtistName.last_name_is_before_first(name):
+class ArtistNameParser:
+    def parse(self, name):
+        if self.last_name_is_before_first(name):
             return SwappedArtistName(name)
         
         return ArtistName(name)
 
-    @staticmethod
-    def last_name_is_before_first(name):
+    def last_name_is_before_first(self, name):
         return ', ' in name
 
+
+class ArtistName:
     def __init__(self, name):
         self.name = name
+
+    def normalized(self):
+        return self.name
 
 
 class SwappedArtistName:
     def __init__(self, name):
-        self.name = self.swap_first_and_last_names(name)
+        self.name = name
+
+    def normalized(self):
+        return self.swap_first_and_last_names(self.name)
 
     def swap_first_and_last_names(self, name):
         return ' '.join(reversed(name.split(', ')))
@@ -46,8 +52,9 @@ class SwappedArtistName:
 
 class Artist:
     @staticmethod
-    def named(name):
-        return Artist(ArtistName.parse(name).name)
+    def named(potential_name):
+        artist_name = ArtistNameParser().parse(potential_name)
+        return Artist(artist_name.normalized())
 
     def __init__(self, name):
         self.name = name
