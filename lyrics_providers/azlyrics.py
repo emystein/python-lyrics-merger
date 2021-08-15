@@ -5,13 +5,19 @@ import json
 import random
 import songs.model
 
+def random_artist_initial():
+    return random.choice('abcdefghijklmnopqrstuvwxyz#')
+
+
+def artist_names_with_initial(initial):
+    return json.loads(azlyrics.azlyrics.artists(initial))
+
 
 class Artist:
     @staticmethod
     def random():
-        random_initial = random.choice('abcdefghijklmnopqrstuvwxyz#')
-        artists_names = json.loads(azlyrics.azlyrics.artists(random_initial))
-        artist_name = random.choice(artists_names)
+        artist_names = artist_names_with_initial(random_artist_initial())
+        artist_name = random.choice(artist_names)
         return Artist.named(artist_name)
 
     @staticmethod
