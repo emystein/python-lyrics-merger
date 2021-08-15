@@ -54,10 +54,10 @@ class Artist:
     @staticmethod
     def named(potential_name):
         artist_name = ArtistNameParser().parse(potential_name)
-        return Artist(artist_name.normalized())
+        return Artist(artist_name)
 
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, artist_name):
+        self.name = artist_name.normalized()
 
     @cache
     def all_songs(self):
