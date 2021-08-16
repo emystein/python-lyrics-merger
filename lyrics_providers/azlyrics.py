@@ -65,7 +65,7 @@ class Artist:
         api.artist = self.name
         all_songs = api.getSongs()
 
-        return [Song.entitled(self.name, song) for song in all_songs.keys()]
+        return [Song.entitled(songs.model.SongTitle(self.name, song)) for song in all_songs.keys()]
 
     def random_song(self):
         return songs.model.Song.random_from(self.all_songs())
@@ -82,8 +82,7 @@ class SongTitle:
 
 class Song:
     @staticmethod
-    def entitled(artist_name, song_name):
-        song_title = songs.model.SongTitle(artist_name, song_name)
+    def entitled(song_title):
         return songs.model.Song(song_title, LazyLoadLyrics(song_title))
 
 
