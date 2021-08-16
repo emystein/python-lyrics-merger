@@ -84,15 +84,28 @@ docker-compose up
 ## Heroku
 The file `Procfile` describes both the REST API app and the Twitter bot (as a worker).
 
+### Database setup
+Enable PostgreSQL add-on on Heroku dashboard.
+
+`twitter_bot.py` creates tables on startup.
+
+Verify:
+
+```bash
+heroku pg:info
+```
+
+should show 1 table (streamcursor table)
+
 ### Keep awake Heroku instance
 Keep awake Heroku instance by running a schedule job.
 
-### Cron
+#### Cron
 Every 30 minutes except between 2 am and 8 am, since Heroku force sleep free instances 6 hours a day:
 
 `0/30 0-2,8-23 * * * /usr/bin/curl https://lyricsmixer.herokuapp.com > /tmp/lyricsmixer-ping.log`
 
-### Systemd Timer
+#### Systemd Timer
 Install unit provided in the `heroku` directory: `heroku_lyricsmixer_ping.timer`, `heroku_lyricsmixer_ping.service`
 
 ```bash
@@ -107,16 +120,3 @@ Check timer is installed:
 ```bash
 sudo systemctl list-timers --all
 ```
-
-### Database setup
-Enable PostgreSQL add-on on Heroku dashboard.
-
-`twitter_bot.py` creates tables on startup.
-
-Verify:
-
-```bash
-heroku pg:info
-```
-
-should show 1 table (streamcursor table)

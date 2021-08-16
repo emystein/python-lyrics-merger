@@ -10,6 +10,5 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="jdk" jdkName="Pipenv (python-lyrics-mixer)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Pipenv (python-lyrics-mixer) interpreter library" level="application" />
   </component>
 </module>
