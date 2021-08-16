@@ -75,10 +75,22 @@ A `docker-compose.yml` file is available for running the PostgreSQL and Twitter 
 
 By default, docker-compose will look for an `.env` file in this directory with the definitions of the environment variables listed above.
 
+To build the Docker image of the Twitter bot:
+
+```bash
+docker-compose build
+```
+
 To run the containers:
 
 ```bash
 docker-compose up
+```
+
+To run the containers in the background and support host restart:
+
+```bash
+docker-compose up -d
 ```
 
 ## Heroku
