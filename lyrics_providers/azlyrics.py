@@ -2,9 +2,11 @@ from azapi import AZlyrics
 import azlyrics.azlyrics
 from functools import cached_property, cache
 import json
+import logging
 import random
 import songs.model
 
+logger = logging.getLogger()
 
 def random_artist():
     artist_names = artist_names_with_initial(random_artist_initial())
@@ -18,6 +20,23 @@ def random_artist_initial():
 
 def artist_names_with_initial(initial):
     return json.loads(azlyrics.azlyrics.artists(initial))
+
+
+class AZLyricsLibrary:
+    """Bridge to external lyrics provider, like AZLyrics"""
+
+    def get_lyrics(self, song_title):
+        logger.info(f'Retrieving lyrics of: {song_title}')
+        return Song.entitled(song_title)
+
+    def get_random_lyrics(self):
+        return self.get_lyrics(SongTitle.random())
+
+    def get_random_lyrics_by_artist(self, artist_name):
+        return Artist.named(artist_name).random_song()
+
+    def pick_using(self, lyrics_pickers):
+        return lyrics_pickers.pick_from(self)
 
 
 class ArtistNameParser:

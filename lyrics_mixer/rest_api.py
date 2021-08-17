@@ -4,7 +4,7 @@ from flask import Flask, escape
 from flask_injector import FlaskInjector
 from injector import Module, Injector, singleton
 
-from lyrics_mixer.lyrics_library import LyricsLibrary
+from lyrics_providers.azlyrics import AZLyricsLibrary
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
 from songs.model import SongTitle
 
@@ -30,7 +30,7 @@ def configure_views(app):
         return f'{escape(str(mixed))}'
 
 
-lyrics_mixer = LyricsMixer(LyricsLibrary(), LineInterleaveLyricsMix())
+lyrics_mixer = LyricsMixer(AZLyricsLibrary(), LineInterleaveLyricsMix())
 
 
 class AppModule(Module):
