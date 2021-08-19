@@ -59,18 +59,17 @@ class ParagraphInterleaveLyricsMix:
 class MixedLyrics(Lyrics):
     @staticmethod
     def all(songs, lines, paragraphs):
-        return MixedLyrics(songs[0], songs[1], lines, paragraphs)
+        return MixedLyrics(songs, lines, paragraphs)
 
     @staticmethod
     def empty():
-        return MixedLyrics(Song.none(), Song.none(), '', '')
+        return MixedLyrics([], [], [])
 
-    def __init__(self, song1, song2, lines, paragraphs):
-        self.song1, self.song2, = song1, song2
-        self.songs = [self.song1, self.song2]
+    def __init__(self, songs, lines, paragraphs):
+        self.songs = songs
         self.lines = lines
         self.paragraphs = paragraphs
-        self.title = f"{song1.title}, {song2.title}"
+        self.title = ', '.join([str(song.title) for song in songs])
         self.text = '\n\n'.join(paragraphs)
 
     def __str__(self):
