@@ -1,7 +1,8 @@
 import logging
 from itertools import groupby
 
-from songs.model import SongTitle, Song, Lyrics
+from lyrics_mixer.lyrics_pickers import RandomLyricsPickers, RandomByArtistLyricsPickers, SpecificLyricsPickers
+from songs.model import Song, Lyrics
 
 logger = logging.getLogger()
 
@@ -27,47 +28,6 @@ class LyricsMixer:
         except Exception:
             logger.error('Returning empty lyrics.', exc_info=True)
             return MixedLyrics.empty()
-
-
-class RandomLyricsPicker:
-    def pick_from(self, library):
-        return library.get_random_lyrics()
-
-
-class RandomByArtistLyricsPicker:
-    def __init__(self, artist):
-        self.artist = artist
-
-    def pick_from(self, library):
-        return library.get_random_lyrics_by_artist(self.artist)
-
-
-class SpecificLyricsPicker:
-    def __init__(self, title):
-        self.title = title
-
-    def pick_from(self, library):
-        return library.get_lyrics(self.title)
-
-
-class LyricsPickers:
-    def pick_from(self, library):
-        return [picker.pick_from(library) for picker in self.pickers]
-
-
-class RandomLyricsPickers(LyricsPickers):
-    def __init__(self, count):
-        self.pickers = [RandomLyricsPicker() for number in range(count)]
-
-
-class RandomByArtistLyricsPickers(LyricsPickers):
-    def __init__(self, artists):
-        self.pickers = [RandomByArtistLyricsPicker(artist) for artist in artists]
-
-
-class SpecificLyricsPickers(LyricsPickers):
-    def __init__(self, titles):
-        self.pickers = [SpecificLyricsPicker(title) for title in titles]
 
 
 class LineInterleaveLyricsMix:
@@ -106,8 +66,10 @@ class MixedLyrics(Lyrics):
         return MixedLyrics(Song.none(), Song.none(), '', '')
 
     def __init__(self, song1, song2, lines, paragraphs):
-        self.song1, self.song2, self.lines, self.paragraphs = song1, song2, lines, paragraphs
+        self.song1, self.song2, = song1, song2
         self.songs = [self.song1, self.song2]
+        self.lines = lines
+        self.paragraphs = paragraphs
         self.title = f"{song1.title}, {song2.title}"
         self.text = '\n\n'.join(paragraphs)
 
