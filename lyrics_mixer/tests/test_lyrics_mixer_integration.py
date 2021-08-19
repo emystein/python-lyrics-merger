@@ -7,6 +7,15 @@ from lyrics_mixer.tests.fixtures.mixer import lyrics_mix
 
 
 @pytest.mark.slow_integration_test
+def test_mix_two_random_lyrics_integration(lyrics_mix):
+    mixer = LyricsMixer(AZLyricsLibrary(), lyrics_mix)
+
+    mixed_lyrics = mixer.mix_two_random_lyrics()
+
+    assert mixed_lyrics.has_content()
+
+
+@pytest.mark.slow_integration_test
 def test_mix_random_lyrics_by_artists_integration(lyrics_mix):
     mixer = LyricsMixer(AZLyricsLibrary(), lyrics_mix)
 
