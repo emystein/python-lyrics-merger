@@ -1,8 +1,8 @@
 import logging
 from itertools import groupby
 
-from lyrics_mixer.lyrics_pickers import RandomLyricsPickers, RandomByArtistLyricsPickers, SpecificLyricsPickers
-from songs.model import Song, Lyrics
+from lyrics_mixer.lyrics_pickers import RandomLyricsPickers, RandomByArtistLyricsPickers, \
+    SpecificLyricsPickers
 
 logger = logging.getLogger()
 
