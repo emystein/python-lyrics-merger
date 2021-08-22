@@ -43,8 +43,8 @@ class ArtistNameParser:
     def parse(self, name):
         if self.last_name_is_before_first(name):
             return SwappedArtistName(name)
-        
-        return ArtistName(name)
+        else:
+            return ArtistName(name)
 
     def last_name_is_before_first(self, name):
         return ', ' in name
@@ -80,10 +80,8 @@ class Artist:
 
     @cache
     def all_songs(self):
-        api = AZlyrics()
-        api.artist = self.name
-        all_songs = api.getSongs()
-
+        api = ArtistApi(self.name)
+        all_songs = api.get_songs()
         return [Song.entitled(songs.model.SongTitle(self.name, song)) for song in all_songs.keys()]
 
     def random_song(self):
@@ -91,6 +89,27 @@ class Artist:
 
     def random_song_title(self):
         return self.random_song().title
+
+
+class ArtistApi:
+    def __init__(self, artist_name):
+        self.api = AZlyrics()
+        artist_code_dictionary = ArtistCodeDictionary()
+        artist_code = artist_code_dictionary.translate(artist_name)
+        self.api.artist = artist_code
+
+    def get_songs(self):
+        return self.api.getSongs()
+
+
+class ArtistCodeDictionary:
+    def __init__(self):
+        self.codes_by_names = {
+            'U2': 'u2band'
+        }
+
+    def translate(self, name):
+        return self.codes_by_names.get(name, name)
 
 
 class SongTitle:

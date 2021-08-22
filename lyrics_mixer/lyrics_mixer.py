@@ -1,6 +1,7 @@
 import logging
 from itertools import groupby
 
+from songs.model import Lyrics
 from lyrics_mixer.lyrics_pickers import RandomLyricsPickers, RandomByArtistLyricsPickers, \
     SpecificLyricsPickers
 

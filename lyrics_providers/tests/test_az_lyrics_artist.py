@@ -27,3 +27,10 @@ def test_get_songs_by_artist():
 @pytest.mark.slow_integration_test
 def test_lyrics_not_found():
     assert len(Artist.named('Menéndez').all_songs()) == 0
+
+
+@pytest.mark.slow_integration_test
+def test_get_songs_by_u2():
+    artist = Artist.named('U2')
+
+    assert len(artist.all_songs()) > 0
