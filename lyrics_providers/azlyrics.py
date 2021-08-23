@@ -8,6 +8,7 @@ import songs.model
 
 logger = logging.getLogger()
 
+
 def random_artist():
     artist_names = artist_names_with_initial(random_artist_initial())
     artist_name = random.choice(artist_names)
@@ -125,10 +126,10 @@ class SongTitle:
 class Song:
     @staticmethod
     def entitled(song_title):
-        return songs.model.Song(song_title, LazyLoadLyrics(song_title))
+        return songs.model.Song(song_title, Lyrics(song_title))
 
 
-class LazyLoadLyrics(songs.model.Lyrics):
+class Lyrics(songs.model.Lyrics):
     def __init__(self, title):
         self.title = title
 
