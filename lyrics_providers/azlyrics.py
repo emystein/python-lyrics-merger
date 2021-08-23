@@ -78,14 +78,16 @@ class Artist:
 
     def __init__(self, artist_name):
         self.name = artist_name.normalized()
-        self.api = ArtistApi(self.name)
 
     @cache
     def all_songs(self):
         return [self.song_named(song) for song in self.all_songs_from_api()]
 
     def all_songs_from_api(self):
-        return self.api.get_songs().keys()
+        api = AZlyrics()
+        artist_code = ArtistCodeDictionary().translate(self.name)
+        api.artist = artist_code
+        return api.getSongs().keys()
 
     def song_named(self, song):
         return Song.entitled(songs.model.SongTitle(self.name, song))
@@ -95,16 +97,6 @@ class Artist:
 
     def random_song_title(self):
         return self.random_song().title
-
-
-class ArtistApi:
-    def __init__(self, artist_name):
-        self.api = AZlyrics()
-        artist_code = ArtistCodeDictionary().translate(artist_name)
-        self.api.artist = artist_code
-
-    def get_songs(self):
-        return self.api.getSongs()
 
 
 class ArtistCodeDictionary:
