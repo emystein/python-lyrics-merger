@@ -1,16 +1,9 @@
 import pytest
-from unittest.mock import Mock
 
 import songs.tests.song_factory as song_factory
-from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
+from lyrics_mixer.lyrics_mixer import LineInterleaveLyricsMix
 
 line_interleave_mix = LineInterleaveLyricsMix()
-
-
-@pytest.fixture
-def lyrics_mixer(lyrics_mix):
-    mock_lyrics_library = Mock()
-    return LyricsMixer(mock_lyrics_library, lyrics_mix)
 
 
 @pytest.fixture
