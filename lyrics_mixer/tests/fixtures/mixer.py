@@ -13,6 +13,6 @@ def lyrics_mix():
 
 @pytest.fixture
 def mixed_lyrics():
-    song1 = song_factory.create_stairway_to_heaven()
-    song2 = song_factory.create_born_to_be_wild()
-    return line_interleave_mix.mix(song1, song2)
+    stairway_to_heaven = song_factory.create_stairway_to_heaven()
+    born_to_be_wild = song_factory.create_born_to_be_wild()
+    return line_interleave_mix.mix(stairway_to_heaven, born_to_be_wild)

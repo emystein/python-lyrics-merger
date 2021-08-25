@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import Mock
 
-from songs.tests.fixtures.songs import song1, song2
+from songs.tests.fixtures.songs import stairway_to_heaven, born_to_be_wild
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix, MixedLyrics
 
 
@@ -19,11 +19,11 @@ def test_exception_on_mix_lyrics(lyrics_mixer):
     assert lyrics_mixer.mix_lyrics(mock_lyrics_picker) == MixedLyrics.empty()
 
 
-def test_mixed_lyrics(song1, song2):
+def test_mixed_lyrics(stairway_to_heaven, born_to_be_wild):
     lines = 'line1\nline2'
     paragraphs = ['line1', 'line2']
 
-    mixed_lyrics = MixedLyrics([song1, song2], lines, paragraphs)
+    mixed_lyrics = MixedLyrics([stairway_to_heaven, born_to_be_wild], lines, paragraphs)
 
-    assert mixed_lyrics.title == f"{song1.title}, {song2.title}"
+    assert mixed_lyrics.title == f"{stairway_to_heaven.title}, {born_to_be_wild.title}"
     assert mixed_lyrics.text == '\n\n'.join(paragraphs)
