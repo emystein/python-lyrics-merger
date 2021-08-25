@@ -26,11 +26,8 @@ def test_mix_random_lyrics_by_artists_integration(lyrics_mix):
 
 @pytest.mark.slow_integration_test
 @pytest.mark.vcr()
-def test_mix_specific_lyrics_integration(lyrics_mix):
+def test_mix_specific_lyrics_integration(lyrics_mix, stairway_to_heaven_title, born_to_be_wild_title):
     mixer = LyricsMixer(AZLyricsLibrary(), lyrics_mix)
-
-    stairway_to_heaven_title = SongTitle('Led Zeppelin', 'Stairway to Heaven')
-    born_to_be_wild_title = SongTitle('Steppenwolf', 'Born to be wild')
 
     mixed_lyrics = mixer.mix_specific_lyrics(stairway_to_heaven_title, born_to_be_wild_title)
 
