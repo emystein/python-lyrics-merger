@@ -76,6 +76,10 @@ class Paragraphs:
         plain_paragraphs = text.split('\n\n')
         self.paragraphs = [Paragraph.from_plain(paragraph) for paragraph in plain_paragraphs]
 
+    @property
+    def size(self):
+        return len(self.paragraphs)
+
     def __getitem__(self, index):
         return self.paragraphs[index]
 
