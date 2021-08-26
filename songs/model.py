@@ -74,7 +74,7 @@ class Lyrics:
 class Paragraphs:
     def __init__(self, text):
         plain_paragraphs = text.split('\n\n')
-        self.paragraphs = [Paragraph.from_plain(plain_paragraph) for plain_paragraph in plain_paragraphs]
+        self.paragraphs = [Paragraph.from_plain(paragraph) for paragraph in plain_paragraphs]
 
     def __getitem__(self, index):
         return self.paragraphs[index]
@@ -89,7 +89,7 @@ class Paragraphs:
 class Paragraph:
     @staticmethod
     def from_plain(plain_paragraph):
-        lines = [Line(line_text) for line_text in plain_paragraph.split('\n')]
+        lines = [Line(text) for text in plain_paragraph.split('\n')]
         return Paragraph(lines)
 
     def __init__(self, lines):
