@@ -71,23 +71,10 @@ class Lyrics:
         return self.text
 
 
-def plain_paragraphs_from(text):
-    return text.split('\n\n')
-
-
-def lines_from(plain_paragraph):
-    return [Line(line_text) for line_text in plain_paragraph.split('\n')]
-
-
-def paragraph_from(plain_paragraph):
-    return Paragraph(lines_from(plain_paragraph))
-
-
 class Paragraphs:
     def __init__(self, text):
-        self.paragraphs = [
-            paragraph_from(plain_paragraph) for plain_paragraph in plain_paragraphs_from(text)
-        ]
+        plain_paragraphs = text.split('\n\n')
+        self.paragraphs = [Paragraph.from_plain(plain_paragraph) for plain_paragraph in plain_paragraphs]
 
     def __getitem__(self, index):
         return self.paragraphs[index]
@@ -100,6 +87,11 @@ class Paragraphs:
 
 
 class Paragraph:
+    @staticmethod
+    def from_plain(plain_paragraph):
+        lines = [Line(line_text) for line_text in plain_paragraph.split('\n')]
+        return Paragraph(lines)
+
     def __init__(self, lines):
         self.lines = lines
 
