@@ -25,6 +25,6 @@ def test_lyrics_to_string():
 def test_paragraphs():
     paragraphs = Paragraphs('line 1\nline 2\n\nline 3\nline 4\nline 5\n\nline 6')
 
-    assert paragraphs.get(0) == Paragraph([Line('line 1'), Line('line 2')])
-    assert paragraphs.get(1) == Paragraph([Line('line 3'), Line('line 4'), Line('line 5')])
-    assert paragraphs.get(2) == Paragraph([Line('line 6')])
+    assert paragraphs[0] == Paragraph([Line('line 1'), Line('line 2')])
+    assert paragraphs[1] == Paragraph([Line('line 3'), Line('line 4'), Line('line 5')])
+    assert paragraphs[2] == Paragraph([Line('line 6')])
