@@ -127,7 +127,7 @@ class Lyrics(songs.model.Lyrics):
 
     @property
     def paragraphs(self):
-        return songs.model.Paragraphs(self.text)
+        return songs.model.Paragraphs.from_text(self.text)
 
     @property
     def lines(self):

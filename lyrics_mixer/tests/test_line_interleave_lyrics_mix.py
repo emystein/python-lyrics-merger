@@ -17,7 +17,7 @@ def test_mix_with_same_number_of_lines(lyrics_editor):
 
     mixed_lyrics = lyrics_editor.mix(song1, song2)
 
-    expected_paragraphs = Paragraphs('lyrics 1 line 2\nlyrics 2 line 1\nlyrics 1 line 2\nlyrics 2 line 2\nlyrics 1 line 3\nlyrics 2 line 3\n\n')
+    expected_paragraphs = Paragraphs.from_text('lyrics 1 line 2\nlyrics 2 line 1\nlyrics 1 line 2\nlyrics 2 line 2\nlyrics 1 line 3\nlyrics 2 line 3\n\n')
 
     assert mixed_lyrics.text == expected_paragraphs.text
 
@@ -28,7 +28,7 @@ def test_mix_with_first_lyrics_with_2_lines_and_second_lyrics_with_1_line(lyrics
 
     mixed_lyrics = lyrics_editor.mix(song1, song2)
 
-    expected_paragraphs = Paragraphs('lyrics 1 line 1\nlyrics 2 line 1')
+    expected_paragraphs = Paragraphs.from_text('lyrics 1 line 1\nlyrics 2 line 1')
 
     assert mixed_lyrics.text == expected_paragraphs.text
 
@@ -39,7 +39,7 @@ def test_mix_with_first_lyrics_with_1_line_and_second_lyrics_with_2_lines(lyrics
 
     mixed_lyrics = lyrics_editor.mix(song1, song2)
 
-    expected_paragraphs = Paragraphs('lyrics 1 line 1\nlyrics 2 line 1')
+    expected_paragraphs = Paragraphs.from_text('lyrics 1 line 1\nlyrics 2 line 1')
 
     assert mixed_lyrics.text == expected_paragraphs.text
 
@@ -50,7 +50,7 @@ def test_mix_with_first_paragraph_containing_two_lines_and_second_paragraph_cont
 
     mixed_lyrics = lyrics_editor.mix(song1, song2)
 
-    expected_paragraphs = Paragraphs('lyrics 1 line 1\nlyrics 2 line 1\nlyrics 1 line 2\nlyrics 2 line 2\nlyrics 1 line 3\nlyrics 2 line 3\n\n')
+    expected_paragraphs = Paragraphs.from_text('lyrics 1 line 1\nlyrics 2 line 1\nlyrics 1 line 2\nlyrics 2 line 2\nlyrics 1 line 3\nlyrics 2 line 3\n\n')
 
     assert mixed_lyrics.text == expected_paragraphs.text
 
@@ -61,6 +61,6 @@ def test_mix_with_first_paragraph_containing_one_line_and_second_paragraph_conta
 
     mixed_lyrics = lyrics_editor.mix(song1, song2)
 
-    expected_paragraphs = Paragraphs('lyrics 1 line 1\nlyrics 2 line 1\nlyrics 1 line 2\nlyrics 2 line 2\nlyrics 1 line 3\nlyrics 2 line 3\n\n')
+    expected_paragraphs = Paragraphs.from_text('lyrics 1 line 1\nlyrics 2 line 1\nlyrics 1 line 2\nlyrics 2 line 2\nlyrics 1 line 3\nlyrics 2 line 3\n\n')
 
     assert mixed_lyrics.text == expected_paragraphs.text

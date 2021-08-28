@@ -59,7 +59,7 @@ class MixedLyrics(Lyrics):
 
     @staticmethod
     def empty():
-        return MixedLyrics([], Paragraphs(''))
+        return MixedLyrics([], Paragraphs.from_text(''))
 
     def __init__(self, song_titles, paragraphs):
         self.paragraphs = paragraphs

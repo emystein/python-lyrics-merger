@@ -54,7 +54,7 @@ class Lyrics:
 
     def __init__(self, text):
         self.text = text
-        self.paragraphs = Paragraphs(text)
+        self.paragraphs = Paragraphs.from_text(text)
         self.lines = self.paragraphs.lines
 
     def has_content(self):
@@ -71,6 +71,13 @@ class Paragraphs:
     @staticmethod
     def from_list(paragraph_list):
         text = ''.join([paragraph.text for paragraph in paragraph_list])
+        return Paragraphs.from_text(text)
+
+    @staticmethod
+    def from_text(text):
+        plain_paragraphs = [paragraph for paragraph in text.split('\n\n') if paragraph != '']
+        paragraphs = [Paragraph.from_plain(paragraph) for paragraph in plain_paragraphs]
+        text = ''.join([paragraph.text for paragraph in paragraphs])
         return Paragraphs(text)
 
     def __init__(self, text):

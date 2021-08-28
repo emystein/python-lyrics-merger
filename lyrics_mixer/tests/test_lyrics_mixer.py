@@ -22,7 +22,7 @@ def test_exception_on_mix_lyrics(lyrics_mixer):
 
 def test_mixed_lyrics(stairway_to_heaven, born_to_be_wild):
     paragraphs_text = 'paragraph1\n\nparagraph2\n\n'
-    paragraphs = Paragraphs(paragraphs_text)
+    paragraphs = Paragraphs.from_text(paragraphs_text)
 
     mixed_lyrics = MixedLyrics([stairway_to_heaven.title, born_to_be_wild.title], paragraphs)
 
