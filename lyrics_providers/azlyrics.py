@@ -125,14 +125,6 @@ class Lyrics(songs.model.Lyrics):
     def __init__(self, title):
         self.title = title
 
-    @cached_property
-    def text(self):
-        api = AZlyrics()
-        api.artist = self.title.artist
-        api.title = self.title.title
-        api.getLyrics()
-        return api.lyrics
-
     @property
     def paragraphs(self):
         return songs.model.Paragraphs(self.text)
@@ -140,3 +132,11 @@ class Lyrics(songs.model.Lyrics):
     @property
     def lines(self):
         return self.paragraphs.lines
+
+    @cached_property
+    def text(self):
+        api = AZlyrics()
+        api.artist = self.title.artist
+        api.title = self.title.title
+        api.getLyrics()
+        return api.lyrics
