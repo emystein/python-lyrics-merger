@@ -75,7 +75,10 @@ class Paragraphs:
     @staticmethod
     def from_text(text):
         plain_paragraphs = [paragraph for paragraph in text.split('\n\n') if paragraph != '']
-        paragraphs = [Paragraph.from_plain(paragraph) for paragraph in plain_paragraphs]
+        paragraphs = []
+        for plain_paragraph in plain_paragraphs:
+            lines = [Line(text) for text in plain_paragraph.split('\n')]
+            paragraphs.append(Paragraph(lines))
         return Paragraphs(paragraphs)
 
     def __init__(self, paragraphs):
@@ -104,11 +107,6 @@ class Paragraphs:
 
 
 class Paragraph:
-    @staticmethod
-    def from_plain(plain_paragraph):
-        lines = [Line(text) for text in plain_paragraph.split('\n')]
-        return Paragraph(lines)
-
     def __init__(self, lines):
         self.lines = lines
         self.text = ''.join([line.text + '\n' for line in self.lines]) + '\n'
