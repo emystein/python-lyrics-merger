@@ -8,6 +8,10 @@ from lyrics_mixer.lyrics_pickers import RandomLyricsPickers, RandomByArtistLyric
 logger = logging.getLogger()
 
 
+def flatten(list_of_lists):
+    return list(chain(*list_of_lists))
+
+
 class LyricsMixer:
     def __init__(self, lyrics_library, lyrics_mix_strategy):
         self.lyrics_library = lyrics_library
@@ -34,9 +38,7 @@ class LyricsMixer:
 class LineInterleaveLyricsMix:
     def mix(self, *songs):
         all_lyrics_lines = [song.lyrics.lines() for song in songs]
-
-        # see: https://stackoverflow.com/questions/7946798/interleave-multiple-lists-of-the-same-length-in-python
-        lines = [val for pair in zip(*all_lyrics_lines) for val in pair]
+        lines = flatten(zip(*all_lyrics_lines))
         # see https://stackoverflow.com/questions/14529523/python-split-for-lists
         paragraphs = ['\n'.join(list(l)) for k, l in groupby(lines, lambda x: x == '') if not k]
 
@@ -46,18 +48,8 @@ class LineInterleaveLyricsMix:
 class ParagraphInterleaveLyricsMix:
     def mix(self, *songs):
         all_lyrics_paragraphs = [song.lyrics.paragraphs() for song in songs]
-
-        # see: https://stackoverflow.com/questions/7946798/interleave-multiple-lists-of-the-same-length-in-python
-        paragraphs = [val for pair in zip(*all_lyrics_paragraphs) for val in pair]
-        lines = [lines.split('\n') for lines in paragraphs]
-        # see: https://stackoverflow.com/questions/952914/how-to-make-a-flat-list-out-of-list-of-lists
-        flat_list = [item for sublist in lines for item in sublist]
-
+        paragraphs = flatten(zip(*all_lyrics_paragraphs))
         return MixedLyrics.all(songs, paragraphs)
-
-
-def flatten(list_of_lists):
-    return list(chain(*list_of_lists))
 
 
 class MixedLyrics(Lyrics):
