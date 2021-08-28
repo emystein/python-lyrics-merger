@@ -20,10 +20,9 @@ def test_exception_on_mix_lyrics(lyrics_mixer):
 
 
 def test_mixed_lyrics(stairway_to_heaven, born_to_be_wild):
-    lines = 'line1\nline2'
     paragraphs = ['line1', 'line2']
 
-    mixed_lyrics = MixedLyrics([stairway_to_heaven, born_to_be_wild], lines, paragraphs)
+    mixed_lyrics = MixedLyrics([stairway_to_heaven.title, born_to_be_wild.title], paragraphs)
 
     assert mixed_lyrics.title == f"{stairway_to_heaven.title}, {born_to_be_wild.title}"
     assert mixed_lyrics.text == '\n\n'.join(paragraphs)

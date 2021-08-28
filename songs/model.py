@@ -116,6 +116,7 @@ class Paragraph:
     def __str__(self):
         return self.text
 
+
 class Line:
     def __init__(self, text):
         self.text = text

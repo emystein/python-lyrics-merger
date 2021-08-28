@@ -40,7 +40,7 @@ class LineInterleaveLyricsMix:
         # see https://stackoverflow.com/questions/14529523/python-split-for-lists
         paragraphs = ['\n'.join(list(l)) for k, l in groupby(lines, lambda x: x == '') if not k]
 
-        return MixedLyrics.all(songs, lines, paragraphs)
+        return MixedLyrics.all(songs, paragraphs)
 
 
 class ParagraphInterleaveLyricsMix:
@@ -53,23 +53,28 @@ class ParagraphInterleaveLyricsMix:
         # see: https://stackoverflow.com/questions/952914/how-to-make-a-flat-list-out-of-list-of-lists
         flat_list = [item for sublist in lines for item in sublist]
 
-        return MixedLyrics.all(songs, flat_list, paragraphs)
+        return MixedLyrics.all(songs, paragraphs)
 
 
 class MixedLyrics(Lyrics):
     @staticmethod
-    def all(songs, lines, paragraphs):
-        return MixedLyrics(songs, lines, paragraphs)
+    def all(songs, paragraphs):
+        song_titles = [song.title for song in songs]
+        return MixedLyrics(song_titles, paragraphs)
 
     @staticmethod
     def empty():
-        return MixedLyrics([], [], [])
+        return MixedLyrics([], [])
 
-    def __init__(self, songs, lines, paragraphs):
-        self.songs = songs
-        self.lines = lines
+    def __init__(self, song_titles, paragraphs):
         self.paragraphs = paragraphs
-        self.title = ', '.join([str(song.title) for song in songs])
+        lines = []
+        for paragraph in paragraphs:
+            paragraph_lines = paragraph.splitlines()
+            for paragraph_line in paragraph_lines:
+                lines.append(paragraph_line)
+        self.lines = lines
+        self.title = ', '.join([str(song_title) for song_title in song_titles])
         self.text = '\n\n'.join(paragraphs)
 
     def __str__(self):

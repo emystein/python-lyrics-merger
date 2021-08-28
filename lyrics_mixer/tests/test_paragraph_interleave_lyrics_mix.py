@@ -17,15 +17,6 @@ def test_mix_with_same_number_of_paragraphs(lyrics_editor):
 
     mixed_lyrics = lyrics_editor.mix(song1, song2)
 
-    assert mixed_lyrics.lines == [
-        'lyrics 1 line 1',
-        'lyrics 1 line 2',
-        'lyrics 2 line 1',
-        'lyrics 2 line 2',
-        'lyrics 1 line 3',
-        'lyrics 2 line 3'
-    ]
-
     expected_paragraphs = [
         'lyrics 1 line 1\nlyrics 1 line 2',
         'lyrics 2 line 1\nlyrics 2 line 2',
@@ -42,11 +33,6 @@ def test_mix_with_first_lyrics_with_2_paragraphs_and_second_lyrics_with_1_paragr
 
     mixed_lyrics = lyrics_editor.mix(song1, song2)
 
-    assert mixed_lyrics.lines == [
-        'lyrics 1 line 1',
-        'lyrics 2 line 1'
-    ]
-
     expected_paragraphs = [
         'lyrics 1 line 1',
         'lyrics 2 line 1'
@@ -60,11 +46,6 @@ def test_mix_with_first_lyrics_with_1_paragraph_and_second_lyrics_with_2_paragra
     song2 = Song(song_title2, Lyrics('lyrics 2 line 1\n\nlyrics 2 line 2'))
 
     mixed_lyrics = lyrics_editor.mix(song1, song2)
-
-    assert mixed_lyrics.lines == [
-        'lyrics 1 line 1',
-        'lyrics 2 line 1'
-    ]
 
     expected_paragraphs = [
         'lyrics 1 line 1',
