@@ -1,7 +1,7 @@
 import logging
 from itertools import chain, groupby
 
-from songs.model import Lyrics
+from songs.model import Lyrics, Paragraphs, Paragraph
 from lyrics_mixer.lyrics_pickers import RandomLyricsPickers, RandomByArtistLyricsPickers, \
     SpecificLyricsPickers
 
@@ -37,18 +37,17 @@ class LyricsMixer:
 
 class LineInterleaveLyricsMix:
     def mix(self, *songs):
-        all_lyrics_lines = [song.lyrics.lines() for song in songs]
+        all_lyrics_lines = [song.lyrics.lines for song in songs]
         lines = flatten(zip(*all_lyrics_lines))
-        # see https://stackoverflow.com/questions/14529523/python-split-for-lists
-        paragraphs = ['\n'.join(list(l)) for k, l in groupby(lines, lambda x: x == '') if not k]
-
+        paragraphs = Paragraphs.from_list([Paragraph(lines)])
         return MixedLyrics.all(songs, paragraphs)
 
 
 class ParagraphInterleaveLyricsMix:
     def mix(self, *songs):
-        all_lyrics_paragraphs = [song.lyrics.paragraphs() for song in songs]
-        paragraphs = flatten(zip(*all_lyrics_paragraphs))
+        all_lyrics_paragraphs = [song.lyrics.paragraphs for song in songs]
+        paragraph_list = flatten(zip(*all_lyrics_paragraphs))
+        paragraphs = Paragraphs.from_list(paragraph_list)
         return MixedLyrics.all(songs, paragraphs)
 
 
@@ -60,14 +59,13 @@ class MixedLyrics(Lyrics):
 
     @staticmethod
     def empty():
-        return MixedLyrics([], [])
+        return MixedLyrics([], Paragraphs(''))
 
     def __init__(self, song_titles, paragraphs):
         self.paragraphs = paragraphs
-        paragraph_lines = [paragraph.splitlines() for paragraph in paragraphs]
-        self.lines = flatten(paragraph_lines)
+        self.lines = paragraphs.lines
         self.title = ', '.join([str(song_title) for song_title in song_titles])
-        self.text = '\n\n'.join(paragraphs)
+        self.text = paragraphs.text
 
     def __str__(self):
         return self.title + '\n\n' + self.text

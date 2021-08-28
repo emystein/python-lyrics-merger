@@ -132,3 +132,11 @@ class Lyrics(songs.model.Lyrics):
         api.title = self.title.title
         api.getLyrics()
         return api.lyrics
+
+    @property
+    def paragraphs(self):
+        return songs.model.Paragraphs(self.text)
+
+    @property
+    def lines(self):
+        return self.paragraphs.lines
