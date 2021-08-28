@@ -73,8 +73,9 @@ class Lyrics:
 
 class Paragraphs:
     def __init__(self, text):
-        plain_paragraphs = text.split('\n\n')
+        plain_paragraphs = [paragraph for paragraph in text.split('\n\n') if paragraph != '']
         self.paragraphs = [Paragraph.from_plain(paragraph) for paragraph in plain_paragraphs]
+        self.text = ''.join([paragraph.text + '\n' for paragraph in self.paragraphs])
 
     @property
     def size(self):
@@ -93,7 +94,7 @@ class Paragraphs:
         return self.paragraphs == other.paragraphs
 
     def __str__(self):
-        return str([str(paragraph) + '\n\n' for paragraph in self.paragraphs])
+        return self.text
 
 
 class Paragraph:
@@ -104,6 +105,7 @@ class Paragraph:
 
     def __init__(self, lines):
         self.lines = lines
+        self.text = ''.join([line.text + '\n' for line in self.lines])
 
     def __iter__(self):
         return iter(self.lines)
@@ -112,8 +114,7 @@ class Paragraph:
         return self.lines == other.lines
 
     def __str__(self):
-        return str([str(line) + '\n' for line in self.lines])
-
+        return self.text
 
 class Line:
     def __init__(self, text):
