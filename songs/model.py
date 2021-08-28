@@ -69,21 +69,18 @@ class Lyrics:
 
 class Paragraphs:
     @staticmethod
-    def from_list(paragraph_list):
-        text = ''.join([paragraph.text for paragraph in paragraph_list])
-        return Paragraphs.from_text(text)
+    def from_list(paragraphs):
+        return Paragraphs(paragraphs)
 
     @staticmethod
     def from_text(text):
         plain_paragraphs = [paragraph for paragraph in text.split('\n\n') if paragraph != '']
         paragraphs = [Paragraph.from_plain(paragraph) for paragraph in plain_paragraphs]
-        text = ''.join([paragraph.text for paragraph in paragraphs])
-        return Paragraphs(text)
+        return Paragraphs(paragraphs)
 
-    def __init__(self, text):
-        plain_paragraphs = [paragraph for paragraph in text.split('\n\n') if paragraph != '']
-        self.paragraphs = [Paragraph.from_plain(paragraph) for paragraph in plain_paragraphs]
-        self.text = ''.join([paragraph.text for paragraph in self.paragraphs])
+    def __init__(self, paragraphs):
+        self.paragraphs = paragraphs
+        self.text = ''.join([paragraph.text for paragraph in paragraphs])
 
     @property
     def size(self):
