@@ -29,3 +29,18 @@ def test_paragraphs():
     assert paragraphs[0] == Paragraph([Line('line 1'), Line('line 2')])
     assert paragraphs[1] == Paragraph([Line('line 3'), Line('line 4'), Line('line 5')])
     assert paragraphs[2] == Paragraph([Line('line 6')])
+
+
+def test_zip_paragraphs():
+    paragraphs1 = Paragraphs('paragraph 1 line 1\nparagraph 1 line 2\n\nparagraph 1 line 3\nparagraph 1 line 4')
+    paragraphs2 = Paragraphs('paragraph 2 line 1\nparagraph 2 line 2\n\nparagraph 2 line 3\nparagraph 2 line 4')
+
+    all_paragraphs = [paragraphs1, paragraphs2]
+
+    assert list(zip(*all_paragraphs)) == [
+        (Paragraph([Line('paragraph 1 line 1'), Line('paragraph 1 line 2')]),
+         Paragraph([Line('paragraph 2 line 1'), Line('paragraph 2 line 2')])),
+
+        (Paragraph([Line('paragraph 1 line 3'), Line('paragraph 1 line 4')]),
+         Paragraph([Line('paragraph 2 line 3'), Line('paragraph 2 line 4')])),
+    ]

@@ -80,8 +80,14 @@ class Paragraphs:
     def size(self):
         return len(self.paragraphs)
 
+    def lines(self):
+        return [line for paragraph in self.paragraphs for line in paragraph]
+
     def __getitem__(self, index):
         return self.paragraphs[index]
+
+    def __iter__(self):
+        return iter(self.paragraphs)
 
     def __eq__(self, other):
         return self.paragraphs == other.paragraphs
@@ -98,6 +104,9 @@ class Paragraph:
 
     def __init__(self, lines):
         self.lines = lines
+
+    def __iter__(self):
+        return iter(self.lines)
 
     def __eq__(self, other):
         return self.lines == other.lines
