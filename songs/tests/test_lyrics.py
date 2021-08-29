@@ -1,4 +1,3 @@
-import pytest
 from songs.model import Lyrics, Paragraphs, Paragraph, Line, SongTitle
 
 two_paragraphs_text = 'First paragraph\n\nSecond paragraph\n\n'
