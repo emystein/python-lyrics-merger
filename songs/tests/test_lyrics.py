@@ -26,24 +26,17 @@ def test_paragraph():
 
 
 def test_paragraphs():
-    text = 'line 1\nline 2\n\nline 3\nline 4\nline 5\n\nline 6\n\n'
+    text = 'line 1\nline 2\n\nline 3\nline 4\n\n'
     paragraphs = Paragraphs.from_text(text)
 
-    assert paragraphs.text == text
+    assert paragraphs[0] == Paragraph([Line('line 1'), Line('line 2')])
+    assert paragraphs[1] == Paragraph([Line('line 3'), Line('line 4')])
 
 
 def test_paragraphs_from_text_without_ending_new_lines():
-    text = 'line 1\nline 2\n\nline 3\nline 4\nline 5\n\nline 6'
+    text = 'line 1\nline 2\n\nline 3\nline 4'
 
     paragraphs = Paragraphs.from_text(text)
 
-    assert paragraphs.text == text + '\n\n'
-
-
-def test_paragraphs_from_list():
-    paragraph1 = Paragraph([Line('line 1'), Line('line 2')])
-    paragraph2 = Paragraph([Line('line 3'), Line('line 4')])
-
-    paragraphs = Paragraphs.from_list([paragraph1, paragraph2])
-
-    assert paragraphs.text == 'line 1\nline 2\n\nline 3\nline 4\n\n'
+    assert paragraphs[0] == Paragraph([Line('line 1'), Line('line 2')])
+    assert paragraphs[1] == Paragraph([Line('line 3'), Line('line 4')])

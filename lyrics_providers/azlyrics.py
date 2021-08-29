@@ -131,7 +131,7 @@ class Lyrics(songs.model.Lyrics):
 
     @property
     def lines(self):
-        return self.paragraphs.lines
+        return [line for paragraph in self.paragraphs for line in paragraph]
 
     @cached_property
     def text(self):

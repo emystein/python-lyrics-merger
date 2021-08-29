@@ -1,5 +1,5 @@
 import logging
-from itertools import chain, groupby
+from itertools import chain
 
 from songs.model import Lyrics, Paragraphs, Paragraph
 from lyrics_mixer.lyrics_pickers import RandomLyricsPickers, RandomByArtistLyricsPickers, \
@@ -39,32 +39,35 @@ class LineInterleaveLyricsMix:
     def mix(self, *songs):
         all_lyrics_lines = [song.lyrics.lines for song in songs]
         lines = flatten(zip(*all_lyrics_lines))
-        return MixedLyrics.all(songs, Paragraph(lines))
+        return MixedLyrics.with_lines(songs, lines)
 
 
 class ParagraphInterleaveLyricsMix:
     def mix(self, *songs):
         all_lyrics_paragraphs = [song.lyrics.paragraphs for song in songs]
-        paragraph_list = flatten(zip(*all_lyrics_paragraphs))
-        paragraphs = Paragraphs.from_list(paragraph_list)
-        return MixedLyrics.all(songs, paragraphs)
+        paragraphs = flatten(zip(*all_lyrics_paragraphs))
+        return MixedLyrics.with_paragraphs(songs, paragraphs)
 
 
 class MixedLyrics(Lyrics):
     @staticmethod
-    def all(songs, paragraphs):
+    def with_lines(songs, lines):
+        return MixedLyrics.with_paragraphs(songs, [Paragraph(lines)])
+        
+    @staticmethod
+    def with_paragraphs(songs, paragraphs):
         song_titles = [song.title for song in songs]
-        return MixedLyrics(song_titles, paragraphs)
+        return MixedLyrics(song_titles, Paragraphs.from_list(paragraphs))
 
     @staticmethod
     def empty():
         return MixedLyrics([], Paragraphs.from_text(''))
 
     def __init__(self, song_titles, paragraphs):
-        self.paragraphs = paragraphs
-        self.lines = paragraphs.lines
         self.title = ', '.join([str(song_title) for song_title in song_titles])
-        self.text = paragraphs.text
+        self.paragraphs = [paragraph for paragraph in paragraphs if not paragraph.is_empty()]
+        self.lines = [line for paragraph in self.paragraphs for line in paragraph]
+        self.text = ''.join([paragraph.text for paragraph in self.paragraphs])
 
     def __str__(self):
         return self.title + '\n\n' + self.text

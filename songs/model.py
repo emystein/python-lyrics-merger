@@ -55,7 +55,7 @@ class Lyrics:
     def __init__(self, text):
         self.text = text
         self.paragraphs = Paragraphs.from_text(text)
-        self.lines = self.paragraphs.lines
+        self.lines = [line for paragraph in self.paragraphs for line in paragraph]
 
     def has_content(self):
         return self != Lyrics.empty()
@@ -69,30 +69,12 @@ class Lyrics:
 
 class Paragraphs:
     @staticmethod
-    def from_list(paragraphs):
-        return Paragraphs(paragraphs)
+    def from_text(text):
+        return Paragraphs.from_list([Paragraph.from_plain(paragraph) for paragraph in text.split('\n\n')])
 
     @staticmethod
-    def from_text(text):
-        paragraphs = [Paragraph.from_plain(paragraph) for paragraph in text.split('\n\n')]
-        return Paragraphs(paragraphs)
-
-    def __init__(self, paragraphs):
-        self.paragraphs = [paragraph for paragraph in paragraphs if not paragraph.is_empty()]
-        self.lines = [line for paragraph in self.paragraphs for line in paragraph]
-        self.text = ''.join([paragraph.text for paragraph in self.paragraphs])
-
-    def is_empty(self):
-        return len(self.lines) == 0
-
-    def __iter__(self):
-        return iter(self.paragraphs)
-
-    def __eq__(self, other):
-        return self.text == other.text
-
-    def __str__(self):
-        return self.text
+    def from_list(paragraphs):
+        return [paragraph for paragraph in paragraphs if not paragraph.is_empty()]
 
 
 class Paragraph:
