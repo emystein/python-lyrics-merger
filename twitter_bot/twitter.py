@@ -54,7 +54,7 @@ class Composer:
         self.lyrics_mixer = lyrics_mixer
 
     def tweet(self, mixed_lyrics):
-        logger.info(f"Tweeting Mixed Lyrics")
+        logger.info("Tweeting Mixed Lyrics")
 
         if mixed_lyrics.has_content():
             try:
