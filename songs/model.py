@@ -74,12 +74,12 @@ class Paragraphs:
 
     @staticmethod
     def from_text(text):
-        paragraphs = [Paragraph.from_plain(paragraph) for paragraph in text.split('\n\n') if paragraph != '']
+        paragraphs = [Paragraph.from_plain(paragraph) for paragraph in text.split('\n\n')]
         return Paragraphs(paragraphs)
 
     def __init__(self, paragraphs):
-        self.paragraphs = paragraphs
-        self.text = ''.join([paragraph.text for paragraph in paragraphs])
+        self.paragraphs = [paragraph for paragraph in paragraphs if not paragraph.is_empty()]
+        self.text = ''.join([paragraph.text for paragraph in self.paragraphs])
 
     @property
     def size(self):
@@ -109,8 +109,11 @@ class Paragraph:
         return Paragraph(lines)
 
     def __init__(self, lines):
-        self.lines = lines
+        self.lines = [line for line in lines if not line.is_empty()]
         self.text = ''.join([line.text + '\n' for line in self.lines]) + '\n'
+
+    def is_empty(self):
+        return len(self.lines) == 0
 
     def __iter__(self):
         return iter(self.lines)
@@ -125,6 +128,9 @@ class Paragraph:
 class Line:
     def __init__(self, text):
         self.text = text
+
+    def is_empty(self):
+        return self.text == ''
 
     def __eq__(self, other):
         return self.text == other.text
