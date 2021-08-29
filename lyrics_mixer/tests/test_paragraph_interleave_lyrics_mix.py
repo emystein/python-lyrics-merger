@@ -19,7 +19,7 @@ def test_mix_with_same_number_of_paragraphs(lyrics_editor):
 
     expected_paragraphs = Paragraphs.from_text('lyrics 1 line 1\nlyrics 1 line 2\n\nlyrics 2 line 1\nlyrics 2 line 2\n\nlyrics 1 line 3\n\nlyrics 2 line 3\n\n')
 
-    assert mixed_lyrics.text == expected_paragraphs.text
+    assert mixed_lyrics.paragraphs == expected_paragraphs
 
 
 def test_mix_with_first_lyrics_with_2_paragraphs_and_second_lyrics_with_1_paragraph(lyrics_editor):
@@ -30,7 +30,7 @@ def test_mix_with_first_lyrics_with_2_paragraphs_and_second_lyrics_with_1_paragr
 
     expected_paragraphs = Paragraphs.from_text('lyrics 1 line 1\n\nlyrics 2 line 1\n\n')
 
-    assert mixed_lyrics.text == expected_paragraphs.text
+    assert mixed_lyrics.paragraphs == expected_paragraphs
 
 
 def test_mix_with_first_lyrics_with_1_paragraph_and_second_lyrics_with_2_paragraphs(lyrics_editor):
@@ -41,4 +41,4 @@ def test_mix_with_first_lyrics_with_1_paragraph_and_second_lyrics_with_2_paragra
 
     expected_paragraphs = Paragraphs.from_text('lyrics 1 line 1\n\nlyrics 2 line 1\n\n')
 
-    assert mixed_lyrics.text == expected_paragraphs.text
+    assert mixed_lyrics.paragraphs == expected_paragraphs
