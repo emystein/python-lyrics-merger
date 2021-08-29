@@ -2,19 +2,19 @@ import pytest
 from songs.model import Lyrics, Paragraphs, Paragraph, Line
 
 
-two_paragraphs_text = 'First paragraph\n\nSecond paragraph'
+two_paragraphs_text = 'First paragraph\n\nSecond paragraph\n\n'
 
 
 def test_lyrics_text():
-    assert Lyrics(two_paragraphs_text).text == two_paragraphs_text
+    assert Lyrics.with_text(two_paragraphs_text).text == two_paragraphs_text
 
 
 def test_get_paragraphs_from_lyrics():
-    assert Lyrics(two_paragraphs_text).paragraphs == Paragraphs.from_text(two_paragraphs_text)
+    assert Lyrics.with_text(two_paragraphs_text).paragraphs == Paragraphs.from_text(two_paragraphs_text)
 
 
 def test_lyrics_to_string():
-    assert str(Lyrics(two_paragraphs_text)) == two_paragraphs_text
+    assert str(Lyrics.with_text(two_paragraphs_text)) == two_paragraphs_text
 
 
 def test_paragraph():

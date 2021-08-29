@@ -3,8 +3,8 @@ from songs.tests.fixtures.songs import stairway_to_heaven_title
 
 
 def test_song_equals_by_artist_and_title(stairway_to_heaven_title):
-    song1 = Song(stairway_to_heaven_title, Lyrics('some lyrics'))
-    song2 = Song(stairway_to_heaven_title, Lyrics('other lyrics'))
+    song1 = Song(stairway_to_heaven_title, Lyrics.with_text('some lyrics'))
+    song2 = Song(stairway_to_heaven_title, Lyrics.with_text('other lyrics'))
     assert song1 == song2
 
 

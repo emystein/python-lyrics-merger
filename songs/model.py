@@ -50,12 +50,16 @@ class Song:
 class Lyrics:
     @staticmethod
     def empty():
-        return Lyrics('')
+        return Lyrics.with_text('')
 
-    def __init__(self, text):
-        self.text = text
-        self.paragraphs = Paragraphs.from_text(text)
+    @staticmethod
+    def with_text(text):
+        return Lyrics(Paragraphs.from_text(text))
+
+    def __init__(self, paragraphs):
+        self.paragraphs = [paragraph for paragraph in paragraphs if not paragraph.is_empty()]
         self.lines = [line for paragraph in self.paragraphs for line in paragraph]
+        self.text = ''.join([paragraph.text for paragraph in self.paragraphs])
 
     def has_content(self):
         return self != Lyrics.empty()
