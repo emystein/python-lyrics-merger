@@ -39,8 +39,7 @@ class LineInterleaveLyricsMix:
     def mix(self, *songs):
         all_lyrics_lines = [song.lyrics.lines for song in songs]
         lines = flatten(zip(*all_lyrics_lines))
-        paragraphs = Paragraphs.from_list([Paragraph(lines)])
-        return MixedLyrics.all(songs, paragraphs)
+        return MixedLyrics.all(songs, Paragraph(lines))
 
 
 class ParagraphInterleaveLyricsMix:

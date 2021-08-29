@@ -29,7 +29,6 @@ def test_paragraphs():
     text = 'line 1\nline 2\n\nline 3\nline 4\nline 5\n\nline 6\n\n'
     paragraphs = Paragraphs.from_text(text)
 
-    assert paragraphs.size == 3
     assert paragraphs.text == text
 
 

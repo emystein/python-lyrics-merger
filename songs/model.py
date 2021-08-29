@@ -79,21 +79,17 @@ class Paragraphs:
 
     def __init__(self, paragraphs):
         self.paragraphs = [paragraph for paragraph in paragraphs if not paragraph.is_empty()]
+        self.lines = [line for paragraph in self.paragraphs for line in paragraph]
         self.text = ''.join([paragraph.text for paragraph in self.paragraphs])
 
-    @property
-    def size(self):
-        return len(self.paragraphs)
-
-    @property
-    def lines(self):
-        return [line for paragraph in self.paragraphs for line in paragraph]
+    def is_empty(self):
+        return len(self.lines) == 0
 
     def __iter__(self):
         return iter(self.paragraphs)
 
     def __eq__(self, other):
-        return self.paragraphs == other.paragraphs
+        return self.text == other.text
 
     def __str__(self):
         return self.text
@@ -116,7 +112,7 @@ class Paragraph:
         return iter(self.lines)
 
     def __eq__(self, other):
-        return self.lines == other.lines
+        return self.text == other.text
 
     def __str__(self):
         return self.text
