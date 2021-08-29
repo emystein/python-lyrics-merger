@@ -36,6 +36,14 @@ def test_paragraphs():
     assert paragraphs.text == text
 
 
+def test_paragraphs_from_text_without_ending_new_lines():
+    text = 'line 1\nline 2\n\nline 3\nline 4\nline 5\n\nline 6'
+
+    paragraphs = Paragraphs.from_text(text)
+
+    assert paragraphs.text == text + '\n\n'
+
+
 def test_zip_paragraphs():
     paragraphs1 = Paragraphs.from_text('paragraph 1 line 1\nparagraph 1 line 2\n\nparagraph 1 line 3\nparagraph 1 line 4')
     paragraphs2 = Paragraphs.from_text('paragraph 2 line 1\nparagraph 2 line 2\n\nparagraph 2 line 3\nparagraph 2 line 4')
