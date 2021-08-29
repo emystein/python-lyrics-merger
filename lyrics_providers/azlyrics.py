@@ -16,7 +16,7 @@ def random_artist():
 
 
 def random_artist_initial():
-    return random.choice('abcdefghijklmnopqrstuvwxyz#')
+    return random.choice('abcdefghijklmnopqrstuvwxyz')
 
 
 def artist_names_with_initial(initial):
