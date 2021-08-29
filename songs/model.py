@@ -89,9 +89,6 @@ class Paragraphs:
     def lines(self):
         return [line for paragraph in self.paragraphs for line in paragraph]
 
-    def __getitem__(self, index):
-        return self.paragraphs[index]
-
     def __iter__(self):
         return iter(self.paragraphs)
 
