@@ -3,7 +3,8 @@ from unittest.mock import Mock
 
 from songs.model import Paragraphs
 from songs.tests.fixtures.songs import stairway_to_heaven, born_to_be_wild
-from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix, MixedLyrics
+from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix, MixedLyrics, \
+    MixedSongsTitle
 
 
 @pytest.fixture
@@ -24,7 +25,7 @@ def test_mixed_lyrics(stairway_to_heaven, born_to_be_wild):
     paragraphs_text = 'paragraph1\n\nparagraph2\n\n'
     paragraphs = Paragraphs.from_text(paragraphs_text)
 
-    mixed_lyrics = MixedLyrics([stairway_to_heaven.title, born_to_be_wild.title], paragraphs)
+    mixed_lyrics = MixedLyrics.with_paragraphs([stairway_to_heaven, born_to_be_wild], paragraphs)
 
-    assert mixed_lyrics.title == f"{stairway_to_heaven.title}, {born_to_be_wild.title}"
+    assert mixed_lyrics.title == MixedSongsTitle([stairway_to_heaven, born_to_be_wild])
     assert mixed_lyrics.text == paragraphs_text

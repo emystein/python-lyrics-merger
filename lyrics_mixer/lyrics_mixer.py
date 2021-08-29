@@ -1,7 +1,7 @@
 import logging
 from itertools import chain
 
-from songs.model import Lyrics, Paragraphs, Paragraph
+from songs.model import Lyrics, Paragraphs, Paragraph, SongTitle
 from lyrics_mixer.lyrics_pickers import RandomLyricsPickers, RandomByArtistLyricsPickers, \
     SpecificLyricsPickers
 
@@ -49,28 +49,31 @@ class ParagraphInterleaveLyricsMix:
         return MixedLyrics.with_paragraphs(songs, paragraphs)
 
 
-class MixedLyrics(Lyrics):
+class MixedLyrics:
     @staticmethod
     def with_lines(songs, lines):
         return MixedLyrics.with_paragraphs(songs, [Paragraph(lines)])
         
     @staticmethod
     def with_paragraphs(songs, paragraphs):
-        song_titles = [song.title for song in songs]
-        return MixedLyrics(song_titles, Paragraphs.from_list(paragraphs))
+        return Lyrics(MixedSongsTitle(songs), Paragraphs.from_list(paragraphs))
 
     @staticmethod
     def empty():
-        return MixedLyrics([], Paragraphs.from_text(''))
+        return Lyrics(MixedSongsTitle([]), Paragraphs.from_text(''))
 
-    def __init__(self, song_titles, paragraphs):
+
+class MixedSongsTitle:
+    def __init__(self, songs):
+        song_titles = [song.title for song in songs]
+        self.artist = ', '.join([song_title.artist for song_title in song_titles])
         self.title = ', '.join([str(song_title) for song_title in song_titles])
-        self.paragraphs = [paragraph for paragraph in paragraphs if not paragraph.is_empty()]
-        self.lines = [line for paragraph in self.paragraphs for line in paragraph]
-        self.text = ''.join([paragraph.text for paragraph in self.paragraphs])
+
+    def is_empty(self):
+        return self.title == ''
+
+    def __eq__(self, other):
+        return self.title == other.title
 
     def __str__(self):
-        return self.title + '\n\n' + self.text
-
-    def has_content(self):
-        return self != MixedLyrics.empty()
+        return self.title

@@ -54,9 +54,10 @@ class Lyrics:
 
     @staticmethod
     def with_text(text):
-        return Lyrics(Paragraphs.from_text(text))
+        return Lyrics(SongTitle.empty(), Paragraphs.from_text(text))
 
-    def __init__(self, paragraphs):
+    def __init__(self, song_title, paragraphs):
+        self.title = song_title
         self.paragraphs = [paragraph for paragraph in paragraphs if not paragraph.is_empty()]
         self.lines = [line for paragraph in self.paragraphs for line in paragraph]
         self.text = ''.join([paragraph.text for paragraph in self.paragraphs])
@@ -65,10 +66,13 @@ class Lyrics:
         return self != Lyrics.empty()
 
     def __eq__(self, other):
-        return self.text == other.text
+        return self.title == other.title and self.text == other.text
 
     def __str__(self):
-        return self.text
+        if self.title.is_empty():
+            return self.text
+        else:
+            return str(self.title) + '\n\n' + self.text
 
 
 class Paragraphs:
