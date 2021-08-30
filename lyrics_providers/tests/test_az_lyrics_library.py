@@ -11,17 +11,17 @@ lyrics_library = AZLyricsLibrary()
 def test_get_specific_lyrics():
     song_title = SongTitle('Led Zeppelin', 'Stairway to Heaven')
 
-    assert lyrics_library.get_lyrics(song_title).has_lyrics()
+    assert lyrics_library.get_lyrics(song_title).has_content()
 
 
 @pytest.mark.slow_integration_test
 def test_get_random_lyrics():
-    assert lyrics_library.get_random_lyrics().has_lyrics()
+    assert lyrics_library.get_random_lyrics().has_content()
 
 
 @pytest.mark.slow_integration_test
 def test_get_random_lyrics_by_artist():
-    song = lyrics_library.get_random_lyrics_by_artist('Led Zeppelin')
+    lyrics = lyrics_library.get_random_lyrics_by_artist('Led Zeppelin')
 
-    assert song.title.artist == 'Led Zeppelin'
-    assert song.has_lyrics()
+    assert lyrics.title.artist == 'Led Zeppelin'
+    assert lyrics.has_content()

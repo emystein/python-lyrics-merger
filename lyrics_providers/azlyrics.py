@@ -28,13 +28,13 @@ class AZLyricsLibrary:
 
     def get_lyrics(self, song_title):
         logger.info(f'Retrieving lyrics of: {song_title}')
-        return Song.entitled(song_title)
+        return Lyrics(song_title)
 
     def get_random_lyrics(self):
         return self.get_lyrics(SongTitle.random())
 
     def get_random_lyrics_by_artist(self, artist_name):
-        return Artist.named(artist_name).random_song()
+        return Artist.named(artist_name).random_song().lyrics
 
 
 class ArtistNameParser:

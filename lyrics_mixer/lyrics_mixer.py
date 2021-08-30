@@ -36,32 +36,33 @@ class LyricsMixer:
 
 
 class LineInterleaveLyricsMix:
-    def mix(self, *songs):
-        all_lyrics_lines = [song.lyrics.lines for song in songs]
+    def mix(self, *lyrics):
+        all_lyrics_lines = [lyric.lines for lyric in lyrics]
         lines = flatten(zip(*all_lyrics_lines))
-        return MixedLyrics.with_lines(songs, lines)
+        song_titles = [lyric.title for lyric in lyrics]
+        return MixedLyrics.with_lines(song_titles, lines)
 
 
 class ParagraphInterleaveLyricsMix:
-    def mix(self, *songs):
-        all_lyrics_paragraphs = [song.lyrics.paragraphs for song in songs]
+    def mix(self, *lyrics):
+        all_lyrics_paragraphs = [lyric.paragraphs for lyric in lyrics]
         paragraphs = flatten(zip(*all_lyrics_paragraphs))
-        return MixedLyrics.with_paragraphs(songs, paragraphs)
+        song_titles = [lyric.title for lyric in lyrics]
+        return MixedLyrics.with_paragraphs(song_titles, paragraphs)
 
 
 class MixedLyrics:
     @staticmethod
-    def with_lines(songs, lines):
-        return MixedLyrics.with_paragraphs(songs, [Paragraph(lines)])
+    def with_lines(song_titles, lines):
+        return MixedLyrics.with_paragraphs(song_titles, [Paragraph(lines)])
         
     @staticmethod
-    def with_paragraphs(songs, paragraphs):
-        return Lyrics(MixedSongsTitle(songs), Paragraphs.from_list(paragraphs))
+    def with_paragraphs(song_titles, paragraphs):
+        return Lyrics(MixedSongsTitle(song_titles), Paragraphs.from_list(paragraphs))
 
 
 class MixedSongsTitle:
-    def __init__(self, songs):
-        song_titles = [song.title for song in songs]
+    def __init__(self, song_titles):
         self.artist = ', '.join([song_title.artist for song_title in song_titles])
         self.title = ', '.join([str(song_title) for song_title in song_titles])
 

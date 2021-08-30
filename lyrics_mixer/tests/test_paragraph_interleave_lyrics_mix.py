@@ -1,6 +1,6 @@
 import pytest
 from lyrics_mixer.lyrics_mixer import ParagraphInterleaveLyricsMix
-from songs.model import SongTitle, Song, Lyrics, Paragraphs
+from songs.model import SongTitle, Lyrics, Paragraphs
 
 song_title1 = SongTitle('artist1', 'title1')
 song_title2 = SongTitle('artist2', 'title2')
@@ -12,10 +12,10 @@ def lyrics_editor():
 
 
 def test_mix_with_same_number_of_paragraphs(lyrics_editor):
-    song1 = Song(song_title1, Lyrics.with_text('lyrics 1 line 1\nlyrics 1 line 2\n\nlyrics 1 line 3'))
-    song2 = Song(song_title2, Lyrics.with_text('lyrics 2 line 1\nlyrics 2 line 2\n\nlyrics 2 line 3'))
+    lyrics1 = Lyrics.with_text('lyrics 1 line 1\nlyrics 1 line 2\n\nlyrics 1 line 3')
+    lyrics2 = Lyrics.with_text('lyrics 2 line 1\nlyrics 2 line 2\n\nlyrics 2 line 3')
 
-    mixed_lyrics = lyrics_editor.mix(song1, song2)
+    mixed_lyrics = lyrics_editor.mix(lyrics1, lyrics2)
 
     expected_paragraphs = Paragraphs.from_text('lyrics 1 line 1\nlyrics 1 line 2\n\nlyrics 2 line 1\nlyrics 2 line 2\n\nlyrics 1 line 3\n\nlyrics 2 line 3\n\n')
 
@@ -23,10 +23,10 @@ def test_mix_with_same_number_of_paragraphs(lyrics_editor):
 
 
 def test_mix_with_first_lyrics_with_2_paragraphs_and_second_lyrics_with_1_paragraph(lyrics_editor):
-    song1 = Song(song_title1, Lyrics.with_text('lyrics 1 line 1\n\nlyrics 1 line 2'))
-    song2 = Song(song_title2, Lyrics.with_text('lyrics 2 line 1'))
+    lyrics1 = Lyrics.with_text('lyrics 1 line 1\n\nlyrics 1 line 2')
+    lyrics2 = Lyrics.with_text('lyrics 2 line 1')
 
-    mixed_lyrics = lyrics_editor.mix(song1, song2)
+    mixed_lyrics = lyrics_editor.mix(lyrics1, lyrics2)
 
     expected_paragraphs = Paragraphs.from_text('lyrics 1 line 1\n\nlyrics 2 line 1\n\n')
 
@@ -34,10 +34,10 @@ def test_mix_with_first_lyrics_with_2_paragraphs_and_second_lyrics_with_1_paragr
 
 
 def test_mix_with_first_lyrics_with_1_paragraph_and_second_lyrics_with_2_paragraphs(lyrics_editor):
-    song1 = Song(song_title1, Lyrics.with_text('lyrics 1 line 1'))
-    song2 = Song(song_title2, Lyrics.with_text('lyrics 2 line 1\n\nlyrics 2 line 2'))
+    lyrics1 = Lyrics.with_text('lyrics 1 line 1')
+    lyrics2 = Lyrics.with_text('lyrics 2 line 1\n\nlyrics 2 line 2')
 
-    mixed_lyrics = lyrics_editor.mix(song1, song2)
+    mixed_lyrics = lyrics_editor.mix(lyrics1, lyrics2)
 
     expected_paragraphs = Paragraphs.from_text('lyrics 1 line 1\n\nlyrics 2 line 1\n\n')
 
