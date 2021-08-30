@@ -1,13 +1,12 @@
 from unittest.mock import Mock
 
 from songs.model import Paragraphs, SongTitle, Lyrics
+from songs.tests import song_factory
 from songs.tests.fixtures.songs import stairway_to_heaven_title, born_to_be_wild_title
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
 
-title = SongTitle('Led Zeppelin', 'Stairway to Heaven')
-paragraphs = Paragraphs.from_text('line 1\nline 2\n\nline 3\nline 4\n\n')
-lyrics = Lyrics(title, paragraphs)
-
+lyrics = song_factory.stairway_to_heaven_lyrics()
+born_to_be_wild_lyrics = song_factory.born_to_be_wild_lyrics()
 
 def test_mix_two_random_lyrics():
     mock_lyrics_library = Mock()
@@ -15,6 +14,7 @@ def test_mix_two_random_lyrics():
     mixer = LyricsMixer(mock_lyrics_library, LineInterleaveLyricsMix())
 
     mock_lyrics_library.get_random_lyrics.return_value = lyrics
+    mock_lyrics_library.get_random_lyrics.return_value = born_to_be_wild_lyrics
 
     mixed_lyrics = mixer.mix_two_random_lyrics()
 
@@ -27,6 +27,7 @@ def test_mix_random_lyrics_by_artists():
     mixer = LyricsMixer(mock_lyrics_library, LineInterleaveLyricsMix())
 
     mock_lyrics_library.get_random_lyrics_by_artist.return_value = lyrics
+    mock_lyrics_library.get_random_lyrics_by_artist.return_value = born_to_be_wild_lyrics
 
     mixed_lyrics = mixer.mix_random_lyrics_by_artists('Led Zeppelin', 'Steppenwolf')
 
@@ -39,6 +40,7 @@ def test_mix_specific_lyrics(stairway_to_heaven_title, born_to_be_wild_title):
     mixer = LyricsMixer(mock_lyrics_library, LineInterleaveLyricsMix())
 
     mock_lyrics_library.get_lyrics.return_value = lyrics
+    mock_lyrics_library.get_lyrics.return_value = born_to_be_wild_lyrics
 
     mixed_lyrics = mixer.mix_specific_lyrics(stairway_to_heaven_title, born_to_be_wild_title)
 
