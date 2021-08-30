@@ -62,11 +62,14 @@ class Lyrics:
         self.lines = [line for paragraph in self.paragraphs for line in paragraph]
         self.text = ''.join([paragraph.text for paragraph in self.paragraphs])
 
-    def has_title(self):
-        return not self.title.is_empty()
+    def is_empty(self):
+        return self == Lyrics.empty()
 
     def has_content(self):
-        return self != Lyrics.empty()
+        return not self.is_empty()
+
+    def has_title(self):
+        return not self.title.is_empty()
 
     def __eq__(self, other):
         return self.title == other.title and self.text == other.text

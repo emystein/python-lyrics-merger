@@ -32,7 +32,7 @@ class LyricsMixer:
             return self.lyrics_mix_strategy.mix(*lyrics)
         except Exception:
             logger.error('Returning empty lyrics.', exc_info=True)
-            return MixedLyrics.empty()
+            return Lyrics.empty()
 
 
 class LineInterleaveLyricsMix:
@@ -57,10 +57,6 @@ class MixedLyrics:
     @staticmethod
     def with_paragraphs(songs, paragraphs):
         return Lyrics(MixedSongsTitle(songs), Paragraphs.from_list(paragraphs))
-
-    @staticmethod
-    def empty():
-        return Lyrics(MixedSongsTitle([]), Paragraphs.from_text(''))
 
 
 class MixedSongsTitle:

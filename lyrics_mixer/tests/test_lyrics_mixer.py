@@ -18,7 +18,7 @@ def test_exception_on_mix_lyrics(lyrics_mixer):
 
     mock_lyrics_picker.pick.side_effect = RuntimeError('Download error')
 
-    assert lyrics_mixer.mix_lyrics(mock_lyrics_picker) == MixedLyrics.empty()
+    assert lyrics_mixer.mix_lyrics(mock_lyrics_picker).is_empty()
 
 
 def test_mixed_lyrics(stairway_to_heaven, born_to_be_wild):

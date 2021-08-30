@@ -1,27 +1,24 @@
 import pytest
 
-from lyrics_providers.azlyrics import random_artist, Artist
+from lyrics_providers.azlyrics import Artist
 
 
-@pytest.mark.slow_integration_test
-def test_random():
-    artist = random_artist()
+def test_single_name():
+    artist = Artist.named('Prince')
 
-    assert artist.name != ''
-    assert len(artist.all_songs()) > 0
+    assert artist.name == 'Prince'
 
 
-@pytest.mark.slow_integration_test
-def test_get_songs_by_artist():
-    artist = Artist.named('Led Zeppelin')
+def test_first_name_then_last_name():
+    artist = Artist.named('Peter Gabriel')
 
-    assert len(artist.all_songs()) > 80
+    assert artist.name == 'Peter Gabriel'
 
-    song = artist.random_song()
 
-    assert not song.title.is_empty()
-    assert song.title.artist == 'Led Zeppelin'
-    assert song.has_lyrics()
+def test_named_last_name_then_first_name():
+    artist = Artist.named('Villere, Zack')
+
+    assert artist.name == 'Zack Villere'
 
 
 @pytest.mark.slow_integration_test

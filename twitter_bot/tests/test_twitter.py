@@ -6,6 +6,7 @@ import twitter_bot.jobs
 from lyrics_mixer.song_titles_parser import (SongTitlesParser, SongTitlesSplitter)
 from lyrics_mixer.lyrics_mixer import MixedLyrics
 from lyrics_mixer.tests.fixtures.mixer import mixed_lyrics
+from songs.model import Lyrics
 from twitter_bot.twitter import MentionHistory, Composer
 from twitter_bot.tests.fixtures import tweet
 
@@ -28,7 +29,7 @@ def test_compose_reply(tweet, mixed_lyrics):
 def test_reply_to_mentions_empty_reply(tweet):
     twitter_api = Mock()
 
-    lyrics_mixer.mix_random_lyrics_by_artists.return_value = MixedLyrics.empty()
+    lyrics_mixer.mix_random_lyrics_by_artists.return_value = Lyrics.empty()
 
     composer = Composer(twitter_api, tweet_parser, lyrics_mixer)
     composer.reply(tweet)
