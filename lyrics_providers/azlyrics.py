@@ -36,9 +36,6 @@ class AZLyricsLibrary:
     def get_random_lyrics_by_artist(self, artist_name):
         return Artist.named(artist_name).random_song()
 
-    def pick_using(self, lyrics_pickers):
-        return lyrics_pickers.pick_from(self)
-
 
 class ArtistNameParser:
     def parse(self, name):

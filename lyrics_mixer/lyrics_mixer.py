@@ -1,7 +1,7 @@
 import logging
 from itertools import chain
 
-from songs.model import Lyrics, Paragraphs, Paragraph, SongTitle
+from songs.model import Lyrics, Paragraphs, Paragraph
 from lyrics_mixer.lyrics_pickers import RandomLyricsPickers, RandomByArtistLyricsPickers, \
     SpecificLyricsPickers
 
@@ -28,7 +28,7 @@ class LyricsMixer:
 
     def mix_lyrics(self, lyrics_pickers):
         try:
-            lyrics = self.lyrics_library.pick_using(lyrics_pickers)
+            lyrics = lyrics_pickers.pick_from(self.lyrics_library)
             return self.lyrics_mix_strategy.mix(*lyrics)
         except Exception:
             logger.error('Returning empty lyrics.', exc_info=True)
