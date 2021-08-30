@@ -7,7 +7,7 @@ from lyrics_mixer.song_titles_parser import (SongTitlesParser, SongTitlesSplitte
 from lyrics_mixer.lyrics_mixer import MixedLyrics
 from lyrics_mixer.tests.fixtures.mixer import mixed_lyrics
 from songs.model import Lyrics
-from twitter_bot.twitter import MentionHistory, Composer
+from twitter_bot.twitter import Composer
 from twitter_bot.tests.fixtures import tweet
 
 tweet_parser = SongTitlesParser(SongTitlesSplitter())
