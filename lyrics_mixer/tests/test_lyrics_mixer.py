@@ -1,6 +1,5 @@
 from unittest.mock import Mock
 
-from songs.model import Paragraphs, SongTitle, Lyrics
 from songs.tests import song_factory
 from songs.tests.fixtures.songs import stairway_to_heaven_title, born_to_be_wild_title
 from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
