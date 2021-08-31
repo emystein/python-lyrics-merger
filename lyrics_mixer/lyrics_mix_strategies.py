@@ -11,16 +11,19 @@ def flatten(list_of_lists):
 
 
 class LineInterleaveLyricsMix:
-    def mix(self, *songs):
-        all_lyrics_lines = [song.lyrics.lines for song in songs]
+    def mix(self, *lyrics):
+        all_lyrics_lines = [lyric.lines for lyric in lyrics]
         lines = flatten(zip(*all_lyrics_lines))
-        return MixedLyrics.with_lines(songs, lines)
+        song_titles = [lyric.title for lyric in lyrics]
+        return MixedLyrics.with_lines(song_titles, lines)
 
 
 class ParagraphInterleaveLyricsMix:
-    def mix(self, *songs):
-        all_lyrics_paragraphs = [song.lyrics.paragraphs for song in songs]
+    def mix(self, *lyrics):
+        all_lyrics_paragraphs = [lyric.paragraphs for lyric in lyrics]
         paragraphs = flatten(zip(*all_lyrics_paragraphs))
-        return MixedLyrics.with_paragraphs(songs, paragraphs)
+        song_titles = [lyric.title for lyric in lyrics]
+        return MixedLyrics.with_paragraphs(song_titles, paragraphs)
+
 
 

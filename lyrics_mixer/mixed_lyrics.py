@@ -3,21 +3,16 @@ from songs.model import Lyrics, Paragraphs, Paragraph
 
 class MixedLyrics:
     @staticmethod
-    def with_lines(songs, lines):
-        return MixedLyrics.with_paragraphs(songs, [Paragraph(lines)])
+    def with_lines(song_titles, lines):
+        return MixedLyrics.with_paragraphs(song_titles, [Paragraph(lines)])
 
     @staticmethod
-    def with_paragraphs(songs, paragraphs):
-        return Lyrics(MixedSongsTitle(songs), Paragraphs.from_list(paragraphs))
-
-    @staticmethod
-    def empty():
-        return Lyrics(MixedSongsTitle([]), Paragraphs.from_text(''))
+    def with_paragraphs(song_titles, paragraphs):
+        return Lyrics(MixedSongsTitle(song_titles), Paragraphs.from_list(paragraphs))
 
 
 class MixedSongsTitle:
-    def __init__(self, songs):
-        song_titles = [song.title for song in songs]
+    def __init__(self, song_titles):
         self.artist = ', '.join([song_title.artist for song_title in song_titles])
         self.title = ', '.join([str(song_title) for song_title in song_titles])
 

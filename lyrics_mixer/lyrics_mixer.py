@@ -2,6 +2,7 @@ import logging
 
 from lyrics_mixer.lyrics_pickers import *
 from lyrics_mixer.mixed_lyrics import MixedLyrics
+from songs.model import Lyrics
 
 logger = logging.getLogger()
 
@@ -26,4 +27,4 @@ class LyricsMixer:
             return self.lyrics_mix_strategy.mix(*lyrics)
         except Exception:
             logger.error('Returning empty lyrics.', exc_info=True)
-            return MixedLyrics.empty()
+            return Lyrics.empty()
