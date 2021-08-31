@@ -1,7 +1,7 @@
 from songs.model import SongTitle, Song, Lyrics
 
 
-def create_stairway_to_heaven():
+def stairway_to_heaven():
     return Song(stairway_to_heaven_title(), stairway_to_heaven_lyrics())
 
 
@@ -13,7 +13,7 @@ def stairway_to_heaven_lyrics():
     return Lyrics.with_text(read_file('songs/tests/led_zeppelin_-_stairway_to_heaven.txt'))
 
 
-def create_born_to_be_wild():
+def born_to_be_wild():
     return Song(born_to_be_wild_title(), born_to_be_wild_lyrics())
 
 
