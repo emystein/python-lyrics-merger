@@ -1,7 +1,7 @@
 import pytest
 
 from songs.tests.song_factory import *
-from lyrics_mixer.lyrics_mixer import LineInterleaveLyricsMix
+from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
 
 
 @pytest.fixture

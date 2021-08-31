@@ -2,7 +2,8 @@
 from argparse import ArgumentParser
 import logging
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
-from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
+from lyrics_mixer.lyrics_mixer import LyricsMixer
+from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
 from lyrics_providers.azlyrics import AZLyricsLibrary
 import sys
 

@@ -5,7 +5,8 @@ from flask_injector import FlaskInjector
 from injector import Module, Injector, singleton
 
 from lyrics_providers.azlyrics import AZLyricsLibrary
-from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
+from lyrics_mixer.lyrics_mixer import LyricsMixer
+from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
 from songs.model import SongTitle
 
 

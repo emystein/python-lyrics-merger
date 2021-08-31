@@ -1,8 +1,8 @@
 from unittest.mock import Mock
 
+from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
+from lyrics_mixer.lyrics_mixer import LyricsMixer
 from songs.tests import song_factory
-from songs.tests.fixtures.songs import stairway_to_heaven_title, born_to_be_wild_title
-from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
 
 lyrics = song_factory.stairway_to_heaven_lyrics()
 born_to_be_wild_lyrics = song_factory.born_to_be_wild_lyrics()

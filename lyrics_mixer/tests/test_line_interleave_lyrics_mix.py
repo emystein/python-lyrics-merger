@@ -1,6 +1,6 @@
 import pytest
-from lyrics_mixer.lyrics_mixer import LineInterleaveLyricsMix
-from songs.model import SongTitle, Lyrics, Paragraphs
+from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
+from songs.model import SongTitle, Song, Lyrics, Paragraphs
 
 song_title1 = SongTitle('artist1', 'title1')
 song_title2 = SongTitle('artist2', 'title2')

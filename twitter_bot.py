@@ -3,7 +3,8 @@ import schedule
 import sys
 import time
 from lyrics_providers.azlyrics import AZLyricsLibrary
-from lyrics_mixer.lyrics_mixer import LyricsMixer, LineInterleaveLyricsMix
+from lyrics_mixer.lyrics_mixer import LyricsMixer
+from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
 from lyrics_mixer.song_titles_parser import SongTitlesSplitter, SongTitlesParser
 import twitter_bot.jobs
 from twitter_bot.persistence import MentionsReplyCursor
