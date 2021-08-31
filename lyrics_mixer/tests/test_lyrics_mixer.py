@@ -5,16 +5,31 @@ from lyrics_mixer.lyrics_mixer import LyricsMixer
 from songs.tests import song_factory
 from songs.tests.fixtures.songs import stairway_to_heaven_title, born_to_be_wild_title
 
-lyrics = song_factory.stairway_to_heaven_lyrics()
+stairway_to_heaven_lyrics = song_factory.stairway_to_heaven_lyrics()
 born_to_be_wild_lyrics = song_factory.born_to_be_wild_lyrics()
 
+
+class MockLyricsLibrary(Mock):
+    def expect_get_random_lyrics(self, *return_lyrics):
+        for lyrics in return_lyrics:
+            self.get_random_lyrics.return_value = lyrics
+
+    def expect_get_random_lyrics_by_artist(self, *return_lyrics):
+        for lyrics in return_lyrics:
+            self.get_random_lyrics_by_artist.return_value = lyrics
+
+    def expect_get_lyrics(self, *return_lyrics):
+        for lyrics in return_lyrics:
+            self.get_lyrics.return_value = lyrics
+
+
 def test_mix_two_random_lyrics():
-    mock_lyrics_library = Mock()
+    mock_lyrics_library = MockLyricsLibrary()
 
     mixer = LyricsMixer(mock_lyrics_library, LineInterleaveLyricsMix())
 
-    mock_lyrics_library.get_random_lyrics.return_value = lyrics
-    mock_lyrics_library.get_random_lyrics.return_value = born_to_be_wild_lyrics
+    mock_lyrics_library.expect_get_random_lyrics(stairway_to_heaven_lyrics,
+                                                 born_to_be_wild_lyrics)
 
     mixed_lyrics = mixer.mix_two_random_lyrics()
 
@@ -22,12 +37,12 @@ def test_mix_two_random_lyrics():
 
 
 def test_mix_random_lyrics_by_artists():
-    mock_lyrics_library = Mock()
+    mock_lyrics_library = MockLyricsLibrary()
 
     mixer = LyricsMixer(mock_lyrics_library, LineInterleaveLyricsMix())
 
-    mock_lyrics_library.get_random_lyrics_by_artist.return_value = lyrics
-    mock_lyrics_library.get_random_lyrics_by_artist.return_value = born_to_be_wild_lyrics
+    mock_lyrics_library.expect_get_random_lyrics_by_artist(stairway_to_heaven_lyrics,
+                                                           born_to_be_wild_lyrics)
 
     mixed_lyrics = mixer.mix_random_lyrics_by_artists('Led Zeppelin', 'Steppenwolf')
 
@@ -35,12 +50,11 @@ def test_mix_random_lyrics_by_artists():
 
 
 def test_mix_specific_lyrics(stairway_to_heaven_title, born_to_be_wild_title):
-    mock_lyrics_library = Mock()
+    mock_lyrics_library = MockLyricsLibrary()
 
     mixer = LyricsMixer(mock_lyrics_library, LineInterleaveLyricsMix())
 
-    mock_lyrics_library.get_lyrics.return_value = lyrics
-    mock_lyrics_library.get_lyrics.return_value = born_to_be_wild_lyrics
+    mock_lyrics_library.expect_get_lyrics(stairway_to_heaven_lyrics, born_to_be_wild_lyrics)
 
     mixed_lyrics = mixer.mix_specific_lyrics(stairway_to_heaven_title, born_to_be_wild_title)
 
@@ -51,7 +65,7 @@ def test_exception_on_mix_lyrics():
     mock_lyrics_library = Mock()
     mock_lyrics_picker = Mock()
 
-    mixer = LyricsMixer(mock_lyrics_library, mock_lyrics_picker)
+    mixer = LyricsMixer(mock_lyrics_library, LineInterleaveLyricsMix())
 
     mock_lyrics_picker.pick.side_effect = RuntimeError('Download error')
 
