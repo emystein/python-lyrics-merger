@@ -4,10 +4,10 @@ from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
 from lyrics_mixer.lyrics_mixer import LyricsMixer
 from songs.tests import song_factory
 
-stairway_to_heaven = song_factory.stairway_to_heaven()
-born_to_be_wild = song_factory.born_to_be_wild()
+stairway_to_heaven_lyrics = song_factory.stairway_to_heaven_lyrics()
+born_to_be_wild_lyrics = song_factory.born_to_be_wild_lyrics()
 
-expected_lyrics = [stairway_to_heaven.lyrics, born_to_be_wild.lyrics]
+expected_lyrics = [stairway_to_heaven_lyrics, born_to_be_wild_lyrics]
 
 
 class MockLyricsLibrary(Mock):
