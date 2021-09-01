@@ -1,6 +1,6 @@
 import pytest
-from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
-from songs.model import SongTitle, Lyrics, Paragraphs
+from lyrics_mixer.lyrics_mix_strategies import flatten, LineInterleaveLyricsMix
+from songs.model import SongTitle, Lyrics, Paragraphs, Paragraph
 from lyrics_mixer.tests.dummy_paragraphs import DummyParagraphs
 
 song_title1 = SongTitle('artist1', 'title1')
@@ -10,17 +10,17 @@ lyrics_mix_strategy = LineInterleaveLyricsMix()
 
 
 def test_mix_with_same_number_of_lines():
-    lyrics1_paragraphs = DummyParagraphs.for_lyrics(1).with_paragraphs(1).each_with_lines(2)
-    lyrics1 = Lyrics(song_title1, lyrics1_paragraphs)
+    paragraphs1 = DummyParagraphs.chapter(1).count(1).lines_per_each(2)
+    lyrics1 = Lyrics(song_title1, paragraphs1)
 
-    lyrics2_paragraphs = DummyParagraphs.for_lyrics(2).with_paragraphs(1).each_with_lines(2)
-    lyrics2 = Lyrics(song_title2, lyrics2_paragraphs)
+    paragraphs2 = DummyParagraphs.chapter(2).count(1).lines_per_each(2)
+    lyrics2 = Lyrics(song_title2, paragraphs2)
 
     mixed_lyrics = lyrics_mix_strategy.mix(lyrics1, lyrics2)
 
-    expected_paragraphs = Paragraphs.from_text('lyrics 1, paragraph 1, line 1\nlyrics 2, paragraph 1, line 1\nlyrics 1, paragraph 1, line 2\nlyrics 2, paragraph 1, line 2\n\n')
+    expected_lines = flatten([flatten(zip(p1.lines, p2.lines)) for p1, p2 in zip(paragraphs1, paragraphs2)])
 
-    assert mixed_lyrics.paragraphs == expected_paragraphs
+    assert mixed_lyrics.paragraphs == [Paragraph(expected_lines)]
 
 
 def test_mix_with_first_lyrics_with_2_lines_and_second_lyrics_with_1_line():
