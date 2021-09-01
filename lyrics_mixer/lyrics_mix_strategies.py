@@ -1,13 +1,8 @@
-from itertools import chain
 import logging
-
+from lyrics_mixer.lists import flatten
 from lyrics_mixer.lyrics_mixer import MixedLyrics
 
 logger = logging.getLogger()
-
-
-def flatten(list_of_lists):
-    return list(chain(*list_of_lists))
 
 
 class LineInterleaveLyricsMix:

@@ -1,5 +1,5 @@
-import pytest
-from lyrics_mixer.lyrics_mix_strategies import flatten, LineInterleaveLyricsMix
+from lyrics_mixer.lists import flatten
+from lyrics_mixer.lyrics_mix_strategies import LineInterleaveLyricsMix
 from songs.model import SongTitle, Lyrics, Paragraph, Line
 from lyrics_mixer.tests.dummy_paragraphs import DummyChapter
 

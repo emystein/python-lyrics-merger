@@ -25,31 +25,31 @@ class MockLyricsLibrary(Mock):
 
 
 def test_mix_two_random_lyrics():
-    mock_lyrics_library = MockLyricsLibrary()
+    lyrics_library = MockLyricsLibrary()
 
-    mixer = create_mixer(mock_lyrics_library)
+    mixer = create_mixer(lyrics_library)
 
-    mock_lyrics_library.expect_get_random_lyrics(*expected_lyrics)
+    lyrics_library.expect_get_random_lyrics(*expected_lyrics)
 
     assert mixer.mix_two_random_lyrics().has_content()
 
 
 def test_mix_random_lyrics_by_artists():
-    mock_lyrics_library = MockLyricsLibrary()
+    lyrics_library = MockLyricsLibrary()
 
-    mixer = create_mixer(mock_lyrics_library)
+    mixer = create_mixer(lyrics_library)
 
-    mock_lyrics_library.expect_get_random_lyrics_by_artist(*expected_lyrics)
+    lyrics_library.expect_get_random_lyrics_by_artist(*expected_lyrics)
 
     assert mixer.mix_random_lyrics_by_artists('Led Zeppelin', 'Steppenwolf').has_content()
 
 
 def test_mix_specific_lyrics():
-    mock_lyrics_library = MockLyricsLibrary()
+    lyrics_library = MockLyricsLibrary()
 
-    mixer = create_mixer(mock_lyrics_library)
+    mixer = create_mixer(lyrics_library)
 
-    mock_lyrics_library.expect_get_lyrics(*expected_lyrics)
+    lyrics_library.expect_get_lyrics(*expected_lyrics)
 
     assert mixer.mix_specific_lyrics(*expected_lyrics).has_content()
 
