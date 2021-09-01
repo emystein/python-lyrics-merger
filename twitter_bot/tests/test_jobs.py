@@ -1,10 +1,7 @@
 from unittest.mock import Mock
 
-import pytest
-
 import twitter_bot.jobs
 from lyrics_mixer.song_titles_parser import (SongTitlesParser, SongTitlesSplitter)
-from lyrics_mixer.lyrics_mixer import MixedLyrics
 from lyrics_mixer.tests.fixtures.mixer import mixed_lyrics
 from twitter_bot.twitter import MentionHistory, Composer
 from twitter_bot.tests.fixtures import tweet
