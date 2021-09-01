@@ -7,12 +7,12 @@ song_title2 = SongTitle('artist2', 'title2')
 
 lyrics_mix_strategy = ParagraphInterleaveLyricsMix()
 
-line_1_1 = Line('line 1 1 ')
-line_1_2 = Line('line 1 2 ')
-line_1_3 = Line('line 1 3 ')
-line_2_1 = Line('line 2 1 ')
-line_2_2 = Line('line 2 2 ')
-line_2_3 = Line('line 2 3 ')
+line_1_1 = Line('line 1 1')
+line_1_2 = Line('line 1 2')
+line_1_3 = Line('line 1 3')
+line_2_1 = Line('line 2 1')
+line_2_2 = Line('line 2 2')
+line_2_3 = Line('line 2 3')
 
 paragraph_1_1 = Paragraph([line_1_1])
 paragraph_1_2 = Paragraph([line_1_2])
