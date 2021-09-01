@@ -1,6 +1,5 @@
-from songs.model import SongTitle, Lyrics, Paragraphs
 from lyrics_mixer.lyrics_mix_strategies import ParagraphInterleaveLyricsMix
-from songs.model import SongTitle, Song, Lyrics, Paragraphs
+from songs.model import SongTitle, Lyrics, Paragraphs
 
 song_title1 = SongTitle('artist1', 'title1')
 song_title2 = SongTitle('artist2', 'title2')

@@ -1,7 +1,7 @@
 import pytest
 from lyrics_mixer.lyrics_mix_strategies import flatten, LineInterleaveLyricsMix
 from songs.model import SongTitle, Lyrics, Paragraphs, Paragraph
-from lyrics_mixer.tests.dummy_paragraphs import DummyParagraphs
+from lyrics_mixer.tests.dummy_paragraphs import DummyChapter
 
 song_title1 = SongTitle('artist1', 'title1')
 song_title2 = SongTitle('artist2', 'title2')
@@ -10,10 +10,10 @@ lyrics_mix_strategy = LineInterleaveLyricsMix()
 
 
 def test_mix_with_same_number_of_lines():
-    paragraphs1 = DummyParagraphs.chapter(1).count(1).lines_per_each(2)
+    paragraphs1 = DummyChapter.number(1).paragraph_count(1).lines_per_paragraph(2)
     lyrics1 = Lyrics(song_title1, paragraphs1)
 
-    paragraphs2 = DummyParagraphs.chapter(2).count(1).lines_per_each(2)
+    paragraphs2 = DummyChapter.number(2).paragraph_count(1).lines_per_paragraph(2)
     lyrics2 = Lyrics(song_title2, paragraphs2)
 
     mixed_lyrics = lyrics_mix_strategy.mix(lyrics1, lyrics2)
