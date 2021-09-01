@@ -1,10 +1,17 @@
 import pytest
 from lyrics_mixer.lyrics_mix_strategies import flatten, LineInterleaveLyricsMix
-from songs.model import SongTitle, Lyrics, Paragraphs, Paragraph
+from songs.model import SongTitle, Lyrics, Paragraph, Line
 from lyrics_mixer.tests.dummy_paragraphs import DummyChapter
 
 song_title1 = SongTitle('artist1', 'title1')
 song_title2 = SongTitle('artist2', 'title2')
+
+line_1_1 = Line('lyrics 1 line 1')
+line_1_2 = Line('lyrics 1 line 2')
+line_1_3 = Line('lyrics 1 line 3')
+line_2_1 = Line('lyrics 2 line 1')
+line_2_2 = Line('lyrics 2 line 2')
+line_2_3 = Line('lyrics 2 line 3')
 
 lyrics_mix_strategy = LineInterleaveLyricsMix()
 
@@ -24,46 +31,36 @@ def test_mix_with_same_number_of_lines():
 
 
 def test_mix_with_first_lyrics_with_2_lines_and_second_lyrics_with_1_line():
-    lyrics1 = Lyrics.with_text('lyrics 1 line 1\nlyrics 1 line 2')
-    lyrics2 = Lyrics.with_text('lyrics 2 line 1')
+    lyrics1 = Lyrics(song_title1, [Paragraph([line_1_1, line_1_2])])
+    lyrics2 = Lyrics(song_title2, [Paragraph([line_2_1])])
 
     mixed_lyrics = lyrics_mix_strategy.mix(lyrics1, lyrics2)
 
-    expected_paragraphs = Paragraphs.from_text('lyrics 1 line 1\nlyrics 2 line 1')
-
-    assert mixed_lyrics.paragraphs == expected_paragraphs
+    assert mixed_lyrics.paragraphs == [Paragraph([line_1_1, line_2_1])]
 
 
 def test_mix_with_first_lyrics_with_1_line_and_second_lyrics_with_2_lines():
-    lyrics1 = Lyrics.with_text('lyrics 1 line 1')
-    lyrics2 = Lyrics.with_text('lyrics 2 line 1\nlyrics 2 line 2')
+    lyrics1 = Lyrics(song_title1, [Paragraph([line_1_1])])
+    lyrics2 = Lyrics(song_title2, [Paragraph([line_2_1, line_2_1])])
 
     mixed_lyrics = lyrics_mix_strategy.mix(lyrics1, lyrics2)
 
-    expected_paragraphs = Paragraphs.from_text('lyrics 1 line 1\nlyrics 2 line 1')
-
-    assert mixed_lyrics.paragraphs == expected_paragraphs
+    assert mixed_lyrics.paragraphs == [Paragraph([line_1_1, line_2_1])]
 
 
 def test_mix_with_first_paragraph_containing_two_lines_and_second_paragraph_containing_one_line():
-    lyrics1 = Lyrics.with_text('lyrics 1 line 1\nlyrics 1 line 2\n\nlyrics 1 line 3')
-    lyrics2 = Lyrics.with_text('lyrics 2 line 1\nlyrics 2 line 2\n\nlyrics 2 line 3')
+    lyrics1 = Lyrics(song_title1, [Paragraph([line_1_1, line_1_2]), Paragraph([line_1_3])])
+    lyrics2 = Lyrics(song_title2, [Paragraph([line_2_1, line_2_2]), Paragraph([line_2_3])])
 
     mixed_lyrics = lyrics_mix_strategy.mix(lyrics1, lyrics2)
 
-    expected_paragraphs = Paragraphs.from_text(
-        'lyrics 1 line 1\nlyrics 2 line 1\nlyrics 1 line 2\nlyrics 2 line 2\nlyrics 1 line 3\nlyrics 2 line 3\n\n')
-
-    assert mixed_lyrics.paragraphs == expected_paragraphs
+    assert mixed_lyrics.paragraphs == [Paragraph([line_1_1, line_2_1, line_1_2, line_2_2, line_1_3, line_2_3])]
 
 
 def test_mix_with_first_paragraph_containing_one_line_and_second_paragraph_containing_two_lines():
-    lyrics1 = Lyrics.with_text('lyrics 1 line 1\n\nlyrics 1 line 2\nlyrics 1 line 3')
-    lyrics2 = Lyrics.with_text('lyrics 2 line 1\n\nlyrics 2 line 2\nlyrics 2 line 3')
+    lyrics1 = Lyrics(song_title1, [Paragraph([line_1_1]), Paragraph([line_1_2, line_1_3])])
+    lyrics2 = Lyrics(song_title2, [Paragraph([line_2_1]), Paragraph([line_2_2, line_2_3])])
 
     mixed_lyrics = lyrics_mix_strategy.mix(lyrics1, lyrics2)
 
-    expected_paragraphs = Paragraphs.from_text(
-        'lyrics 1 line 1\nlyrics 2 line 1\nlyrics 1 line 2\nlyrics 2 line 2\nlyrics 1 line 3\nlyrics 2 line 3\n\n')
-
-    assert mixed_lyrics.paragraphs == expected_paragraphs
+    assert mixed_lyrics.paragraphs == [Paragraph([line_1_1, line_2_1, line_1_2, line_2_2, line_1_3, line_2_3])]
