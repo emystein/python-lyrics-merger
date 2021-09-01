@@ -25,7 +25,10 @@ def test_mix_with_same_number_of_lines():
 
     mixed_lyrics = lyrics_mix_strategy.mix(lyrics1, lyrics2)
 
-    expected_lines = flatten([flatten(zip(p1.lines, p2.lines)) for p1, p2 in zip(paragraphs1, paragraphs2)])
+    expected_lines = [
+        paragraphs1[0].lines[0], paragraphs2[0].lines[0],
+        paragraphs1[0].lines[1], paragraphs2[0].lines[1]
+    ]
 
     assert mixed_lyrics.paragraphs == [Paragraph(expected_lines)]
 
